@@ -218,10 +218,132 @@ int main(int charc, char** argv){
 }
 \end{verbatim}
 Very similar code to the code in 2.1.1. The same process is being used, with two variables being created before the while loop. The while loop will continue until the values of the two variables are the same. Then the two conditions of \[a > b\] and \[b > a\], are evaluated using an \textbf{if-statement} and \textbf{else-statement}. Once the correct condition is identified, the corresponding calculation done of each variable takes place. This will continue until the Greatest Common Divisor is found, and is printed to the screen. In this place, 3 is again printed.
+
 \subsection{Week 2}
 
-\ldots
+Homework 2: Create six Functions using Haskell: Select Evens, Select Odds, Member, Append, Revert, and Less Equal.
 
+\subsubsection{Select Evens and Select Odds}
+
+The task of these two functions could be used with each other. For Select Evens, the user would write the function name, then a list. The output would be the even element indices (Starting with 1 not 0). Here is the code for both.
+
+\begin{verbatim}
+
+select_evens [] = []
+select_evens (x:xs) = select_odds xs
+
+select_odds (x:xs) = x : select_evens xs
+select_odds [] = []
+\end{verbatim}
+
+\noindent These two functions are connected. Without one, the other will not work.
+\newline
+\newline Going through the program, we will start with Select Odds. Using recursion, the head element will be split off first. Select Evens will be called with the other elements left in the list. Select Evens will then split the head and other elements again. This process will continue until the tail is an empty list. These methods will allow for only the odd indexed elements to be printed, or only the even indexed elements. 
+\newline
+\newline Here are a few outputs from the terminal:
+\begin{verbatim}
+ghci> select_evens ["a","b","c","d","e"]
+["b","d"]
+ghci> select_odds ["a","b","c"]
+["a","c"]
+ghci> select_odds ["a","b","c","d","e"]
+["a","c","e"]
+ghci> select_odds [1,2,3,4,5]
+[1,3,5]
+ghci> select_evens[432,34,543,2334,23]
+[34,2334]
+\end{verbatim}
+
+\subsubsection{Member}
+In the member function, the user would ask for a "True" or "False" about if a list consisted of a particular element. If the list consisted of the element, then True would be returned. Otherwise, False is returned.
+
+\begin{verbatim}
+member y (x:xs) = if y==x
+    then True
+    else if len(xs) < 1
+        then False
+        else member y xs
+\end{verbatim}
+The element that the user wants to know is the y. It starts off by comparing y to x, which is the head of the current list. If y is the same as x, then the element that the user is looking for is indeed in the list and True is returned. However, if it is not, then we will use the len function to see the size of the rest of the list. If it is not above 1, then False is returned. False is returned because there is nothing left to compare to the user element. However if it is above 1, then member is called again with the user element and the rest of the elements. This simulates the element being compared to each element in the list. \newline
+\newline Here are some outputs for this function:
+\begin{verbatim}
+ghci> member "a" ["a", "b"]
+True
+ghci> member "a" ["c", "d", "e"]
+False
+ghci> member 4 [2,3,5]
+False
+ghci> member 4 [2,3,3,4,5]
+True
+ghci> member 4 [4,1,6,2]
+True
+\end{verbatim}
+
+\subsubsection{Append}
+The append function takes two lists from the user, and appends all of the second lists elements to the back of the first list. This function was difficult for me at first, but I realized that the first list stays at the front of the list, and that only the second list needed elements to "move". \newline
+\newline Below is my code for the Append Function:
+\begin{verbatim}
+append [] (y:ys) = if len(ys) > 0
+    then 
+        y : append [] ys
+    else
+        [y] 
+append (x:xs) (y:ys) = x : append xs (y:ys)
+\end{verbatim}
+The last line will be the first line that executes. The user will have the two lists, but the function will have to iterate the entire (x:xs) list first. This is because these elements will be in the front of the new list regardless. After this line is recursively called, the first line will be called with an empty list and all of the second list. The len function is also used in this function as well. The if statement looks at the size of the tail elements of the second list. If it is greater than 0, then it will recursively add the elements to the list that already contains the first list elements. Once the len(ys) is not greater than 0, the else statement will have [y] which will basically not recall any of the append functions, and will not append anything to the list. This will let the recursion end. \newline
+\newline Here are some outputs of the append function:
+\begin{verbatim}
+ghci> append [1,2] [3,4,5]
+[1,2,3,4,5]
+ghci> append [1,2,3,4,5] [7,8,9]
+[1,2,3,4,5,7,8,9]
+\end{verbatim}
+
+\subsubsection{Revert}
+The Revert function will take a list from the user, and output the list with the elements in reversed order. \newline
+\newline Below is the code to the Revert Function:
+\begin{verbatim}
+revert [] = []
+revert (x:xs) = revert xs ++ [x]
+\end{verbatim}
+I decided to use ++ on this example. I found out how to use this from \url{https://www.haskelltutorials.com/guides/haskell-lists-ultimate-guide.html}.\newline
+\newline This function was much simpler to implement than the others. Simply the base case will only be called last when there is nothing to revert. To begin, the revert(x:xs) will be called multiple times. It simply adds the head element to the back of the list, then continues with the tail elements until all the elements are in reverse order.\newline
+\newline Here are some outputs for the Revert Function:
+\begin{verbatim}
+ghci> revert [1,2]
+[2,1]
+ghci> revert [1,2,4]
+[4,2,1]
+\end{verbatim}
+
+\subsubsection{Less Equal}
+The last function that I created was Less Equal. This simply compared the elements from two lists to see if first list was less than or equal to the same indexed element of the other list. For example [1,2] vs [5,6] would be true because 1 is less than or equal to 5 and 2 is less than or equal to 6.\newline
+\newline Below is the code to the Less equal Function
+\begin{verbatim}
+less_equal [] [] = True
+less_equal (x:xs) (y:ys) = if x<=y
+    then 
+        less_equal xs ys
+    else
+        False
+\end{verbatim}
+The beginning of this function will start with the second line. If compares the head elements of list 1 and list 2. If x is less than or equal to, the Less Equal function will be called again, but this time with the tail elements. If at any point the list 1 element "x" is greater than list 2 element "y", False will be returned. If all of the elements are compared, then base case is called. This is because there are no elements left, so they are empty lists. Since nothing was flagged, then True will be returned, meaning that all of the list 1 elements are either less than or equal to the list 2 elements at the same index.\newline
+\newline Here are some outputs for the Less Equal Function:
+\begin{verbatim}
+ghci> less_equal [1,2,3] [2,3,4]
+True
+ghci> less_equal [1,2,3] [2,3,2]
+False
+ghci> less_equal [1,2,3] [2,3,3]
+True
+\end{verbatim}
+
+\subsubsection{Len}
+I did not create this function. I took this from \url{https://hackmd.io/@alexhkurz/H1jUka4Gv#fn2}, thanks to Professor Kurz. Below is the code used that my other functions also used.
+\begin{verbatim}
+len [] = 0
+len (x:xs) = 1 + len xs
+\end{verbatim}
 \section{Project}
 
 Introductory remarks ...
