@@ -68,7 +68,7 @@ Short  summary of purpose and content.  Must Do soon.
 
 \section{Introduction}\label{intro}
 
-Replace this entire Section~\ref{intro} with your own short introduction. 
+This report consists of Homework and the main project for CPSC 354. Section 1 consists of an introduction to LaTeX from Professor Kurz. Section 2 consists of homework for each week. Section 3 consists of the project. Section 4 consists of the sources, references, and websites cited.
 
 \subsection{General Remarks}
 
@@ -253,7 +253,27 @@ ghci> select_odds [1,2,3,4,5]
 ghci> select_evens[432,34,543,2334,23]
 [34,2334]
 \end{verbatim}
+\noindent\newline\newline Here is the Task 2 Equational Reasoning for the Select Evens and Odds Function:
 
+\begin{verbatim}
+select_evens ["a","b","c","d","e"] = 
+
+select_evens ("a" : ["b","c","d","e"]]) = select_odds ["b","c","d","e"]
+
+select_odds ("b" : ["c","d","e"]) = "b" : select_evens["c", "d", "e"]
+
+select_evens ("c" : ["d", "e"]) = select_odds["d", "e"]
+
+select_odds ("d" : ["e"]) = "b" : ("d" : select_evens ["e"])
+
+select_evens ("e" : []) = select_odds []
+
+select_odds [] =  "b" : ("d" : ([]))
+
+["b", "d"]
+\end{verbatim}
+
+\noindent\newline Note that if Select Odds was called, the same procedure would occur, but would start with Select Odds first and would be the opposite of this output.
 \subsubsection{Member}
 In the member function, the user would ask for a "True" or "False" about if a list consisted of a particular element. If the list consisted of the element, then True would be returned. Otherwise, False is returned.
 
@@ -278,6 +298,32 @@ True
 ghci> member 4 [4,1,6,2]
 True
 \end{verbatim}
+\noindent\newline\newline Here is the Task 2 Equational Reasoning for the Member Function:
+\begin{verbatim}
+member 4 [2,3,4] =
+    4 == 2
+    else if len([3,4]) < 1
+
+    len[3,4] = 3
+
+    else if 3 < 1
+        then False
+        else member 4 [3,4]
+    
+member 4 [3,4]  
+    4 == 3
+    else if len([4]) < 1
+
+    len[4] = 2
+
+    else if 2 < 1
+        then False
+        else member 4 [4]
+    
+member 4 [4]
+    4 == 4
+    then True
+\end{verbatim}
 
 \subsubsection{Append}
 The append function takes two lists from the user, and appends all of the second lists elements to the back of the first list. This function was difficult for me at first, but I realized that the first list stays at the front of the list, and that only the second list needed elements to "move". \newline
@@ -290,8 +336,9 @@ append [] (y:ys) = if len(ys) > 0
         [y] 
 append (x:xs) (y:ys) = x : append xs (y:ys)
 \end{verbatim}
-The last line will be the first line that executes. The user will have the two lists, but the function will have to iterate the entire (x:xs) list first. This is because these elements will be in the front of the new list regardless. After this line is recursively called, the first line will be called with an empty list and all of the second list. The len function is also used in this function as well. The if statement looks at the size of the tail elements of the second list. If it is greater than 0, then it will recursively add the elements to the list that already contains the first list elements. Once the len(ys) is not greater than 0, the else statement will have [y] which will basically not recall any of the append functions, and will not append anything to the list. This will let the recursion end. \newline
-\newline Here are some outputs of the append function:
+The last line will be the first line that executes. The user will have the two lists, but the function will have to iterate the entire (x:xs) list first. This is because these elements will be in the front of the new list regardless. After this line is recursively called, the first line will be called with an empty list and all of the second list. The len function is also used in this function as well. The if statement looks at the size of the tail elements of the second list. If it is greater than 0, then it will recursively add the elements to the list that already contains the first list elements. Once the len(ys) is not greater than 0, the else statement will have [y] which will basically not recall any of the append functions, and will not append anything to the list. This will let the recursion end. \newline\newline
+
+ \noindent Here are some outputs of the append function:\newline
 \begin{verbatim}
 ghci> append [1,2] [3,4,5]
 [1,2,3,4,5]
@@ -299,21 +346,44 @@ ghci> append [1,2,3,4,5] [7,8,9]
 [1,2,3,4,5,7,8,9]
 \end{verbatim}
 
+\noindent\newline\newline Here is the Task 2 Equational Reasoning for the Append Function:
+\begin{verbatim}
+append [1,2,3] [7,8,9] =
+    1 : (append [2,3] [7,8,9])
+    1 : (2 : (append [3] [7,8,9]))
+    1 : (2 : (3 : (append [] [7,8,9])))
+    1 : (2 : (3 : (7 : (append [8,9]))))
+    1 : (2 : (3 : (7 : (8 : (append [9])))))
+    1 : (2 : (3 : (7 : (8 : (9 : (append[]))))))
+    1 : (2 : (3 : (7 : (8 : (9 : []))))
+\end{verbatim}
+
 \subsubsection{Revert}
 The Revert function will take a list from the user, and output the list with the elements in reversed order. \newline
 \newline Below is the code to the Revert Function:
 \begin{verbatim}
 revert [] = []
-revert (x:xs) = revert xs ++ [x]
+revert (x:xs) = append (revert xs) [x]
 \end{verbatim}
-I decided to use ++ on this example. I found out how to use this from \url{https://www.haskelltutorials.com/guides/haskell-lists-ultimate-guide.html}.\newline
-\newline This function was much simpler to implement than the others. Simply the base case will only be called last when there is nothing to revert. To begin, the revert(x:xs) will be called multiple times. It simply adds the head element to the back of the list, then continues with the tail elements until all the elements are in reverse order.\newline
+This function uses the previously created function Append. Revert will call the append method recursively. It will append the first element of the list to the back, then continue with the rest of the elements. This was designed with some thought of a Stack. 
 \newline Here are some outputs for the Revert Function:
 \begin{verbatim}
-ghci> revert [1,2]
-[2,1]
-ghci> revert [1,2,4]
-[4,2,1]
+ghci> revert [1,2,3]
+[3,2,1]
+ghci> revert [8,1,2,4]
+[4,2,1,8]
+\end{verbatim}
+
+\noindent\newline\newline Here is the Task 2 Equational Reasoning for the Revert Function:
+\begin{verbatim}
+revert [1,2,3] = 
+    append (revert [2,3]) [1]
+    append (append (revert([3]) [2])) [1]
+    append (append (append (revert []) [3]) [2]) [1]
+    append (append (append [] [3]) [2]) [1]
+    append (append [3] [2]) [1]
+    append [3,2] [1]
+    [3,2,1]
 \end{verbatim}
 
 \subsubsection{Less Equal}
@@ -337,13 +407,85 @@ False
 ghci> less_equal [1,2,3] [2,3,3]
 True
 \end{verbatim}
+\noindent\newline\newline Here is the Task 2 Equational Reasoning for the Less Equal Function:
+\begin{verbatim}
+less_equal [1,2,3] [2,3,4] =
+    1 <= 2
+    then
+        less_equal [2,3] [3,4]
 
+    2 <= 3
+    then
+        less_equal [3] [4]
+    
+    3 <= 4
+    then
+        less_equal [] []
+    
+    True
+\end{verbatim}
+\noindent\newline If the left value was ever larger, than False would be the value.
 \subsubsection{Len}
-I did not create this function. I took this from \url{https://hackmd.io/@alexhkurz/H1jUka4Gv#fn2}, thanks to Professor Kurz. Below is the code used that my other functions also used.
+I did not create this function. I took this from \href{https://hackmd.io/@alexhkurz/H1jUka4Gv#fn2}{Hackmd.io}, thanks to Professor Kurz. Below is the code used that my other functions also used.
 \begin{verbatim}
 len [] = 0
 len (x:xs) = 1 + len xs
 \end{verbatim}
+
+\subsection{Week 3}
+Week 3 Homework was about the Hanoi Tower. The task was to complete the execution from the dots down. Here that is:
+\begin{verbatim}
+hanoi 5 0 2  
+	hanoi 4 0 1 
+		hanoi 3 0 2
+			hanoi 2 0 1 
+				hanoi 1 0 2 = move 0 2 
+				move  0 1
+				hanoi 1 2 1 = move 2 1 
+			move 0 2  
+			hanoi 2 1 2  
+				hanoi 1 1 0 = move 1 0  
+				move  1 2  
+				hanoi 1 0 2 = move 0 2
+        move 0 1
+        hanoi 3 2 1
+            hanoi 2 2 0
+                hanoi 1 2 1 = move 2 1
+                move 2 0
+                hanoi 1 1 0 = move 1 0
+            move 2 1
+            hanoi 2 0 1
+                hanoi 1 0 2 = move 0 2
+                move 0 1
+                hanoi 1 2 1 = move 2 1
+    move 0 2
+    hanoi 4 1 2
+        hanoi 3 1 0
+            hanoi 2 1 2
+                hanoi 1 1 0 = move 1 0
+                move 1 2
+                hanoi 1 0 2 = move 0 2
+            move 1 0
+            hanoi 2 2 0
+                hanoi 1 2 1 = move 2 1
+                move 2 0
+                hanoi 1 1 0 = move 1 0
+        move 1 2
+        hanoi 3 0 2
+            hanoi 2 0 1
+                hanoi 1 0 2 = move 0 2
+                move 0 1
+                hanoi 1 2 1 = move 2 1
+            move 0 2 
+            hanoi 2 1 2
+                hanoi 1 1 0 = move 1 0
+                move 1 2
+                hanoi 1 0 2 = move 0 2
+\end{verbatim}
+I followed this exact sequence with the \href{https://www.mathsisfun.com/games/towerofhanoi.html}{Tower of Hanoi} website. It took 31 turns, which is the minimum moves possible for a Hanoi Tower of size 5. \newline
+
+\noindent The word "Hanoi" appears 31 times. The word "move" also appears 31 times. \newline
+\noindent A simple equation can be expressed for the number of blocks in the Hanoi Tower. Assuming n is the number of blocks/rings in the tower, the minimum number of moves can be expressed as $$2^n - 1$$ In this case, n was 5. Thus, $$2^5 = 32$$ and then $$32 - 1 = 31$$ Here are some other minimum moves required for other ring heights. $$2^1 - 1 = 1$$ $$2^2 - 1 = 3$$ $$2^3 - 1 = 7$$ $$2^4 - 1 = 15$$ $$2^6 - 1 = 63$$
 \section{Project}
 
 Introductory remarks ...
@@ -364,7 +506,10 @@ The following structure should be suitable for most practical projects.
 In the conclusion, I want a critical reflection on the content of the course. Step back from the technical details. How does the course fit into the wider world of programming languages and software engineering?
 
 \begin{thebibliography}{99}
-\bibitem[PL]{PL} \href{https://github.com/alexhkurz/programming-languages-2022/blob/main/README.md}{Programming Languages 2022}, Chapman University, 2022.
+\bibitem[PL]{PL} \href{https://github.com/alexhkurz/programming-languages-2022/blob/main/README.md}{Programming Languages 2022}, Chapman University, 2022.\newline
+\newline
+\href{https://hackmd.io/@alexhkurz/H1jUka4Gv#fn2}{Hackmd.io} Professor Kurz, Chapman University 2022\newline\newline
+\href{https://www.mathsisfun.com/games/towerofhanoi.html}{Tower of Hanoi}\newline
 \end{thebibliography}
 
 \end{document}

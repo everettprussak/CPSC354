@@ -13,7 +13,6 @@ member y (x:xs) = if y==x
         then False
         else member y xs
 
-
 append [] (y:ys) = if len(ys) > 0
     then 
         y : append [] ys
@@ -22,7 +21,7 @@ append [] (y:ys) = if len(ys) > 0
 append (x:xs) (y:ys) = x : append xs (y:ys)
 
 revert [] = []
-revert (x:xs) = revert xs ++ [x]
+revert (x:xs) = append (revert xs) [x]
 
 less_equal [] [] = True
 less_equal (x:xs) (y:ys) = if x<=y
