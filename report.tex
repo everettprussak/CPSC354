@@ -1,4 +1,3 @@
-
 \documentclass{article}
 
 \usepackage{amsthm}
@@ -61,14 +60,14 @@
 \maketitle
 
 \begin{abstract}
-Short  summary of purpose and content.  Must Do soon.
+Consisting of CPSC 354 material.
 \end{abstract}
 
 \tableofcontents
 
 \section{Introduction}\label{intro}
 
-This report consists of Homework and the main project for CPSC 354. Section 1 consists of an introduction to LaTeX from Professor Kurz. Section 2 consists of homework for each week. Section 3 consists of the project. Section 4 consists of the sources, references, and websites cited.
+This Report contains mainly consists of the Homework for each week, and the main project. In section 1, you can find the stuff done by Professor Kurz. Section 2 consists of Homework for each week. Section 3 consists of the project.
 
 \subsection{General Remarks}
 
@@ -486,6 +485,185 @@ I followed this exact sequence with the \href{https://www.mathsisfun.com/games/t
 
 \noindent The word "Hanoi" appears 31 times. The word "move" also appears 31 times. \newline
 \noindent A simple equation can be expressed for the number of blocks in the Hanoi Tower. Assuming n is the number of blocks/rings in the tower, the minimum number of moves can be expressed as $$2^n - 1$$ In this case, n was 5. Thus, $$2^5 = 32$$ and then $$32 - 1 = 31$$ Here are some other minimum moves required for other ring heights. $$2^1 - 1 = 1$$ $$2^2 - 1 = 3$$ $$2^3 - 1 = 7$$ $$2^4 - 1 = 15$$ $$2^6 - 1 = 63$$
+
+\subsection{Week 4} Week 4 consisted of making Parse Tree and Abstract Syntax Tree of math 5 problems. 
+\subsubsection{Parse Tree Diagrams}
+This is Part 1 of Week 4's Homework. The task was to write out the derivation trees for the following:
+
+$$2+1$$
+$$1+2*3$$
+$$1+(2*3)$$
+$$(1+2)*3$$
+$$1+2*3+4*5+6$$
+
+\noindent\newline while using this Context-Free Grammar:
+
+\begin{verbatim}
+Exp -> Exp '+' Exp1 
+Exp1 -> Exp1 '*' Exp2              
+Exp2 -> Integer            
+Exp2 -> '(' Exp ')'  
+Exp -> Exp1             
+Exp1 -> Exp2                                     
+\end{verbatim}
+
+
+\noindent\newline For $$2+1$$ I got the following Parse Tree:
+
+\begin{verbatim}
+        Exp
+       /    \
+      Exp    Exp1
+     /         \
+    Exp1        Exp2
+   /             \
+  Exp2            1
+ /
+2
+\end{verbatim}
+\noindent\newline Here this tree starts with Exp. It expands for addition with Exp and Exp1. After this, I simply converted Exp to Exp1 to Exp2 then the number 2, and Exp1 to Exp2 then the number 1.
+
+\noindent\newline\newline For $$1+2*3$$ I got the following Parse Tree:
+
+\begin{verbatim}
+         Exp
+        /    \
+      Exp    Exp1
+      /      /   \
+    Exp1   Exp1  Exp2
+    /        |    |
+   Exp2     Exp2   3
+    |        |
+    1        2  
+\end{verbatim}
+\noindent\newline This Tree starts similar to last time with Exp. Exp will expand to Exp and Exp1. Exp will expand directly until it is the integer 1. Exp1 will expand to Exp1 and Exp2 for multiplication. Exp1 and Exp2 from this will become 2 and 3. This will allow the tree to calculate 2 times 3 to become 6. Then the root will have the two nodes of 1 and 6 to add to become 7.
+
+
+\noindent\newline\newline For $$1+(2*3)$$ I got the following Parse Tree:
+\begin{verbatim}
+        Exp
+       /    \
+     Exp    Exp1
+    /          \
+   Exp1        Exp2
+   |             |
+   Exp2         Exp
+   |             |
+   1            Exp1
+               /    \
+             Exp1   Exp2
+              |       |
+             Exp2     3
+              |
+              2
+\end{verbatim}
+\noindent\newline This is a little more complex than the prior example, but will end with the same answer of 7. Exp will expand to Exp and Exp1 for addition. Exp will expand until it becomes the integer of 1. Exp1 will become Exp2 then Exp because this had parenthesis. Exp will expand to Exp1, then Exp1 will expand to Exp1 and Exp2. These will become 2 and 3 so it will be multiplied together. Then this will finally become 7 if calculated.
+
+
+\noindent\newline\newline For $$(1+2)*3$$ I got the following Parse Tree:
+\begin{verbatim}
+        Exp1
+       /   \
+     Exp1   Exp2
+    /         |
+   Exp2      Exp
+  /         /   \
+ 3        Exp   Exp1
+           |     |
+          Exp1  Exp2
+           |     |
+          Exp2   2
+           |
+           1
+\end{verbatim}
+\noindent\newline This time the parenthesis is with the addition of 1 and 2. I started with multiplication (Exp1) because it is 3 being multiplied with the entire parenthesis. Exp1 will expand to Exp1 and Exp2. Exp1 will become the integer 3. Exp2 will first go back to Exp because this is a parenthesis and our rule allows to go back to Exp when Parenthesis is present. Exp will then expand to Exp and Exp1 for the addition. These will expand until the integers 1 and 2 are present. Then 1 added to 2 will become 3. 3 multiple with 3 will become 9. This answer is 9.
+
+\noindent\newline\newline For $$1+2*3+4*5+6$$ I got the following Parse Tree:
+\begin{verbatim}
+                ____Exp______
+               /              \
+            _Exp__           Exp1
+          /        \             \
+         Exp        Exp1          Exp2
+       /     \       /   \         |
+      Exp   Exp1   Exp1  Exp2      1
+     /      /  \     |    |
+    Exp1  Exp1 Exp2 Exp2  3
+     |      |    |    |
+    Exp2   Exp2  5    2  
+     |      |
+     6      4
+    
+\end{verbatim}
+\noindent\newline This was by far the most complicated of the problems. To start, I expanded with the addition of 1 with everything else. This means Exp would be the root with Exp and Exp1 being the child nodes. Exp1 will become Exp2 then the integer 1. Now I must account for the other 5 numbers in the equation. Starting with Exp again I decided for the sum of 2 multiple with 3 being added to entire sum of 4 multiplied with 5 and then added with 1. Exp will expand to Exp and Exp1 for this addition. Exp1 will become the 2 times 3 side of the equation. Exp1 will expand to Exp1 and Exp2. Exp1 will expand until integer 2 is reached, and Exp2 is expanded until integer 3 is reached. Now back to the Exp that is being added with 2 times 3. This Exp will be expanded to Exp and Exp1. Exp will be expanded until integer 6 is reached. Exp1 is the multiplication formula. Exp1 will expand to Exp1 and Exp2. These two nodes will then be converted until integer 4 and 5 are reached. Now the tree is complete. First 1 will be added with the rest of the equation. The rest of the equation will have 2 multiplied with 3 become 6. 4 is multipled by 5 to become 20 then added with 6 to become 26. This 26 is added with 6 from 2 times 3. Then our 1 is added to become 33.
+
+\subsubsection{Abstract Syntax Tree} The same 5 problems (Equations) that were used for the Parse Tree's are now used to be made into Abstract Syntax Trees.
+
+\noindent\newline\newline These AST are to be made using this BNFC Grammar:
+\begin{verbatim}
+Plus.   Exp ::= Exp "+" Exp1 ;
+Times.  Exp1 ::= Exp1 "*" Exp2 ;
+Num.    Exp2 ::= Integer ;
+
+coercions Exp 2 ;
+\end{verbatim}
+
+\noindent\newline For $$2+1$$ I got the following Abstract Syntax Tree:
+\begin{verbatim}
+        Plus
+        /  \
+       2    1
+\end{verbatim}
+
+\noindent\newline This Abstract Syntax Tree is easy to read. The only math being used is an addition sign. Simply Plus is used then expanded to its two terms of 2 and 1.
+
+
+\noindent\newline\newline For $$1+2*3$$ I got the following Abstract Syntax Tree:
+\begin{verbatim}
+       Plus
+       /   \
+      1    Times
+           /   \
+          2     3
+\end{verbatim}
+\noindent\newline This Abstract Syntax Tree is bigger than the prior equation/problem. I once again started with Plus then expanded 1 and the product of 2 times 3. This works with our Grammar Rules. 
+
+\noindent\newline\newline For $$1+(2*3)$$ I got the following Abstract Syntax Tree:
+\begin{verbatim}
+        Plus
+        /   \
+       1    Times
+            /   \
+           2     3
+\end{verbatim}
+\noindent\newline This is the same exact AST as the prior example. Since the parenthesis is around the multiplication, which would be first in this instance anyways, nothing changes. Other than the parenthesis being added, nothing changes, so the rest of the AST is the same
+
+\noindent\newline\newline For $$(1+2)*3$$ I got the following Abstract Syntax Tree:
+
+\begin{verbatim}
+        Times
+        /   \
+       Plus  3
+       /  \
+      1    2
+\end{verbatim}
+\noindent\newline This AST is different than the prior examples. Since the parenthesis are around the 1 plus 2, then this part must be done first in order to be multiplied with the three. I had Times be the root with the expansion of integer 3, and Plus. The Plus would then expand to 1 and 2. By this tree, 1 Plus 2 is 3 then 3 times 3 is 9. 
+
+\noindent\newline\newline For $$1+2*3+4*5+6$$ I got the following Abstract Syntax Tree:
+
+\begin{verbatim}
+        Plus
+       /     \
+      1       Plus
+            /      \
+         Plus      Times
+        /    \     /    \
+      Times  6    2     3 
+     /    \
+    4     5
+\end{verbatim}
+\noindent\newline This AST is much more complex than the other examples. To begin, I had Plus become the root, as 1 Plus other side of equation will be the child nodes. The nodes will be integer 1 and Plus. Plus will expand to Plus and Times. The Times will expand to the first part of the other equation of 2 Times 3. The Plus will expand to Times and integer 6. The Times will become 4 and 5. Doing this AST from bottom up, will have 4 Times 5 become 20. Then 20 Plus 6 becoming 26. 2 Times 3 becoming 6. 6 plus 26 becoming 32. Then finally 32 will be added with 1 to have 33 as the grand total, the same as the Parse Tree example.
+
 \section{Project}
 
 Introductory remarks ...

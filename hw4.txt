@@ -1,0 +1,154 @@
+Plus.   Exp ::= Exp "+" Exp1 ;
+Times.  Exp1 ::= Exp1 "*" Exp2 ;
+Num.    Exp2 ::= Integer ;
+
+coercions Exp 2 ;
+write out the abstract syntax trees for the following strings:
+
+2+1
+1+2*3
+1+(2*3)
+(1+2)*3
+1+2*3+4*5+6
+
+        Plus
+        /  \
+       2    1
+
+
+
+        Plus
+        /   \
+       1    Times
+            /   \
+           2     3
+
+        Times
+        /   \
+       Plus  3
+       /  \
+      1    2
+
+(1+(2*3))+((4*5)+6)
+
+WRONG ATTEMPT
+        _____Plus_____
+       /               \
+    Plus                Plus
+    /   \              /    \
+   1    Times        Times   6
+        /    \       /   \
+       2      3     4     5
+
+
+        Plus
+       /     \
+      1       Plus
+            /      \
+         Plus      Times
+        /    \     /    \
+      Times  6    2     3 
+     /    \
+    4     5
+
+
+
+Exp -> Exp '+' Exp1 
+Exp1 -> Exp1 '*' Exp2              
+Exp2 -> Integer            
+Exp2 -> '(' Exp ')'  
+Exp -> Exp1             
+Exp1 -> Exp2                                     
+write out the derivation trees (also called parse trees or concrete syntax trees) for the following strings:
+
+2+1
+1+2*3
+1+(2*3)
+(1+2)*3
+1+2*3+4*5+6
+
+        Exp
+       /    \
+      Exp    Exp1
+     /         \
+    Exp1        Exp2
+   /             \
+  Exp2            1
+ /
+2
+
+         Exp
+        /    \
+      Exp    Exp1
+      /      /   \
+    Exp1   Exp1  Exp2
+    /        |    |
+   Exp2     Exp2   3
+    |        |
+    1        2  
+
+
+1+(2*3)
+        Exp
+       /    \
+     Exp    Exp1
+    /          \
+   Exp1        Exp2
+   |             |
+   Exp2         Exp
+   |             |
+   1            Exp1
+               /    \
+             Exp1   Exp2
+              |       |
+             Exp2     3
+              |
+              2
+            
+
+(1+2)*3
+        
+        Exp1
+       /   \
+     Exp1   Exp2
+    /         |
+   Exp2      Exp
+  /         /   \
+ 3        Exp   Exp1
+           |     |
+          Exp1  Exp2
+           |     |
+          Exp2   2
+           |
+           1
+        
+
+(1+(2*3))+((4*5)+6)
+      
+                ____Exp______
+               /             \
+             Exp             Exp1
+           /    \           /    \
+         Exp    Exp1      Exp1    Exp2
+        /      /   \        |      |
+      Exp1   Exp1  Exp2
+     /        |    |
+    Exp2     Exp2   3
+     |        |
+     1        2  
+
+
+                ____Exp______
+               /              \
+            _Exp__           Exp1
+          /        \             \
+         Exp        Exp1          Exp2
+       /     \       /   \         |
+      Exp   Exp1   Exp1  Exp2      1
+     /      /  \     |    |
+    Exp1  Exp1 Exp2 Exp2  3
+     |      |    |    |
+    Exp2   Exp2  5    2  
+     |      |
+     6      4
+    
