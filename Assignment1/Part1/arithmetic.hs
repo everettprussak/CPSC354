@@ -60,7 +60,6 @@ divN :: NN -> PP -> NN
 divN O b = O
 divN a I = a
 divN (a) (b) = addN(divN (subN (a) (nn_pp(b))) (b)) (if (subN (a) (nn_pp (b)) == (O) && (a) /= (nn_pp (b))) then (O) else (S O))
---Have to fix 1/2 = 0 not 1
 
 --remanider
 modN :: NN -> PP -> NN
@@ -80,8 +79,8 @@ negI :: II -> II
 negI (II a b) = II (addN b O) (addN O a)
 
 -- Equality of integers
---instance Eq II where
-  --(II a b) == (II c d) = (if (subN(a b) == subN(c d)) then True else False)
+instance Eq II where
+  (II a b) == (II c d) = (if (subN (a) (b) == subN (c) (d)) then True else False)
 
 
 ----------------
@@ -97,8 +96,9 @@ multQ :: QQ -> QQ -> QQ
 multQ (QQ a b) (QQ c d) = QQ (multI a c) (multP b d)
 
 -- Equality of fractions
---instance Eq QQ where
-  --(QQ a b) == (QQ c d) = <insert your code here>
+instance Eq QQ where
+  (QQ (II a x) b) == (QQ (II c y) d) = (if divN (subN (a) (x)) (b) == divN (subN (c) (y)) (d) 
+  then (if modN (subN (a) (x)) (b) == modN (subN (c) (y)) (d) then True else False) else False)
 
 ----------------
 -- Normalisation
@@ -179,7 +179,7 @@ main = do
     print $ addQ (QQ (II (S (S (S (S (S O))))) (S (S O))) (T I)) (QQ (II (S (S (S (S (S O))))) (S (S (S O)))) (T I))
     print $ addQ (QQ (II (S (S O)) (O)) (T I)) (QQ (II (S O) (O)) (T I))
     print $ multQ (QQ (II (S (S O)) (O)) (T I)) (QQ (II (S O) (O)) (T I))
-   -- print $ (II (S O) (S O)) == (II (S O) (O))
+    print $ (II (S (S O)) (S O)) == (II (S O) (O))
     print $ nn_int 0
     print $ nn_int 1
     print $ nn_int 2
@@ -200,6 +200,9 @@ main = do
     print $ nbe (II (S (S O)) (S (S (S O))))
     print $ int_nn (subN (nn_int 9) (nn_int 3)) -- 6
     print $ int_nn (subN (nn_int 11) (nn_int 12)) -- 0
-   -- print $ (II (S O) (O)) == (II (S O) (S O))
+    print $ (II (S O) (O)) == (II (S O) (S O))
     print $ int_nn (modN (nn_int 13) (pp_int 5)) --3
     print $ int_nn (modN (nn_int 14) (pp_int 4)) --2
+    print $ (QQ (ii_int 9) (pp_int 3)) == (QQ (ii_int 13) (pp_int 4)) -- 3 Mod O vs 3 Mod 1 --> False
+    print $ (QQ (ii_int 9) (pp_int 3)) == (QQ (ii_int 21) (pp_int 7)) -- 3 Mod O vs 3 Mod O --> True
+    print $ (QQ (ii_int 10) (pp_int 4)) == (QQ (ii_int 20) (pp_int 4)) -- 2 Mod 2 vs 5 Mod O --> False
