@@ -50,25 +50,22 @@ multN O m = O
 multN (S n) m = addN (multN n m) m
 
 
---subtraction
 subN :: NN -> NN -> NN
 subN a O = a
-subN O b = b
+subN O b = O
 subN (S a) (S b) = subN (a) (b)
 
 --division
 divN :: NN -> PP -> NN
 divN O b = O
 divN a I = a
---divN (a) (T b) = addN(divN (subN(a) (nn_pp (T b))) (T b)) (if (subN(a) (nn_pp(T b))) == (O) then (S O) else (O))
-divN (a) (T b) = addN(divN (subN(a) (nn_pp (T b))) (T b)) (S O)
-
+divN (a) (b) = addN(divN (subN (a) (nn_pp(b))) (b)) (if (subN (a) (nn_pp (b)) == (O) && (a) /= (nn_pp (b))) then (O) else (S O))
 --Have to fix 1/2 = 0 not 1
 
 --remanider
---modN :: NN -> PP -> NN
---modN 
-
+modN :: NN -> PP -> NN
+modN O b = O
+modN a b = subN (a) (multN (nn_pp(b)) (divN (a) (b)))
 ----------------
 -- II Arithmetic
 ----------------
@@ -198,9 +195,11 @@ main = do
     print $ int_nn (multN (nn_int 4) (nn_int 3)) -- 12
     print $ int_nn (divN (nn_int 6) (pp_int 3)) -- 2
     print $ int_nn (divN (nn_int 9) (pp_int 3)) -- 3
-   -- print $ int_nn (divN (nn_int 13) (pp_int 5)) -- 2
-   -- print $ int_nn (divN (nn_int 5) (pp_int 2)) -- 2
+    print $ int_nn (divN (nn_int 13) (pp_int 5)) -- 2
+    print $ int_nn (divN (nn_int 1) (pp_int 2)) -- 0
     print $ nbe (II (S (S O)) (S (S (S O))))
     print $ int_nn (subN (nn_int 9) (nn_int 3)) -- 6
     print $ int_nn (subN (nn_int 11) (nn_int 12)) -- 0
    -- print $ (II (S O) (O)) == (II (S O) (S O))
+    print $ int_nn (modN (nn_int 13) (pp_int 5)) --3
+    print $ int_nn (modN (nn_int 14) (pp_int 4)) --2
