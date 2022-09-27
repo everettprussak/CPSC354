@@ -13,7 +13,7 @@
 #### addP (T (T I)) (T (T I)) = T (T (addP (T I) (T (T I))))
 #### addP (T I) (T (T I)) = T (T (T(addP (I) (T (T I)))))
 #### addP (I) (T (T I)) = T (T (T (T (T (T I))))) --> 7
-####  '\n'
+#### --------------------------------------------------------------------------------
 #### multp (T (T (T I))) (T (T I)) = addP (multP (T (T I)) (T (T I))) (T (T I)) --> 4*3
 #### multp (T (T I)) (T (T I)) = addP (addP (multP (T (T I)) (T (T I))) (T (T I))) (T (T I))
 #### multp (T I) (T (T I)) = addP (addP (addP (multP (I) (T (T I))) (T (T I))) (T (T I))) (T (T I))
@@ -21,19 +21,19 @@
 #### multp (T I) (T (T I)) = addP (addP (T (T (T (T (T I))))) (T (T I))) (T (T I))
 #### multp (T I) (T (T I)) = addP (T (T (T (T (T (T (T (T I)))))))) (T (T I))
 #### multp (T I) (T (T I)) = (T (T (T (T (T (T (T (T (T (T (T I)))))))))))  --> 12
-####  
+#### --------------------------------------------------------------------------------
 #### addI (II (S (S O)) (S O)) (II (S (S (S (S O)))) (O)) = II (addN (S (S O)) (S (S (S (S O)))) (addN (S O) (O))) --> 1 + 4
 #### addI (II (S (S O)) (S O)) (II (S (S (S (S O)))) (O)) = II (S (S (S (S (S (S O)))))) (addN (S O) (O)))
 #### addI (II (S (S O)) (S O)) (II (S (S (S (S O)))) (O)) = II (S (S (S (S (S (S O)))))) (S O)) --> 6-1 --> 5
-####
+#### --------------------------------------------------------------------------------
 #### negI (II (S (S O)) (S (S (S O)))) = II (addN (S (S (S O))) (O)) (addN (S (S O)) (O)) --> -1
 #### negI (II (S (S O)) (S (S (S O)))) = II (S (S (S O))) (S (S O)) --> 1
-####  
+#### --------------------------------------------------------------------------------
 #### addQ (QQ (S O) (T (T I))) (QQ (S (S O)) (I)) = QQ (addI(multI (S O) (ii_pp (I))) (multI (ii_pp (T (T I))) (S (S O)))) (multP (T (T I)) (I)) --> 1/3 + 2/1
 #### addQ (QQ (S O) (T (T I))) (QQ (S (S O)) (I)) = QQ (addI (multI (S O) (S O)) (multI ((S (S (S O)))) (S (S O)))) (multP (T (T I)) (I))
 #### addQ (QQ (S O) (T (T I))) (QQ (S (S O)) (I)) = QQ (addI (S O) (multI (S (S (S O))))) (S (S O)))) (multP (T (T I)) (I))
 #### addQ (QQ (S O) (T (T I))) (QQ (S (S O)) (I)) = QQ (addI (S O) (S (S (S (S (S (S O)))))) (multP (T (T I)) (I))
 #### addQ (QQ (S O) (T (T I))) (QQ (S (S O)) (I)) = QQ (S (S (S (S (S (S (S O))))))) (multP (T (T I)) (I))
 #### addQ (QQ (S O) (T (T I))) (QQ (S (S O)) (I)) = QQ (S (S (S (S (S (S (S O))))))) (T (T I)) --> 7/3 ~ 2.333
-
+#### --------------------------------------------------------------------------------
 ### Part 2
