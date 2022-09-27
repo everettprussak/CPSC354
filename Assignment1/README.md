@@ -14,7 +14,12 @@
 #### addP (T I) (T (T I)) = T (T (T(addP (I) (T (T I)))))
 #### addP (I) (T (T I)) = T (T (T (T (T (T I))))) --> 7
 ####
-#### multP :: PP -> PP -> PP
-#### multP I x = x
-#### multP (T y) x = addP (multP y x) x
+#### multp (T (T (T I))) (T (T I)) = addP (multP (T (T I)) (T (T I))) (T (T I)) --> 4*3
+#### multp (T (T I)) (T (T I)) = addP (addP (multP (T (T I)) (T (T I))) (T (T I))) (T (T I))
+#### multp (T I) (T (T I)) = addP (addP (addP (multP (I) (T (T I))) (T (T I))) (T (T I))) (T (T I))
+#### multp (T I) (T (T I)) = addP (addP (addP (T (T I)) (T (T I))) (T (T I))) (T (T I))
+#### multp (T I) (T (T I)) = addP (addP (T (T (T (T (T I))))) (T (T I))) (T (T I))
+#### multp (T I) (T (T I)) = addP (T (T (T (T (T (T (T (T I)))))))) (T (T I))
+#### multp (T I) (T (T I)) = (T (T (T (T (T (T (T (T (T (T (T I)))))))))))  --> 12
+
 ### Part 2
