@@ -1,7 +1,8 @@
 # Everett Prussak
-# CPSC 354
-# Professor Kurz
-# Assignment1
+## prussak@chapman.edu
+## CPSC 354
+## Professor Kurz
+## Assignment1
 
 ## Critical Appraisal
 ### Part 1
