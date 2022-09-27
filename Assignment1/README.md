@@ -6,7 +6,7 @@
 
 ## Critical Appraisal
 ### Part 1
-#### addP :: PP -> PP -> PP
-#### addP I x = T (x)
-#### addP (T y) x = T (addP y x)
+#### I implemented everything that you asked for. Everything works the way I believe you would want it to work.
+#### I learned a lot in this assignment, especially Part 1. At first, I was very confused on how to implement each function. However, as I got more use to the syntax and grew to learn Haskell and Pattern Matching even more, I found it much easier. I think DivN was the function that took the longest. I created SubN, which was not required, but could not figure out a DivN solution without it. Pattern Matching is a very interesting process. I found it very satisfy to write code that ran correctly, and grew to actually like this style of programming. I think Pattern matching is a very essential tool, and this part of the assignement allowed me to understand it. I also really liked createing "new" data-types of our own. Creating functions that would be my own creation was also a cool idea.
+#### addP 
 ### Part 2
