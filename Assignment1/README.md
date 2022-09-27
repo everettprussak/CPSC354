@@ -13,7 +13,7 @@
 #### addP (T (T I)) (T (T I)) = T (T (addP (T I) (T (T I))))
 #### addP (T I) (T (T I)) = T (T (T(addP (I) (T (T I)))))
 #### addP (I) (T (T I)) = T (T (T (T (T (T I))))) --> 7
-####  
+####  '\n'
 #### multp (T (T (T I))) (T (T I)) = addP (multP (T (T I)) (T (T I))) (T (T I)) --> 4*3
 #### multp (T (T I)) (T (T I)) = addP (addP (multP (T (T I)) (T (T I))) (T (T I))) (T (T I))
 #### multp (T I) (T (T I)) = addP (addP (addP (multP (I) (T (T I))) (T (T I))) (T (T I))) (T (T I))
