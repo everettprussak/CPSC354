@@ -37,3 +37,7 @@
 #### addQ (QQ (S O) (T (T I))) (QQ (S (S O)) (I)) = QQ (S (S (S (S (S (S (S O))))))) (T (T I)) --> 7/3 ~ 2.333
 #### --------------------------------------------------------------------------------
 ### Part 2
+#### The Order of operations I choose to have from First Calculation Priority to Last Went:
+#### 1. Negative, 2. Exponents, 3. Divide, 4. Times, 5. Subtraction, 6. Plus
+#### I created my system based off of the already created grammar. Since Times was Exp1 at the start, I know it has a higher priority than Subtraction, so I switched it to Exp2, and made Subtraction Exp1. I did this for each case to make sure each operation had the correct heirarchy. Times is techically lower priority than Divide in my case, but this won't matter as the answer will still be the same. 
+#### The Grammar reflects these design desicions because numbers.cf has a heirachy design. Plus can always be ran, but Times will be ran before Plus if needed, and so on. Since I have Negative as my highest priority, that means anywhere where negative numbers are, that would be the first calculation.
