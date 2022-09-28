@@ -48,4 +48,4 @@
 #### When using Calculator.hs, the following would be used at expected: +, -, *, /, ^
 #### When using a negative number (-4) just write -4, it does not need parenthesis, however it coudl use it.
 #### When using squared function, write "4 squared" which will give you 16. In a function use "2 * 4 squared + 1" and that will be 33
-#### When using Absolute Value, it must simply start with | and end with | when you want the absolute value to take place. It has trouble when the absolute value signs | | are in the middle of the equation as of now. It is best to put the entire equation in || if absValue is to be used.
+#### When using Absolute Value, it must simply start with | and end with | when you want the absolute value to take place. It has trouble when the absolute value signs | | are in the middle of the equation as of now. For example |2+2|+2 will still be 6 and work, and |2+2|-2 will be 2. However *, /, exponents, and other functions will not work on the outside of Absolute value.
