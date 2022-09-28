@@ -1,12 +1,16 @@
 
+
+AbsValue. Exp1 ::= "|" Exp1 "|";
 Plus. Exp1 ::= Exp1 "+" Exp2 ;
-Subtract. Exp2 ::= Exp2 "-" Exp3 ;
-Times. Exp3 ::= Exp3 "*" Exp4 ;
-Divide. Exp4 ::= Exp4 "/" Exp5 ;
-Exponent. Exp5 ::= Exp5 "^" Exp6 ;
-Negative. Exp6 ::= "-" Exp6  ;
+Subtract. Exp1 ::= Exp1 "-" Exp2 ;
+Times. Exp2 ::= Exp2 "*" Exp3 ;
+Divide. Exp2 ::= Exp2 "/" Exp3 ;
+Exponent. Exp3 ::= Exp3 "^" Exp4 ;
+Squared. Exp3 ::= Exp3 "squared" ;
+Negative. Exp4 ::= "-" Exp4 ;
 
 
-Num. Exp7 ::= Integer ;
+Num. Exp5 ::= Integer ;
 
-coercions Exp 7 ;
+
+coercions Exp 5 ;

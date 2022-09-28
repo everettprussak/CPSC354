@@ -38,6 +38,14 @@
 #### --------------------------------------------------------------------------------
 ### Part 2
 #### The Order of operations I choose to have from First Calculation Priority to Last Went:
-#### 1. Negative, 2. Exponents, 3. Divide, 4. Times, 5. Subtraction, 6. Plus
+#### 1. Negative, 2. Squared, 3. Exponents, 4. Divide, 5. Times, 6. Subtraction, 7. Plus, 8. Absolute Value
 #### I created my system based off of the already created grammar. Since Times was Exp1 at the start, I know it has a higher priority than Subtraction, so I switched it to Exp2, and made Subtraction Exp1. I did this for each case to make sure each operation had the correct heirarchy. Times is techically lower priority than Divide in my case, but this won't matter as the answer will still be the same. 
 #### The Grammar reflects these design desicions because numbers.cf has a heirachy design. Plus can always be ran, but Times will be ran before Plus if needed, and so on. Since I have Negative as my highest priority, that means anywhere where negative numbers are, that would be the first calculation.
+
+#### I tried to implemented Factorial (!) but I could not figure out how to pattern match in this case. Everytime I tried it would give me an infinite loop. I spent a few hours trying to make it work, but ultimately I did not end up getting it to work the way I envisioned it.
+
+### HOW TO USE Calculator.hs
+#### When using Calculator.hs, the following would be used at expected: +, -, *, /, ^
+#### When using a negative number (-4) just write -4, it does not need parenthesis, however it coudl use it.
+#### When using squared function, write "4 squared" which will give you 16. In a function use "2 * 4 squared + 1" and that will be 33
+#### When using Absolute Value, it must simply start with | and end with | when you want the absolute value to take place. It has trouble when the absolute value signs | | are in the middle of the equation as of now. It is best to put the entire equation in || if absValue is to be used.
