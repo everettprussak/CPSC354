@@ -1,0 +1,132 @@
+x
+EVar(Ident "x")
+        Evar
+         |
+         x
+
+EApp(EVar(Ident "x") EVar(Ident "x"))
+         EApp
+        /    \
+       Evar  Evar
+        |     |
+        x     x 
+
+
+EApp(EVar(Ident "x") EVar(Ident "y"))
+        EApp
+       /    \
+      Evar  Evar
+       |     |
+       x     y
+
+
+EApp (EApp (EVar (Ident "x")) (EVar (Ident "y"))) (EVar (Ident "z"))
+       EApp
+      /    \
+    Evar   EApp
+     |    /    \
+     z   Evar  Evar
+          |     |
+          y     x
+
+
+EAbs (Ident "x") (EVar (Ident "x"))
+            EAbs
+          /     \
+         x      EVar
+                 |
+                 x
+
+EAbs (Ident "x") (EApp (EVar (Ident "x")) (EVar (Ident "x")))
+             EAbs
+           /     \
+        EApp     Evar
+        /   \      |
+    Evar    Evar   x
+      |       |
+      x       x
+
+
+EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EVar (Ident "x")) (EVar (Ident "y"))))) (EAbs (Ident "x") (EVar (Ident "x")))) (EVar (Ident "z"))
+
+           EApp
+        /        \
+       EApp       Evar
+    /      \        |
+  EAbs      EAbs    z
+  /  \      /  \
+ x   EAbs   x   Evar
+     /  \        |
+    y   EApp     x
+       /    \
+      Evar  Evar
+       |     |
+       x     y
+
+
+
+
+EApp (EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EApp (EVar (Ident "x")) (EVar (Ident "y"))) (EVar (Ident "z"))))) (EVar (Ident "a"))) (EVar (Ident "b"))) (EVar (Ident "c"))
+
+                            EApp
+                          /      \
+                       EApp       EApp
+                     /     \     /     \
+                    EAbs   EApp Evar   EApp
+                  /    \    |    |    /    \
+                 x    EAbs  Evar c   Evar   Evar
+                     /   \   |        |      |
+                    y   EApp z        b      a
+                        /  \
+                      Evar  Evar
+                       |     |
+                       x     y
+
+
+
+
+
+evalCBN (EApp e1 e2) = case (evalCBN e1) of
+    (EAbs i e3) -> evalCBN (subst i e2 e3)
+    e3 -> EApp e3 e2
+
+  (\x.x) a = a 
+  \x.x a = a   
+
+  (\x.\y.x) a b 
+  (\y.a) b = a
+
+  (\x.\y.y) a b   
+  (\y.y) b = b
+
+  (\x.\y.x) a b c  
+  (\y.a) b c
+  (\y.a) c = a
+
+  (\x.\y.y) a b c  
+  (\y.y) b c
+  (\y.b) c = b
+
+  (\x.\y.x) a (b c)
+  (\y.a) (b c) = a
+
+  (\x.\y.y) a (b c)
+  (\y.y) (b c) = b c 
+
+  (\x.\y.x) (a b) c
+  (\y.a b) c = a b
+
+  (\x.\y.y) (a b) c
+  (\y.y) c = c 
+
+  (\x.\y.x) (a b c)
+  (\y.a b c) = a b c
+
+  (\x.\y.y) (a b c)
+  (\y.y) = y
+
+
+(\x.x)((\y.y)a)
+(\x.x)(\y.a) = (\x.\y.a)
+= a
+ 
