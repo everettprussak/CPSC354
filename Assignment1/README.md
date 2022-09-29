@@ -49,3 +49,4 @@
 #### When using a negative number (-4) just write -4, it does not need parenthesis, however it coudl use it.
 #### When using squared function, write "4 squared" which will give you 16. In a function use "2 * 4 squared + 1" and that will be 33
 #### When using Absolute Value, it must simply start with | and end with | when you want the absolute value to take place. I had some errors with AbsValue before I made it the the operation with the most priority. This makes sense because it is very similar to parenthesis.
+#### Lastly, I did not implement anything to deal with diving by 0. There will be an error for 3/0, but everything else in division works as it should.
