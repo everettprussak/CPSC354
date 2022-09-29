@@ -612,7 +612,9 @@ coercions Exp 2 ;
 \begin{verbatim}
         Plus
         /  \
-       2    1
+       Num  Num
+       |     |
+       2     1
 \end{verbatim}
 
 \noindent\newline This Abstract Syntax Tree is easy to read. The only math being used is an addition sign. Simply Plus is used then expanded to its two terms of 2 and 1.
@@ -620,21 +622,25 @@ coercions Exp 2 ;
 
 \noindent\newline\newline For $$1+2*3$$ I got the following Abstract Syntax Tree:
 \begin{verbatim}
-       Plus
-       /   \
-      1    Times
-           /   \
-          2     3
+         Plus
+        /    \
+       Num   Times
+        |   /   \
+        1  Num  Num
+            |    |
+            2    3
 \end{verbatim}
 \noindent\newline This Abstract Syntax Tree is bigger than the prior equation/problem. I once again started with Plus then expanded 1 and the product of 2 times 3. This works with our Grammar Rules. 
 
 \noindent\newline\newline For $$1+(2*3)$$ I got the following Abstract Syntax Tree:
 \begin{verbatim}
-        Plus
-        /   \
-       1    Times
-            /   \
-           2     3
+         Plus
+        /    \
+       Num   Times
+        |   /   \
+        1  Num  Num
+            |    |
+            2    3
 \end{verbatim}
 \noindent\newline This is the same exact AST as the prior example. Since the parenthesis is around the multiplication, which would be first in this instance anyways, nothing changes. Other than the parenthesis being added, nothing changes, so the rest of the AST is the same
 
@@ -643,8 +649,10 @@ coercions Exp 2 ;
 \begin{verbatim}
         Times
         /   \
-       Plus  3
-       /  \
+       Plus  Num
+       /  \    |
+      Num Num  3
+      |    |
       1    2
 \end{verbatim}
 \noindent\newline This AST is different than the prior examples. Since the parenthesis are around the 1 plus 2, then this part must be done first in order to be multiplied with the three. I had Times be the root with the expansion of integer 3, and Plus. The Plus would then expand to 1 and 2. By this tree, 1 Plus 2 is 3 then 3 times 3 is 9. 
@@ -654,15 +662,224 @@ coercions Exp 2 ;
 \begin{verbatim}
         Plus
        /     \
-      1       Plus
-            /      \
-         Plus      Times
+      Num     Plus
+      /     /      \
+     1    Plus      Times
         /    \     /    \
-      Times  6    2     3 
-     /    \
-    4     5
+      Times  Num  Num    Num 
+     /    \   |   |       |
+    Num  Num  6   2       3
+     |    |
+     4    5
 \end{verbatim}
 \noindent\newline This AST is much more complex than the other examples. To begin, I had Plus become the root, as 1 Plus other side of equation will be the child nodes. The nodes will be integer 1 and Plus. Plus will expand to Plus and Times. The Times will expand to the first part of the other equation of 2 Times 3. The Plus will expand to Times and integer 6. The Times will become 4 and 5. Doing this AST from bottom up, will have 4 Times 5 become 20. Then 20 Plus 6 becoming 26. 2 Times 3 becoming 6. 6 plus 26 becoming 32. Then finally 32 will be added with 1 to have 33 as the grand total, the same as the Parse Tree example.
+
+\subsection{Week 5} For this week's homework, the task was to create Abstract Syntax Trees and evaluate lambda expressions.
+
+\subsubsection{Abstract Syntax Trees of Lambda Calculus}
+The following expressions were given to create 2-D Abstract Syntax Trees and Linearized Abstract Syntax Trees.
+\begin{verbatim}
+x
+x x
+x y
+x y z
+\ x.x
+\ x.x x
+(\ x . (\ y . x y)) (\ x.x) z
+(\ x . \ y . x y z) a b c
+\end{verbatim}
+\noindent\newline Here is the Linearized and 2-D AST for x:
+\begin{verbatim}
+EVar(Ident "x")
+
+        Evar
+         |
+         x
+\end{verbatim}
+\noindent\newline Here is the Linearized and 2-D AST for x x:
+\begin{verbatim}
+EApp(EVar(Ident "x") EVar(Ident "x"))
+         EApp
+        /    \
+       Evar  Evar
+        |     |
+        x     x 
+\end{verbatim}
+\noindent\newline Here is the Linearized and 2-D AST for x y:
+\begin{verbatim}
+EApp(EVar(Ident "x") EVar(Ident "y"))
+        EApp
+       /    \
+      Evar  Evar
+       |     |
+       x     y
+\end{verbatim}
+\noindent\newline Here is the Linearized and 2-D AST for x y z:
+\begin{verbatim}
+EApp (EApp (EVar (Ident "x")) (EVar (Ident "y"))) (EVar (Ident "z"))
+       EApp
+      /    \
+    Evar   EApp
+     |    /    \
+     z   Evar  Evar
+          |     |
+          y     x
+\end{verbatim}
+\noindent\newline Here is the Linearized and 2-D AST for $$\backslash x. x$$
+\begin{verbatim}
+EAbs (Ident "x") (EVar (Ident "x"))
+            EAbs
+          /     \
+         x      EVar
+                 |
+                 x
+\end{verbatim}
+\noindent\newline Here is the Linearized and 2-D AST for $$\backslash x. x x$$
+\begin{verbatim}
+EAbs (Ident "x") (EApp (EVar (Ident "x")) (EVar (Ident "x")))
+             EAbs
+           /     \
+        EApp     Evar
+        /   \      |
+    Evar    Evar   x
+      |       |
+      x       x
+\end{verbatim}
+\noindent\newline Here is the Linearized and 2-D AST for $$(\backslash x. (\backslash y . x y)) (\backslash x.x) z$$
+\begin{verbatim}
+EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EVar (Ident "x")) (EVar (Ident "y"))))) (EAbs (Ident "x") (EVar (Ident "x")))) (EVar (Ident "z"))
+
+
+           EApp
+        /        \
+       EApp       Evar
+    /      \        |
+  EAbs      EAbs    z
+  /  \      /  \
+ x   EAbs   x   Evar
+     /  \        |
+    y   EApp     x
+       /    \
+      Evar  Evar
+       |     |
+       x     y
+\end{verbatim}
+\noindent\newline Here is the Linearized and 2-D AST for $$(\backslash x . \backslash y . x y z) a b c$$
+\begin{verbatim}
+EApp (EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EApp (EVar (Ident "x")) (EVar (Ident "y"))) (EVar (Ident "z"))))) (EVar (Ident "a"))) (EVar (Ident "b"))) (EVar (Ident "c"))
+
+                            EApp
+                          /      \
+                       EApp       EApp
+                     /     \     /     \
+                    EAbs   EApp Evar   EApp
+                  /    \    |    |    /    \
+                 x    EAbs  Evar c   Evar   Evar
+                     /   \   |        |      |
+                    y   EApp z        b      a
+                        /  \
+                      Evar  Evar
+                       |     |
+                       x     y
+\end{verbatim}
+\noindent\newline\newline These expressions start easy with simple free variables such as x. The problems gradually got harder to include bound variables, and would need to be changed if we were evaluating these expressions.
+
+\subsubsection{Lambda Expression Evaluation}
+This section is to evaluate the following Lambda Expressions and solve:
+\begin{verbatim}
+ 1.  (\x.x) a         
+ 2.  \x.x a           
+ 3. (\x.\y.x) a b    
+ 4. (\x.\y.y) a b    
+ 5. (\x.\y.x) a b c  
+ 6. (\x.\y.y) a b c  
+ 7. (\x.\y.x) a (b c)
+ 8. (\x.\y.y) a (b c)
+ 9. (\x.\y.x) (a b) c
+ 10. (\x.\y.y) (a b) c
+ 11. (\x.\y.x) (a b c)
+ 12. (\x.\y.y) (a b c)
+\end{verbatim}
+
+Here is the evaluation for number 1:
+\begin{verbatim}
+  (\x.x) a = a 
+\end{verbatim}  
+
+Here is the evaluation for number 2:
+\begin{verbatim}
+  \x.x a = a   
+\end{verbatim}  
+
+Here is the evaluation for number 3:
+\begin{verbatim}
+  (\x.\y.x) a b 
+  (\y.a) b = a
+\end{verbatim}  
+
+Here is the evaluation for number 4:
+\begin{verbatim}
+  (\x.\y.y) a b   
+  (\y.y) b = b
+\end{verbatim}  
+
+Here is the evaluation for number 5:
+\begin{verbatim}
+  (\x.\y.x) a b c  
+  (\y.a) b c
+  (\y.a) c = a
+\end{verbatim}  
+
+Here is the evaluation for number 6:
+\begin{verbatim}
+  (\x.\y.y) a b c  
+  (\y.y) b c
+  (\y.b) c = b
+\end{verbatim}  
+
+Here is the evaluation for number 7:
+\begin{verbatim}
+  (\x.\y.x) a (b c)
+  (\y.a) (b c) = a
+\end{verbatim}  
+
+Here is the evaluation for number 8:
+\begin{verbatim}
+  (\x.\y.y) a (b c)
+  (\y.y) (b c) = b c 
+\end{verbatim}  
+
+Here is the evaluation for number 9:
+\begin{verbatim}
+  (\x.\y.x) (a b) c
+  (\y.a b) c = a b
+\end{verbatim}  
+
+Here is the evaluation for number 10:
+\begin{verbatim}
+  (\x.\y.y) (a b) c
+  (\y.y) c = c 
+\end{verbatim}  
+
+Here is the evaluation for number 11:
+\begin{verbatim}
+  (\x.\y.x) (a b c)
+  (\y.a b c) = a b c
+\end{verbatim}  
+
+Here is the evaluation for number 12:
+\begin{verbatim}
+  (\x.\y.y) (a b c)
+  (\y.y) = y
+\end{verbatim}  
+
+Using Interpreter.hs, I got 
+
+\begin{verbatim}
+(\x.x)((\y.y)a)
+(\x.x)(\y.a) = (\x.\y.a)
+= a
+\end{verbatim}
 
 \section{Project}
 
