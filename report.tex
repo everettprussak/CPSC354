@@ -517,9 +517,11 @@ Exp1 -> Exp2
      /         \
     Exp1        Exp2
    /             \
-  Exp2            1
- /
-2
+  Exp2           Integer
+ /                 |
+Integer            1
+  |
+  2
 \end{verbatim}
 \noindent\newline Here this tree starts with Exp. It expands for addition with Exp and Exp1. After this, I simply converted Exp to Exp1 to Exp2 then the number 2, and Exp1 to Exp2 then the number 1.
 
@@ -531,11 +533,13 @@ Exp1 -> Exp2
       Exp    Exp1
       /      /   \
     Exp1   Exp1  Exp2
-    /        |    |
-   Exp2     Exp2   3
+    /        |      \
+   Exp2     Exp2    Integer
+    |        |          |
+ Integer    Integer     3
     |        |
-    1        2  
-\end{verbatim}
+    1        2
+    \end{verbatim}
 \noindent\newline This Tree starts similar to last time with Exp. Exp will expand to Exp and Exp1. Exp will expand directly until it is the integer 1. Exp1 will expand to Exp1 and Exp2 for multiplication. Exp1 and Exp2 from this will become 2 and 3. This will allow the tree to calculate 2 times 3 to become 6. Then the root will have the two nodes of 1 and 6 to add to become 7.
 
 
@@ -549,13 +553,16 @@ Exp1 -> Exp2
    |             |
    Exp2         Exp
    |             |
-   1            Exp1
-               /    \
-             Exp1   Exp2
+ Integer        Exp1
+   |           /    \
+   1        Exp1   Exp2
               |       |
-             Exp2     3
+             Exp2   Integer
+              |        |
+            Integer    3
               |
               2
+
 \end{verbatim}
 \noindent\newline This is a little more complex than the prior example, but will end with the same answer of 7. Exp will expand to Exp and Exp1 for addition. Exp will expand until it becomes the integer of 1. Exp1 will become Exp2 then Exp because this had parenthesis. Exp will expand to Exp1, then Exp1 will expand to Exp1 and Exp2. These will become 2 and 3 so it will be multiplied together. Then this will finally become 7 if calculated.
 
@@ -568,32 +575,36 @@ Exp1 -> Exp2
     /         |
    Exp2      Exp
   /         /   \
- 3        Exp   Exp1
+Integer   Exp   Exp1
+  |       |     |
+  3       Exp1  Exp2
            |     |
-          Exp1  Exp2
-           |     |
-          Exp2   2
+          Exp2  Integer
+           |       |
+        Interger   2
            |
            1
+
 \end{verbatim}
 \noindent\newline This time the parenthesis is with the addition of 1 and 2. I started with multiplication (Exp1) because it is 3 being multiplied with the entire parenthesis. Exp1 will expand to Exp1 and Exp2. Exp1 will become the integer 3. Exp2 will first go back to Exp because this is a parenthesis and our rule allows to go back to Exp when Parenthesis is present. Exp will then expand to Exp and Exp1 for the addition. These will expand until the integers 1 and 2 are present. Then 1 added to 2 will become 3. 3 multiple with 3 will become 9. This answer is 9.
 
 \noindent\newline\newline For $$1+2*3+4*5+6$$ I got the following Parse Tree:
 \begin{verbatim}
-                ____Exp______
-               /              \
-            _Exp__           Exp1
-          /        \             \
-         Exp        Exp1          Exp2
-       /     \       /   \         |
-      Exp   Exp1   Exp1  Exp2      1
-     /      /  \     |    |
-    Exp1  Exp1 Exp2 Exp2  3
-     |      |    |    |
-    Exp2   Exp2  5    2  
-     |      |
-     6      4
-    
+           ________Exp________
+          /                    \
+        Exp1               _____Exp________ 
+       /                  /                 \
+     Exp2               Exp1                Exp 
+      |               /       \           /      \           
+    Integer          Exp1     Exp2       Exp1     Exp
+      |               |         |       /    \      \
+      1             Exp2      Integer Exp1  Exp2    Exp1 
+                     |          |      |     |        |
+                    Integer     3     Exp2  Integer  Exp2
+                     |                 |      |       |
+                     2                Integer 5      Integer
+                                       |              |
+                                       4              6 
 \end{verbatim}
 \noindent\newline This was by far the most complicated of the problems. To start, I expanded with the addition of 1 with everything else. This means Exp would be the root with Exp and Exp1 being the child nodes. Exp1 will become Exp2 then the integer 1. Now I must account for the other 5 numbers in the equation. Starting with Exp again I decided for the sum of 2 multiple with 3 being added to entire sum of 4 multiplied with 5 and then added with 1. Exp will expand to Exp and Exp1 for this addition. Exp1 will become the 2 times 3 side of the equation. Exp1 will expand to Exp1 and Exp2. Exp1 will expand until integer 2 is reached, and Exp2 is expanded until integer 3 is reached. Now back to the Exp that is being added with 2 times 3. This Exp will be expanded to Exp and Exp1. Exp will be expanded until integer 6 is reached. Exp1 is the multiplication formula. Exp1 will expand to Exp1 and Exp2. These two nodes will then be converted until integer 4 and 5 are reached. Now the tree is complete. First 1 will be added with the rest of the equation. The rest of the equation will have 2 multiplied with 3 become 6. 4 is multipled by 5 to become 20 then added with 6 to become 26. This 26 is added with 6 from 2 times 3. Then our 1 is added to become 33.
 
@@ -660,19 +671,24 @@ coercions Exp 2 ;
 \noindent\newline\newline For $$1+2*3+4*5+6$$ I got the following Abstract Syntax Tree:
 
 \begin{verbatim}
-        Plus
-       /     \
-      Num     Plus
-      /     /      \
-     1    Plus      Times
-        /    \     /    \
-      Times  Num  Num    Num 
-     /    \   |   |       |
-    Num  Num  6   2       3
-     |    |
-     4    5
+          ______Plus______
+        /                  \
+       __Plus__            Num
+     /         \             |
+    Plus       Times         6
+   /   \       /   \
+  Num  Times Num   Num
+   |   /  \   |     |
+   1  Num Num 4     5
+      |    |
+      2    3
 \end{verbatim}
 \noindent\newline This AST is much more complex than the other examples. To begin, I had Plus become the root, as 1 Plus other side of equation will be the child nodes. The nodes will be integer 1 and Plus. Plus will expand to Plus and Times. The Times will expand to the first part of the other equation of 2 Times 3. The Plus will expand to Times and integer 6. The Times will become 4 and 5. Doing this AST from bottom up, will have 4 Times 5 become 20. Then 20 Plus 6 becoming 26. 2 Times 3 becoming 6. 6 plus 26 becoming 32. Then finally 32 will be added with 1 to have 33 as the grand total, the same as the Parse Tree example.
+
+\noindent\newline\newline
+\textbf{Is the abstract syntax tree of 1+2+3 identical to the one of (1+2)+3 or the one of 1+(2+3)?}
+
+\noindent Yes, the AST are the same for these three equations.
 
 \subsection{Week 5} For this week's homework, the task was to create Abstract Syntax Trees and evaluate lambda expressions.
 
@@ -692,7 +708,7 @@ x y z
 \begin{verbatim}
 EVar(Ident "x")
 
-        Evar
+        EVar
          |
          x
 \end{verbatim}
@@ -701,7 +717,7 @@ EVar(Ident "x")
 EApp(EVar(Ident "x") EVar(Ident "x"))
          EApp
         /    \
-       Evar  Evar
+       EVar  EVar
         |     |
         x     x 
 \end{verbatim}
@@ -710,7 +726,7 @@ EApp(EVar(Ident "x") EVar(Ident "x"))
 EApp(EVar(Ident "x") EVar(Ident "y"))
         EApp
        /    \
-      Evar  Evar
+      EVar  EVar
        |     |
        x     y
 \end{verbatim}
@@ -719,9 +735,9 @@ EApp(EVar(Ident "x") EVar(Ident "y"))
 EApp (EApp (EVar (Ident "x")) (EVar (Ident "y"))) (EVar (Ident "z"))
        EApp
       /    \
-    Evar   EApp
+    EVar   EApp
      |    /    \
-     z   Evar  Evar
+     z   EVar  EVar
           |     |
           y     x
 \end{verbatim}
@@ -739,9 +755,9 @@ EAbs (Ident "x") (EVar (Ident "x"))
 EAbs (Ident "x") (EApp (EVar (Ident "x")) (EVar (Ident "x")))
              EAbs
            /     \
-        EApp     Evar
+        EApp     EVar
         /   \      |
-    Evar    Evar   x
+    EVar    EVar   x
       |       |
       x       x
 \end{verbatim}
@@ -752,15 +768,15 @@ EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EVar (Ident "x")) (EVar (I
 
            EApp
         /        \
-       EApp       Evar
+       EApp       EVar
     /      \        |
   EAbs      EAbs    z
   /  \      /  \
- x   EAbs   x   Evar
+ x   EAbs   x   EVar
      /  \        |
     y   EApp     x
        /    \
-      Evar  Evar
+      EVar  EVar
        |     |
        x     y
 \end{verbatim}
@@ -768,19 +784,23 @@ EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EVar (Ident "x")) (EVar (I
 \begin{verbatim}
 EApp (EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EApp (EVar (Ident "x")) (EVar (Ident "y"))) (EVar (Ident "z"))))) (EVar (Ident "a"))) (EVar (Ident "b"))) (EVar (Ident "c"))
 
-                            EApp
-                          /      \
-                       EApp       EApp
-                     /     \     /     \
-                    EAbs   EApp Evar   EApp
-                  /    \    |    |    /    \
-                 x    EAbs  Evar c   Evar   Evar
-                     /   \   |        |      |
-                    y   EApp z        b      a
-                        /  \
-                      Evar  Evar
-                       |     |
-                       x     y
+                  ________EApp________
+                /                      \
+              EApp                     EVar
+            /     \                      |
+          EApp    EVar                   c
+        /     \    |
+      EAbs   EVar  b
+     /   \      \  
+    x    EAbs    a
+        /    \
+       y     EApp 
+            /    \
+          EApp   EVar 
+         /   \    |
+        EVar EVar z
+        |     |
+        x     y
 \end{verbatim}
 \noindent\newline\newline These expressions start easy with simple free variables such as x. The problems gradually got harder to include bound variables, and would need to be changed if we were evaluating these expressions.
 
@@ -827,14 +847,14 @@ Here is the evaluation for number 5:
 \begin{verbatim}
   (\x.\y.x) a b c  
   (\y.a) b c
-  (\y.a) c = a
+  (\y.a) c = a c
 \end{verbatim}  
 
 Here is the evaluation for number 6:
 \begin{verbatim}
-  (\x.\y.y) a b c  
+  (\x.\y.y) a b c
   (\y.y) b c
-  (\y.b) c = b
+  (\y.b) c = b c
 \end{verbatim}  
 
 Here is the evaluation for number 7:
@@ -870,24 +890,76 @@ Here is the evaluation for number 11:
 Here is the evaluation for number 12:
 \begin{verbatim}
   (\x.\y.y) (a b c)
-  (\y.y) = y
+  (\y.y) = \y.y
 \end{verbatim}  
 
-Using Interpreter.hs, I got 
+\noindent\newline\newline
+Using the function evalCBN on Interpreter.hs, I got the following:
+
+\begin{verbatim}
+evalCBN (EApp (EAbs (Ident "x") (EVar (Ident "x"))) (EApp (EAbs (Ident "y") (EVar (Ident "y"))) 
+(EVar (Ident "a")))) =
+
+evalCBN (subst (Ident "x") (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a"))) (EVar (Ident "x"))) =
+
+evalCBN (EAbs (Ident "x") (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a"))))
+\end{verbatim}
 
 \begin{verbatim}
 (\x.x)((\y.y)a)
-(\x.x)(\y.a) = (\x.\y.a)
+(\x.(\y.y)a) = (\x.(\y.a))
 = a
+\end{verbatim}
+
+\subsection{Week 6}
+\subsubsection{Evaluation}
+The goal this week was to Evaluate \begin{verbatim}
+(\exp . \two . \three . exp two three)
+(\m.\n. m n)
+(\f.\x. f (f x))
+(\f.\x. f (f (f x)))
+\end{verbatim}
+
+\noindent\newline\newline Here is what I got:
+
+\begin{verbatim}
+(\exp . \two . \three . exp two three)
+(\m.\n. m n)
+(\f.\x. f (f x))
+(\f.\x. f (f (f x)))
+=
+((\m.\n. m n) (\f.\x. f (f x)) (\f2.\x2. f2 (f2 (f2 x2))))
+=
+((\n. (\f.\x. f (f x)) n) (\f2.\x2. f2 (f2 (f2 x2))))
+=
+(((\f.\x. f (f x)) (\f2.\x2. f2 (f2 (f2 x2)))))
+=
+(((\x. (\f2.\x2. f2 (f2 (f2 x2))) ((\f2.\x2. f2 (f2 (f2 x2))) x))))
+=
+(((\x. (\f2.\x2. ((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))))
+=
+(((\x. (\f2.\x2. ((\x2. x (x (x x2)))) (((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))))
+=
+(((\x. (\f2.\x2. ((x (x (x (((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))))))))
+=
+(((\x. (\f2.\x2. ((x (x (x (((\x2. x (x (x x2)))) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))))))))
+=
+(((\x. (\f2.\x2. ((x (x (x (((x (x (x (((\f2.\x2. f2 (f2 (f2 x2))) x) x2)))))))))))))
+=
+(((\x. (\f2.\x2. ((x (x (x (((x (x (x (((\x2. x (x (x x2)))) x2)))))))))))))
+=
+(((\x. (\f2.\x2. ((x (x (x (((x (x (x (((x (x (x x2)))))))))))))))))
+=
+(((\x. (\f2.\x2. ((x (x (x (((x (x (x (((x (x (x x2)))))))))))))))))
 \end{verbatim}
 
 \section{Project}
 
-Introductory remarks ...
-
-The following structure should be suitable for most practical projects. 
-
+Swift, created in 2014 by Apple, is a language predominantly to build applications for computers, phones, and more. This programming language allowed for better User-Interface and easier understanding on how to build specific ideas in the application. 
 \subsection{Specification}
+This project will be learning the programming language Swift, then creating an easy-to-follow tutorial, and finally implement an interesting project using what I learned. The final coding project has not yet been decided, but I will first download the necessary applications, packages, and more. Then I will follow tutorials and watch videos about how to program in Swift.
+
+
 \subsection{Prototype}
 \subsection{Documentation}
 \subsection{Critical Appraisal}
