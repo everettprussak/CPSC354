@@ -1,0 +1,6 @@
+(\x.\y.x) y z
+
+evalCBN (EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EVar (Ident "x")))) (EVar (Ident "y"))) (EVar (Ident "z"))) = From Parser
+evalCBN ((EAbs (Ident "x") (EAbs (Ident "y") (EVar (Ident "x")))) (EVar (Ident "z")) (EVar (Ident "y"))) = Line 27
+evalCBN (EVar (Ident "y")) = Line 48
+EVar(Ident "y") = Line 32

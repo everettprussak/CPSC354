@@ -1,5 +1,5 @@
 \documentclass{article}
-
+\usepackage{graphicx}
 \usepackage{amsthm}
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -16,6 +16,7 @@
     }
     
 \usepackage{listings}
+
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -69,104 +70,7 @@ Consisting of CPSC 354 material
 
 This Report contains mainly consists of the Homework for each week, and the main project. In section 1, you can find the stuff done by Professor Kurz. Section 2 consists of Homework for each week. Section 3 consists of the project.
 
-\subsection{General Remarks}
-
-First you need to \href{https://www.latex-project.org/get/}{download and install} LaTeX.\footnote{Links are typeset in blue, but you can change the layout and color of the links if you locate the  \texttt{hypersetup} command.}
-%
-For quick experimentation, you can use an online editor such as \href{https://www.overleaf.com/learn}{Overleaf}. But to grade the report I will used the time-stamped pdf-files in your git repository.  
-
- 
-\medskip\noindent
-LaTeX is a markup language (as is, for example, HTML). The source code is in a \verb+.tex+ file and needs to be compiled for viewing, usually to \verb+.pdf+.
-
-
-\medskip\noindent
-If you want to change the default layout, you need to type commands. For example, \verb+\medskip+ inserts a medium vertical space and \verb+\noindent+ starts a paragraph without indentation.
- 
-\medskip\noindent
-Mathematics is typeset between double dollars, for example $$x+y=y+x.$$
-
-
-\subsection{LaTeX Resources}
-
-I start a new subsection, so that you can see how it appears in the table of contents.
-
-\subsubsection{Subsubsections}
-
-Sometimes it is good to have subsubsections.
-
-\subsubsection{Itemize and enumerate}
-
-\begin{itemize}
-\item This is how you itemize in LaTeX.
-\item I think a good way to learn LaTeX is by starting from this template file and build it up step by step. Often stackoverflow will answer your questions. But here are a few resources:
-  \begin{enumerate}
-  \item \href{https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes}{Learn LaTeX in 30 minutes}
-  \item \href{https://www.latex-project.org/}{LaTeX – A document preparation system}\end{enumerate}
-\end{itemize}
-
-\subsubsection{Typesetting Code}
-
-A typical project will involve code. For the example below I took the LaTeX code from \href{https://stackoverflow.com/a/3175141/4600290}{stackoverflow} and the Haskell code from \href{https://hackmd.io/@alexhkurz/HylLKujCP}{my tutorial}.
-
-\begin{lstlisting}
--- run the transition function on a word and a state
-run :: (State -> Char -> State) -> State -> [Char] -> State
-run delta q [] = q
-run delta q (c:cs) = run delta (delta q c) cs 
-\end{lstlisting}
-%
-Short snippets such as \texttt{run :: (State -> Char -> State) -> State -> [Char] -> State} can also be directly fitted into text. There are several ways of doing this, for example, \verb@run :: (State -> Char -> State) -> State -> [Char] -> State@ is slightly different in terms of spaces and linebreaking (and can lead to layout that is better avoided), as is
-\begin{verbatim}run :: (State -> Char -> State) -> State -> [Char] -> State\end{verbatim}
-
-\noindent
-For more on the topic see \href{https://www.overleaf.com/latex/examples/code-presentations-example-different-ways-shown-in-beamer-metropolis/tsxpnyjbhbds}{Code-Presentations Example}.
-
-\medskip\noindent
-Generally speaking,  the methods for displaying code discussed above work well only for short listings of code. For entire programs, it is better to have external links to, for example, Github or \href{https://replit.com/@alexhkurz/automata01#main.hs}{Replit} (click on the "Run" button and/or the ``Code" tab).
-
-\subsubsection{More Mathematics}
-
-We have already seen $x+y=y+x$ as an example of inline maths. We can also typeset mathematics in display mode, for example
-$$\frac x y =\frac{xy}{y^2},$$
-
-\noindent
-Here is an example of equational reasoning that spans several lines:
-\begin{align*}
-{\rm fib}(3)
-& = {\rm fib}(1) +{\rm fib}(2)  & {\rm fib}(n+2) = {\rm fib}(n)  + {\rm fib}(n+1) \\
-& = {\rm fib}(1) +{\rm fib}(0)  + {\rm fib}(1) & {\rm fib}(n+2) = {\rm fib}(n)  + {\rm fib}(n+1) \\
-& = 1 + 0  +1 & {\rm fib}(0) = 0,   {\rm fib}(1) = 1\\
-& = 2 & {\rm arithmetic}
-\end{align*}
-
-\subsubsection{Definitons, Examples, Theorems, Etc}
-
-\begin{definition} 
-This is a definition.
-\end{definition}
-
-\begin{example}
-This is an example.
-\end{example}
-
-\begin{proposition}
-This is a proposition.
-\end{proposition}
-
-\begin{theorem}
-This is a theorem.
-\end{theorem}
-
-\noindent You can also create your own environment, eg if you want to have Question, Notation, Conjecture, etc.
-
-\subsection{Plagiarism}
-
-To avoid plagiarism, make sure that in addition to \cite{PL} you also cite all the external sources you use. Make sure you cite all your references in your text, not only at the end.
-
-\section{Homework}\label{homework}
-
-This section will contain your solutions to homework. 
+\section{Homework}
 
 \subsection{Week 1}
 
@@ -511,9 +415,9 @@ Exp1 -> Exp2
 \noindent\newline For $$2+1$$ I got the following Parse Tree:
 
 \begin{verbatim}
-        Exp
-       /    \
-      Exp    Exp1
+         Exp
+       /  |  \
+      Exp '+' Exp1
      /         \
     Exp1        Exp2
    /             \
@@ -528,40 +432,40 @@ Integer            1
 \noindent\newline\newline For $$1+2*3$$ I got the following Parse Tree:
 
 \begin{verbatim}
-         Exp
-        /    \
-      Exp    Exp1
-      /      /   \
-    Exp1   Exp1  Exp2
-    /        |      \
-   Exp2     Exp2    Integer
-    |        |          |
- Integer    Integer     3
-    |        |
-    1        2
+         __ Exp__
+        /    |   \
+      Exp   '+'   __Exp1__
+      /          /    |    \
+    Exp1       Exp1  '*'   Exp2
+    /           |          |
+   Exp2        Exp2      Integer
+    |           |           |
+ Integer      Integer       3
+    |           |
+    1           2
     \end{verbatim}
 \noindent\newline This Tree starts similar to last time with Exp. Exp will expand to Exp and Exp1. Exp will expand directly until it is the integer 1. Exp1 will expand to Exp1 and Exp2 for multiplication. Exp1 and Exp2 from this will become 2 and 3. This will allow the tree to calculate 2 times 3 to become 6. Then the root will have the two nodes of 1 and 6 to add to become 7.
 
 
 \noindent\newline\newline For $$1+(2*3)$$ I got the following Parse Tree:
 \begin{verbatim}
-        Exp
-       /    \
-     Exp    Exp1
-    /          \
-   Exp1        Exp2
-   |             |
-   Exp2         Exp
-   |             |
- Integer        Exp1
-   |           /    \
-   1        Exp1   Exp2
-              |       |
-             Exp2   Integer
-              |        |
-            Integer    3
-              |
-              2
+        ___Exp____
+       /    |      \
+     Exp   '+'    Exp1
+    /               |
+   Exp1            Exp2
+   |             /  |  \
+   Exp2        '(' Exp ')'
+   |                |
+ Integer           Exp1
+   |              /    \
+   1           Exp1   Exp2
+                |       |
+               Exp2   Integer
+                |        |
+              Integer    3
+                |
+                2
 
 \end{verbatim}
 \noindent\newline This is a little more complex than the prior example, but will end with the same answer of 7. Exp will expand to Exp and Exp1 for addition. Exp will expand until it becomes the integer of 1. Exp1 will become Exp2 then Exp because this had parenthesis. Exp will expand to Exp1, then Exp1 will expand to Exp1 and Exp2. These will become 2 and 3 so it will be multiplied together. Then this will finally become 7 if calculated.
@@ -569,42 +473,42 @@ Integer            1
 
 \noindent\newline\newline For $$(1+2)*3$$ I got the following Parse Tree:
 \begin{verbatim}
-        Exp1
-       /   \
-     Exp1   Exp2
-    /         |
-   Exp2      Exp
-  /         /   \
-Integer   Exp   Exp1
-  |       |     |
-  3       Exp1  Exp2
-           |     |
-          Exp2  Integer
-           |       |
-        Interger   2
-           |
-           1
+        ____Exp1___
+       /     |     \
+     Exp1   '*'     Exp2
+    /            /  |   \
+   Exp2        '('  Exp ')'
+  /               /  |  \
+Integer         Exp '+'  Exp1
+  |             |         |
+  3            Exp1      Exp2
+                |         |
+              Exp2      Integer
+                |         |
+             Interger     2
+                |
+                1
 
 \end{verbatim}
 \noindent\newline This time the parenthesis is with the addition of 1 and 2. I started with multiplication (Exp1) because it is 3 being multiplied with the entire parenthesis. Exp1 will expand to Exp1 and Exp2. Exp1 will become the integer 3. Exp2 will first go back to Exp because this is a parenthesis and our rule allows to go back to Exp when Parenthesis is present. Exp will then expand to Exp and Exp1 for the addition. These will expand until the integers 1 and 2 are present. Then 1 added to 2 will become 3. 3 multiple with 3 will become 9. This answer is 9.
 
 \noindent\newline\newline For $$1+2*3+4*5+6$$ I got the following Parse Tree:
 \begin{verbatim}
-           ________Exp________
-          /                    \
-        Exp1               _____Exp________ 
-       /                  /                 \
-     Exp2               Exp1                Exp 
-      |               /       \           /      \           
-    Integer          Exp1     Exp2       Exp1     Exp
-      |               |         |       /    \      \
-      1             Exp2      Integer Exp1  Exp2    Exp1 
-                     |          |      |     |        |
-                    Integer     3     Exp2  Integer  Exp2
-                     |                 |      |       |
-                     2                Integer 5      Integer
-                                       |              |
-                                       4              6 
+                ____________Exp__________
+               /             |            \
+            _____Exp_____   '+'          Exp1
+          /       |      \                  \
+          Exp    '+'       Exp1            Exp2
+       /   |  \          /   |   \          |
+      Exp '+' Exp1     Exp1 '*'  Exp2     Integer
+     /      /   |  \    |            |     |
+    Exp1  Exp1 '* Exp2  Exp2      Integer  6
+     |      |      |      |          |
+    Exp2   Exp2 Integer  Integer     5
+     |      |       \     |
+    Integer Integer  3    4
+    |       |
+    1       2
 \end{verbatim}
 \noindent\newline This was by far the most complicated of the problems. To start, I expanded with the addition of 1 with everything else. This means Exp would be the root with Exp and Exp1 being the child nodes. Exp1 will become Exp2 then the integer 1. Now I must account for the other 5 numbers in the equation. Starting with Exp again I decided for the sum of 2 multiple with 3 being added to entire sum of 4 multiplied with 5 and then added with 1. Exp will expand to Exp and Exp1 for this addition. Exp1 will become the 2 times 3 side of the equation. Exp1 will expand to Exp1 and Exp2. Exp1 will expand until integer 2 is reached, and Exp2 is expanded until integer 3 is reached. Now back to the Exp that is being added with 2 times 3. This Exp will be expanded to Exp and Exp1. Exp will be expanded until integer 6 is reached. Exp1 is the multiplication formula. Exp1 will expand to Exp1 and Exp2. These two nodes will then be converted until integer 4 and 5 are reached. Now the tree is complete. First 1 will be added with the rest of the equation. The rest of the equation will have 2 multiplied with 3 become 6. 4 is multipled by 5 to become 20 then added with 6 to become 26. This 26 is added with 6 from 2 times 3. Then our 1 is added to become 33.
 
@@ -893,23 +797,25 @@ Here is the evaluation for number 12:
   (\y.y) = \y.y
 \end{verbatim}  
 
-\noindent\newline\newline
-Using the function evalCBN on Interpreter.hs, I got the following:
-
-\begin{verbatim}
-evalCBN (EApp (EAbs (Ident "x") (EVar (Ident "x"))) (EApp (EAbs (Ident "y") (EVar (Ident "y"))) 
-(EVar (Ident "a")))) =
-
-evalCBN (subst (Ident "x") (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a"))) (EVar (Ident "x"))) =
-
-evalCBN (EAbs (Ident "x") (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a"))))
-\end{verbatim}
-
+\subsubsection{evalCBN calculation}
+The task her was to write by hand the calculation of 
 \begin{verbatim}
 (\x.x)((\y.y)a)
-(\x.(\y.y)a) = (\x.(\y.a))
-= a
 \end{verbatim}
+
+using evalCBN in interpreter.hs.
+
+Clearly the answer here would simply be "a", but in terms of what the computer sees will be different
+
+\begin{verbatim}
+evalCBN (EApp (EAbs (Ident "x") (EVar (Ident "x"))) (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a")))) = Parser
+evalCBN (subst (Ident "x") (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a"))) EVar (Ident "x")) = Line 27
+evalCBN (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a"))) = Line 47
+evalCBN (subst (Ident "y") (EVar (Ident "a")) (EVar (Ident "x"))) = Line 27
+evalCBN (EVar (Ident "a")) = Line 47
+EVar (Ident "a") = Line 32
+\end{verbatim}
+
 
 \subsection{Week 6}
 \subsubsection{Evaluation}
@@ -951,6 +857,216 @@ The goal this week was to Evaluate \begin{verbatim}
 (((\x. (\f2.\x2. ((x (x (x (((x (x (x (((x (x (x x2)))))))))))))))))
 =
 (((\x. (\f2.\x2. ((x (x (x (((x (x (x (((x (x (x x2)))))))))))))))))
+\end{verbatim}
+
+\subsection{Week 7}
+For week 7, there were a variety of tasks. The first was to draw a picture for a number of ARSs. Next was to find an example of an ARS for specific cases. Another task was to the variable for certain lines. evalCBN for hw5 if not done, but in my case is done in Week 5 section. Lastly to use evalCBN for another lambda term.
+
+\subsubsection{ARS Picture/Determination}
+
+The task in this section was to \begin{verbatim}
+Consider the following list of ARSs.
+1. A = {}
+2. A = {a} and R = {}
+3. A= {a} and R = {(a,a)}
+4. A = {a,b,c} and R = {(a,b),(a,c)}
+5. A = {a,b} and R = {(a,a),(a,b)}
+6. A = {a,b,c} and R = {(a,b),(b,b),(a,c)}
+7. A = {a,b,c} and R = {(a,b),(b,b),(a,c),(c,c)}
+
+Draw a picture for each of the ARSs.
+
+Is the ARS terminating? Is it confluent? Does it have unique normal forms?
+\end{verbatim}
+
+\noindent Picture 1:
+\includegraphics{image1}
+\noindent\newline It is terminating, it is not confluent, and it does not have unique normal forms.
+
+\noindent\newline\newline Picture 2:
+\includegraphics{image2}
+\noindent\newline It is terminating, it is not confluent, and it does not have unique normal forms.
+
+\noindent\newline\newline Picture 3:
+\includegraphics{image3}
+\noindent\newline It is not terminating, it is not confluent, and it does not have unique normal forms.
+
+\noindent\newline\newline Picture 4:
+\includegraphics{image4}
+\noindent\newline It is terminating, it is not confluent, and it does not have unique normal forms.
+
+\noindent\newline\newline Picture 5:
+\includegraphics{image5}\noindent\newline It is not terminating, it is not confluent, and it does have unique normal forms. b is the UNF of a.
+
+
+\noindent\newline\newline Picture 6:
+\includegraphics{image6}\noindent\newline It is not terminating, it is not confluent, and it does not have unique normal forms.
+
+
+\noindent\newline\newline Picture 7:
+\includegraphics{image7}\noindent\newline It is not terminating, it is not confluent, and it does not have unique normal forms.
+
+
+\subsubsection{ARS examples}
+In this section of the homework, the task was to try find an example of an ARS for specific combinations, and to draw the picture of that example. 
+
+Here are the combinations that are being tested:
+
+\includegraphics[scale=0.5]{combinations}
+
+\hrulefill
+
+\noindent\newline For number 1, confluent = True, terminating = True, and Unique Normal Form = True, I got the following ARS:
+
+\includegraphics{part2}
+
+\noindent\newline Here, confluence, terminating, and Unique Normal Form are all true. The a is the peak, and b and c reduce into d which is the valley. There is no possibility of having an infinite loop. Lastly, d is the UNF.
+
+\hrulefill
+
+\noindent\newline\newline For number 2, confluent = True, terminating = True, and Unique Normal Form = False, I got the following ARS:
+
+
+
+\noindent\newline There is not an example for this situation. When Confluence and Terminating are True, that means that UNF must be true. There will not be any situation or diagram where this is not true.
+
+\hrulefill
+
+\noindent\newline\newline For number 3, confluent = True, terminating = False, and Unique Normal Form = True, I got the following ARS:
+
+\includegraphics{part4}
+
+\noindent\newline Similar to my example in number 1, Confluence is true due to the peak existing with a valley. d would be the UNF in this case. Lastly, it is not terminating because of the possibility of an endless loop on a.
+
+\hrulefill
+
+\noindent\newline\newline For number 4, confluent = True, terminating = False, and Unique Normal Form = False, I got the following ARS:
+
+\includegraphics{part4_corrent}
+
+\noindent\newline Here confluence is true due to the peak and valley being present. Terminating would be false because of the possibility of having an endless loop. Lastly a,b,c, and d all have a possibility of an endless loop, which means that none of them are normal forms, meaning no UNF could be possible.
+
+\hrulefill
+
+\noindent\newline\newline For number 5, confluent = False, terminating = True, and Unique Normal Form = True, I got the following ARS:
+
+\includegraphics{part5}
+
+\noindent\newline In this example, a is the peak, but there is no "valley". This means that it is not confluent. This ARS would be terminating, as there are no possibilities for an endless loop anywhere, and it simply starts at a then goes to b. Lastly b is the UNF for a because b is a normal form, meaning that it does not reduce, and it is a's only normal form.
+
+\hrulefill
+
+\noindent\newline\newline For number 6, confluent = False, terminating = True, and Unique Normal Form = False, I got the following ARS:
+
+\includegraphics{part6}
+
+\noindent\newline Again, a is the peak, but there is no valley. This means that confluent is false for this ARS. This is terminating because a, b, and c, do not have opportunity to be part of an endless loop anywhere. This ARS would simply start at a then go to b or c. This ARS does not have a UNF because b and c are both normal forms, but a must only have one normal form to have a UNF. 
+
+\hrulefill
+
+\noindent\newline\newline For number 7, confluent = False, terminating = False, and Unique Normal Form = True, I got the following ARS:
+
+\includegraphics{part7}
+
+\noindent\newline a is the peak, and there is again no valley. This means it is not confluent. In this ARS, a has potential to be in an endless loop, making it not terminating. Lastly, b is the only normal form of a, and means it is the UNF of a.
+
+\hrulefill
+
+\noindent\newline\newline For number 8, confluent = False, terminating = False, and Unique Normal Form = False, I got the following ARS:
+
+\includegraphics{part8}
+
+\noindent\newline Similar to number 7, but instead of just b from a, there is b and c. That means that both are normal forms, but a must only have one normal form to have an unique normal form. In this case, all 3 are False.
+
+\hrulefill
+
+\subsubsection{Bound and Free Variables}
+In this section of Week 7, the task was to 
+\begin{verbatim}
+in lines 5-7 and also in lines 18-22 explain for each variable
+
+- whether it is bound or free
+- if it is bound say what  the binder and the scope of the variable are
+\end{verbatim}
+
+\noindent\newline Here are lines 5-7 that are referred to: 
+\begin{verbatim}
+evalCBN (EApp e1 e2) = case (evalCBN e1) of
+    (EAbs i e3) -> evalCBN (subst i e2 e3)
+    e3 -> EApp e3 e2
+\end{verbatim}
+
+\noindent\newline The variables e1 and e2 are both bound variables. Their scope goes from the line 5 to line 7. The reason they are bound variables is because the rest of the this function uses e1 and e2 because of there instance in \begin{verbatim} evalCBN (EApp e1 e2) \end{verbatim}
+
+\noindent which tells us that the other lines are bound by the occurrence of e1 and e2.
+\noindent\newline\newline The binder of the variables e1 and e2 is
+\begin{verbatim}
+(EApp e3 e2)
+\end{verbatim}
+
+\noindent\newline\newline The variable i and e3 (on line 6) is a bound variable. The scope is just the line it is on, which is line 6, 
+\begin{verbatim}
+evalCBN (subst i e2 e3)
+\end{verbatim}
+The binder is 
+\begin{verbatim}
+(EAbs i e3).
+\end{verbatim}
+
+\noindent\newline\newline The second instance of e3, which is different than the one mentioned on line 6, has a scope of 
+\begin{verbatim}
+EApp e3 e2
+\end{verbatim}
+and a binder of
+\begin{verbatim}
+e3
+\end{verbatim}
+
+
+\noindent\newline\newline\newline Here are the lines 18-22 that are referred to:
+\begin{verbatim}
+subst id s (EAbs id1 e1) =
+    let f = fresh (EAbs id1 e1)
+        e2 = subst id1 (EVar f) e1 in 
+        EAbs f (subst id s e2)
+        
+\end{verbatim}
+
+\noindent\newline For the variable id, s, id1, and e1, they are all bound variables. The scope would be lines 18-22, and the binder for s would be 
+\begin{verbatim} 
+id s (EAbs id1 e1)
+\end{verbatim}
+
+\noindent\newline The variable f would also be a bound variable. The scope would be from lines 19 to 22. The binder would be 
+\begin{verbatim}
+let f
+\end{verbatim}
+
+\noindent\newline the variable e2 would also be a bound variable. The scope would be from line 20-22. The binder would be 
+\begin{verbatim}
+e2
+\end{verbatim}
+
+
+\noindent\newline 
+
+\noindent\newline The binder for id1 and e1 would be \begin{verbatim} (EAbs id1 e1) \end{verbatim}
+
+\subsubsection{evalCBN calculation, part 2}
+
+\noindent The task here was to use evalCBN and subst from Interpreter.hs, and solve by hand showing how to computer processes this information and calculations.
+
+\begin{verbatim}
+(\x.\y.x) y z
+\end{verbatim}
+
+This was the lambda expression given. If calculating here, the answer would simply be the second y, which would have to be substituted.
+
+\begin{verbatim}
+evalCBN (EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EVar (Ident "x")))) (EVar (Ident "y"))) (EVar (Ident "z"))) = From Parser
+evalCBN ((EAbs (Ident "x") (EAbs (Ident "y") (EVar (Ident "x")))) (EVar (Ident "z")) (EVar (Ident "y"))) = Line 27
+evalCBN (EVar (Ident "y")) = Line 48
+EVar(Ident "y") = Line 32
 \end{verbatim}
 
 \section{Project}

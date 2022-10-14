@@ -9,7 +9,7 @@ EApp(EVar(Ident "x") EVar(Ident "x"))
         /    \
        Evar  Evar
         |     |
-        x     x 
+        x     x
 
 
 EApp(EVar(Ident "x") EVar(Ident "y"))
@@ -55,7 +55,7 @@ EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EVar (Ident "x")) (EVar (I
     /      \        |
   EAbs      EAbs    z
   /  \      /  \
- x   EAbs   x   Evar
+    EAbs   x   Evar
      /  \        |
     y   EApp     x
        /    \
@@ -83,6 +83,25 @@ EApp (EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EApp (EVar (Ident "x
                        x     y
 
 
+                  ________EApp________
+                /                     \
+              EApp                     EVar
+            /     \                      |
+          EApp    EVar                   c
+        /     \    |
+      EAbs   EVar  b
+     /   \      \
+    x    EAbs    a
+        /    \
+       y     EApp
+            /    \
+          EApp   EVar
+         /   \    |
+        EVar EVar z
+        |     |
+        x     y
+
+
 
 
 
@@ -90,34 +109,35 @@ evalCBN (EApp e1 e2) = case (evalCBN e1) of
     (EAbs i e3) -> evalCBN (subst i e2 e3)
     e3 -> EApp e3 e2
 
-  (\x.x) a = a 
-  \x.x a = a   
+  (\x.x) a = a
 
-  (\x.\y.x) a b 
+  \x.x a = a
+
+  (\x.\y.x) a b
   (\y.a) b = a
 
-  (\x.\y.y) a b   
+  (\x.\y.y) a b
   (\y.y) b = b
 
-  (\x.\y.x) a b c  
+  (\x.\y.x) a b c
   (\y.a) b c
-  (\y.a) c = a
+  (\y.a) c = a c
 
-  (\x.\y.y) a b c  
+  (\x.\y.y) a b c
   (\y.y) b c
-  (\y.b) c = b
+  (\y.b) c = b c
 
   (\x.\y.x) a (b c)
   (\y.a) (b c) = a
 
   (\x.\y.y) a (b c)
-  (\y.y) (b c) = b c 
+  (\y.y) (b c) = b c
 
   (\x.\y.x) (a b) c
   (\y.a b) c = a b
 
   (\x.\y.y) (a b) c
-  (\y.y) c = c 
+  (\y.y) c = c
 
   (\x.\y.x) (a b c)
   (\y.a b c) = a b c
@@ -127,6 +147,10 @@ evalCBN (EApp e1 e2) = case (evalCBN e1) of
 
 
 (\x.x)((\y.y)a)
-(\x.x)(\y.a) = (\x.\y.a)
-= a
- 
+
+evalCBN (EApp (EAbs (Ident "x") (EVar (Ident "x"))) (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a")))) = Parser
+evalCBN (subst (Ident "x") (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a"))) EVar (Ident "x")) = Line 27
+evalCBN (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a"))) = Line 47
+evalCBN (subst (Ident "y") (EVar (Ident "a")) (EVar (Ident "x"))) = Line 27
+evalCBN (EVar (Ident "a")) = Line 47
+EVar (Ident "a") = Line 32
