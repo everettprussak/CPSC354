@@ -881,22 +881,22 @@ Is the ARS terminating? Is it confluent? Does it have unique normal forms?
 
 \noindent Picture 1:
 \includegraphics{image1}
-\noindent\newline It is terminating, it is not confluent, and it does not have unique normal forms.
+\noindent\newline It is terminating, it is confluent, and it has a unique normal form.
 
 \noindent\newline\newline Picture 2:
 \includegraphics{image2}
-\noindent\newline It is terminating, it is not confluent, and it does not have unique normal forms.
+\noindent\newline It is terminating, it is confluent, and it has a unique normal form.
 
 \noindent\newline\newline Picture 3:
 \includegraphics{image3}
-\noindent\newline It is not terminating, it is not confluent, and it does not have unique normal forms.
+\noindent\newline It is not terminating, it is confluent, and it does not have unique normal forms.
 
 \noindent\newline\newline Picture 4:
 \includegraphics{image4}
 \noindent\newline It is terminating, it is not confluent, and it does not have unique normal forms.
 
 \noindent\newline\newline Picture 5:
-\includegraphics{image5}\noindent\newline It is not terminating, it is not confluent, and it does have unique normal forms. b is the UNF of a.
+\includegraphics{image5}\noindent\newline It is not terminating, it is confluent, and it does have unique normal forms. b is the UNF of a.
 
 
 \noindent\newline\newline Picture 6:
@@ -927,7 +927,6 @@ Here are the combinations that are being tested:
 \noindent\newline\newline For number 2, confluent = True, terminating = True, and Unique Normal Form = False, I got the following ARS:
 
 
-
 \noindent\newline There is not an example for this situation. When Confluence and Terminating are True, that means that UNF must be true. There will not be any situation or diagram where this is not true.
 
 \hrulefill
@@ -950,9 +949,7 @@ Here are the combinations that are being tested:
 
 \noindent\newline\newline For number 5, confluent = False, terminating = True, and Unique Normal Form = True, I got the following ARS:
 
-\includegraphics{part5}
-
-\noindent\newline In this example, a is the peak, but there is no "valley". This means that it is not confluent. This ARS would be terminating, as there are no possibilities for an endless loop anywhere, and it simply starts at a then goes to b. Lastly b is the UNF for a because b is a normal form, meaning that it does not reduce, and it is a's only normal form.
+\noindent\newline There is no scenario that exists for this situation. When Confluence is false, UNF will never be true. 
 
 \hrulefill
 
@@ -966,9 +963,8 @@ Here are the combinations that are being tested:
 
 \noindent\newline\newline For number 7, confluent = False, terminating = False, and Unique Normal Form = True, I got the following ARS:
 
-\includegraphics{part7}
 
-\noindent\newline a is the peak, and there is again no valley. This means it is not confluent. In this ARS, a has potential to be in an endless loop, making it not terminating. Lastly, b is the only normal form of a, and means it is the UNF of a.
+\noindent\newline There is not an example for this scenario. When confluence is false, UNF will always never be True.
 
 \hrulefill
 
@@ -1063,11 +1059,53 @@ e2
 This was the lambda expression given. If calculating here, the answer would simply be the second y, which would have to be substituted.
 
 \begin{verbatim}
-evalCBN (EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EVar (Ident "x")))) (EVar (Ident "y"))) (EVar (Ident "z"))) = From Parser
-evalCBN ((EAbs (Ident "x") (EAbs (Ident "y") (EVar (Ident "x")))) (EVar (Ident "z")) (EVar (Ident "y"))) = Line 27
+evalCBN (EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EVar (Ident "x")))) 
+EVar (Ident "y"))) (EVar (Ident "z"))) = From Parser
+
+evalCBN ((EAbs (Ident "x") (EAbs (Ident "y") (EVar (Ident "x")))) (EVar (Ident "z")) 
+(EVar (Ident "y"))) = Line 27
+
 evalCBN (EVar (Ident "y")) = Line 48
+
 EVar(Ident "y") = Line 32
 \end{verbatim}
+
+\subsection{Week 8}
+This week the task was to examine the rewrite rules of
+\begin{verbatim}
+  aa -> a
+  bb -> b
+  ba -> ab
+  ab -> ba
+\end{verbatim}
+and to answer the following questions:
+\begin{verbatim}
+1. Why does the ARS not terminate?
+2. What are the normal forms?
+3. Can you change the rules so that the new ARS has unique normal forms (but still has 
+the same equivalence relation)?
+4. What do the normal forms mean? Describe the function implemented by the ARS.
+\end{verbatim}
+\noindent For \textbf{number 1}, the ARS as currently constructed would \textbf{not terminate} because the rules 
+\begin{verbatim}
+  ba -> ab
+  ab -> ba
+\end{verbatim}
+\noindent These two rules are doing the opposite of each other. Every time ba transforms into ab, ab will transform back to ba. This will continue to happen, and will be an endless loop, meaning that these rewrite rules are not terminating.
+
+\noindent\newline\newline For \textbf{number 2}, the normal forms would be a and b. Since aa reduces to a, and bb reduces to b, but a and b do not reduce to anything, these would be the normal forms.
+
+\noindent\newline\newline \textbf{number 3:} Here are the rules I changed so that the new ARS has unique normal forms, and still has the same equivalence relation.
+
+\begin{verbatim}
+  aa -> a
+  bb -> b
+  ba -> ab
+\end{verbatim}
+
+\noindent I simply got rid of the last rule. a is the UNF for aa, and b is the UNF for bb. Since the rewriting rules are terminating now, this will allow for UNF to exist.
+
+\noindent\newline\newline \textbf{number 4:} The normal forms mean that it does not reduce into anything else. 
 
 \section{Project}
 
