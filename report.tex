@@ -1107,6 +1107,90 @@ the same equivalence relation)?
 
 \noindent\newline\newline \textbf{number 4:} The normal forms mean that it does not reduce into anything else. 
 
+\subsection{Week 9} In week 9, the task were to describe 3 milestones for the project and analysis of ARSs
+
+\subsubsection{Project Milestones} For the project, there are going to be 3 main milestones that will allow this project to be done smoothly. The first milestone will be to research strengths and weaknesses about the programming language Swift. This should be fully done by November 8th, or earlier if possible. This task will require research that should take a few days, and some time to write about it in the Report section. The next milestone will be to come up with an idea of an App or Game that will show how these strengths and weaknesses affect coding in this language. This should be done November 13th, as this is a brainstorming section. When I decide, I will write about why I choose to do the App/Game, and how it is related to prior sections of the report. Lastly, I will fully build the App/Game to a working prototype by the early December (December 2nd?). I am not sure how long this will take, so I am not sure what exact deadline I should give myself. I want to have some of the App/Game done before thanksgiving break to show its progress, then to be fully done before Finals week. There will be more explaining on specific things I did in my code, how the app/game works, and links to where I have my code.
+
+\subsubsection{ARSs Analysis}
+The first set of rules were
+\begin{verbatim}
+ba -> ab
+ab -> ba
+ac -> ca
+ca -> ac
+bc -> cb
+cb -> bc
+ 
+aa -> b
+ab -> c
+ac ->  
+bb ->
+cb -> a
+cc -> b
+\end{verbatim}
+First off, this schema of rules does not terminate. If drawn out, you would see that ba would point to ab, then ab would point back to ba. This would repeat and repeat. This happens for all of these rules, and will be stuck in an infinite loop. The top set of rules would cause issues in many ways.
+
+\noindent\newline 
+
+This a rewrite I would do to put the letters in alphabetical order, and would allow for termination to exist. 
+
+\begin{verbatim}
+ba -> ab
+ca -> ac
+cb -> bc
+\end{verbatim}
+
+\noindent\newline Here there would be no infinite loops, and would allow for calculation to progress.
+
+Here is an example that this works better for just the top set of rules:
+\begin{verbatim}
+cabbabcba
+acbbabcba
+abcbabcba
+abbcabcba
+abbacbcba
+ababcbcba
+aabbcbcba
+aabbbccba
+aabbbcbca
+aabbbbcca
+aabbbbcac
+aabbbbacc
+aabbbabcc
+aabbabbcc
+aababbbcc
+aaabbbbcc
+
+
+\end{verbatim}
+
+\noindent\newline To progress further with these rules, we can see:
+
+\begin{verbatim}
+ba -> ab
+ca -> ac
+cb -> bc
+ 
+aa -> b
+ab -> c
+ac ->  
+bb ->
+cb -> a
+cc -> b
+\end{verbatim}
+
+\noindent\newline we would get the following, starting from the ending of aaabbbbc
+\begin{verbatim}
+babbbbcc
+babcc
+babb
+ba
+ab
+c
+\end{verbatim}
+ \noindent\newline This will fully terminate now, and even gives us a UNF in the variable c. 
+ 
+ 
 \section{Project}
 
 Swift, created in 2014 by Apple, is a language predominantly to build applications for computers, phones, and more. This programming language allowed for better User-Interface and easier understanding on how to build specific ideas in the application. 
