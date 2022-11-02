@@ -1190,14 +1190,61 @@ c
 \end{verbatim}
  \noindent\newline This will fully terminate now, and even gives us a UNF in the variable c. 
  
+ \noindent\newline The rewrite I created would have confluence because the peaks will have a valley. Lastly, the invariants for the original schema of rules would be 
+ 
+ \begin{verbatim}
+ length
+ number of ? 
+ \end{verbatim}
+  
+  After the rewrite I created, the new Invariants would be
+  \begin{verbatim}
+  I don't know 
+  \end{verbatim}
+  
+ \subsection{Week 10}
+ The task for Week 10 was to calculate
+ \newline
+\newline fix$_f$2
+ \newline
+ \newline These are all the steps I executed: \newline
+f 2 = \newline
+= fix$_f$ 2 \newline
+= F fix$_f$ 2 \newline
+=( $\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 2 \newline
+=  (if 2==0 then 1 else fix$_f$ (2-1)*2) fix$_f$ 2 \newline
+= (fix$_f$ 1) * 2 \newline 
+=  (F fix$_f$ 1) * 2 \newline
+= (($\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 1) * 2 \newline
+= (($\backslash$ f. $\backslash$ n. if 1 == 0 then 1 else f(1-1) * 1) fix$_f$ 1) * 2 \newline
+= ((fix$_f$ 0) * 1) * 2 \newline
+= ((F fix$_f$ 0) * 1) * 2 \newline
+= ((($\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 0) * 1) * 2 \newline
+= ((($\backslash$ f. $\backslash$ n. if 0 == 0 then 1 else f(n-1)*n) fix$_f$ 0) * 1) * 2 \newline
+= ((1) * 1) * 2 \newline
+= (1 * 1) * 2 \newline
+= 1 * 2 \newline
+= 2 \newline
+
+The answer here would simply be 2. The F fix$_f$ n function allows us to use the if/else conditional until n=0. Once n=0, we will have 1, then can compute the rest of the multiplication.
+
+
+
  
 \section{Project}
 
 Swift, created in 2014 by Apple, is a language predominantly to build applications for computers, phones, and more. This programming language allowed for better User-Interface and easier understanding on how to build specific ideas in the application. 
 \subsection{Specification}
-This project will be learning the programming language Swift, then creating an easy-to-follow tutorial, and finally implement an interesting project using what I learned. The final coding project has not yet been decided, but I will first download the necessary applications, packages, and more. Then I will follow tutorials and watch videos about how to program in Swift.
+This project will be learning the programming language Swift. First you will find the History of Swift. Then you will find the Strengths/Weaknesses of using Swift. I will then add a relatively easy "tutorial" section on Swift. Lastly there will be a coding project done in Swift to show its capabilities. The final coding project has not yet been decided, but I will first download the necessary applications, packages, and more. Then I will follow tutorials and watch videos about how to program in Swift.
 
-
+\subsection{History}
+The development of Swift began in 2010 by Apple Employees \href{https://nondot.org/~sabre/}{Chris Lattner}, Doug Gregor, John McCall, Ted Kremenek, and Joe Groff. They based their original idea off of many existing programming languages such as Haskell, Python, and more. The first release of Swift was in 2014, when Swift 1.0 came to market. Swift had been decided to be developed to replace Apple's earlier creation of a programming language called \href{https://en.wikipedia.org/wiki/Objective-C#:~:text=10%20External%20links-,History,Programming%20Technology%20Center%20in%201981.}{Objective-C. }
+Using what many things that Objective-C had created earlier, Swift built many things to advance the programming world. The main intended use for Swift was to create \href{https://www.swift.org/about/}{Applications} and Games for iOS, computers, and more, mainly for Apple Products. Despite being developed by Apple, Swift can be used across many platforms, such as \href{https://www.swift.org/blog/swift-on-windows/}{Windows}. Objective-C had lacked many modern languages features, due to being created in the 1980's. Developing an entire new programming language that incorporated many of Objective-C's ideas and code snippets allowed for Swift to be created relatively quick, about 4 years. When beginning to develop Swift, Chris Lattner had noticed that popular languages such as C++ and Java had \href{https://www.hackingwithswift.com/interviews/chris-lattner-how-did-you-start-creating-swift}{bulit-in} common things such as Integers and Strings, but did not include things like arrays and dictionaries. This idea stuck Lattner, and he decided that including many built-in types and functionality in the Standard Library would be an important advancement for many future langauges, and allowed for easier programming. Another important thing that the Swift development team wanted to implement was the ability to address common programming errors such as null pointer dereferencing. Many things today are still being added to the growing Swift language, but has proven to be a popular and important innovation in programing languages. In 2015, Swift ranked as the \href{https://stackoverflow.blog/2015/04/07/stack-overflow-developer-survey-2015-the-results/}{most loved programming language} in a survey amongst StackOverflow users. However, at release there were many mixed feelings about Swift, with some people liking the simplicity of the language, and others criticizing some of the initial design decisions and features.
+\subsection{Strengths and Weaknesses of Swift}
+This section will talk about pros and cons of using Swift.
+\subsubsection{Strengths}
+\textbf{Speed}\newline
+Swift has many strengths across many different programming language areas. One huge strength is the speed of the language, which is 2.6 times faster than Objective-C and \href{https://www.apple.com/swift/}{8.4 times faster} than Python. Having this much of an advantage in the speed category for programming languages is important in computing. This speed superiority exists because of the ability for Swift to detect specific errors, and how their compiler was constructed. Swift was built with \href{https://www.altexsoft.com/blog/engineering/the-good-and-the-bad-of-swift-programming-language/}{LLVM compiler framework}, which translates to machine code from the assembly language. The Machine code then optimizes the code, which allows for much faster speeds than other highly popular programming languages.
 \subsection{Prototype}
 \subsection{Documentation}
 \subsection{Critical Appraisal}
@@ -1215,6 +1262,20 @@ In the conclusion, I want a critical reflection on the content of the course. St
 \newline
 \href{https://hackmd.io/@alexhkurz/H1jUka4Gv#fn2}{Hackmd.io} Professor Kurz, Chapman University 2022\newline\newline
 \href{https://www.mathsisfun.com/games/towerofhanoi.html}{Tower of Hanoi}\newline
+
+Report Sources\newline
+History Section\newline
+\href{https://en.wikipedia.org/wiki/Objective-C#:~:text=10%20External%20links-,History,Programming%20Technology%20Center%20in%201981.}{Objective-C.} Wikipedia, 2022\newline
+\href{https://nondot.org/~sabre/}{Chris Lattner's Homepage} Chris Lattner, 2022\newline
+\href{https://www.swift.org/about/}{Swift About Page} Apple, 2022\newline
+\href{https://www.swift.org/blog/swift-on-windows/}{Introducing Swift on Windows} Apple, 2022\newline
+\href{https://www.hackingwithswift.com/interviews/chris-lattner-how-did-you-start-creating-swift}{Chris Lattner Interview} Hacking With Swift, 2020\newline
+\href{https://stackoverflow.blog/2015/04/07/stack-overflow-developer-survey-2015-the-results/}{Programming Languages Survey} StackOverflow, 2015\newline
+
+Strengths/Weaknesses Section\newline
+\href{https://www.apple.com/swift/}{Swift Speed Comparison} Apple, 2022\newline
+\href{https://www.altexsoft.com/blog/engineering/the-good-and-the-bad-of-swift-programming-language/}{Swift Compiler} Altexsoft, 2021
+
 \end{thebibliography}
 
 \end{document}
