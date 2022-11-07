@@ -25,6 +25,7 @@ evalCBN (ENatS e) = ENatS (evalCBN e)
 --Part 1
 evalCBN (EIf a b c d) = if (evalCBN a) == (evalCBN b) then evalCBN c else  evalCBN d
 evalCBN (ELet i a b) =  evalCBN (EApp (EAbs i b) a)
+
 evalCBN (EMinusOne e) = case (evalCBN e) of
     ENat0 -> ENat0
     (ENatS e) -> e
@@ -67,7 +68,6 @@ subst id s (ENatS e) = ENatS (subst id s e)
 --Part 1 SUBST code--
 subst id s (EIf a b c d) = EIf (subst id s a) (subst id s b) (subst id s c) (subst id s d)
 
---subst id s (ELet i a b) = ELet (subst id s (EAbs (i b))) (subst id s a)
 subst id s (ELet i a b) = ELet i (subst id s a) (subst id s b)
 
 subst id s (EMinusOne e) = EMinusOne (subst id s (ENatS e))
