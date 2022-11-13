@@ -1229,7 +1229,32 @@ f 2 = \newline
 The answer here would simply be 2. The F fix$_f$ n function allows us to use the if/else conditional until n=0. Once n=0, we will have 1, then can compute the rest of the multiplication.
 
 
+\subsection{Week 11}
+For week 11, the task was to read the article, \href{https://www.cs.tufts.edu/~nr/cs257/archive/simon-peyton-jones/contracts.pdf}{Composing Contracts: An Adventure in Financial Engineering}, and to ask an interesting question and respond to two other classmate questions.
+\subsubsection{My Question}
+Q: Figure 4 is connected to our course through its definition of denotational semantics. However, this figure is hard to grasp even with our knowledge of denotational semantics. For example, the first few lines are simply adding contracts, evaluating them, or doing basic arithmetic on them. Once we reach the bottom, we have:
 
+ (E8) Ek[[one k2]] = exchk(k2)  
+
+And more cases like this. I am very confused on what is happening here. The other definitions like "give", "or", and "scale" seem much easier to understand, and their definitions prior (Figure 2) represents that. "One", "anytime", and "get", have much harder syntax in the actual software side that makes it more confusing to understand what they are trying to accomplish. My question is, could these formulas be simplified for the sake of understanding what these specific contracts are trying to accomplish first, then become more advanced as programmers learn about more and more finance contracts?
+
+\subsubsection{Responses}
+\noindent\textbf{Classmate Eric Phan's Question:}
+If financial experts took the time to learn the language, how beneficial would it really be? In the article it states "identifying the 'right' primitive combinators is quite a challenge." So would it be worth/necessary for financial experts to try? \newline
+
+\noindent\textbf{My Response: }
+I also think that it would be beneficial for the financial experts to learn this language. Overall, I believe that this language will be hard for them to learn at first, but once they understand it, the basis of the language will prove to be beneficial for them. It will make many things that they do by hand or with other calculators, and instead can use this coding language specifically for their purpose. \newline\newline
+
+\noindent\textbf{Classmate Cole Matsueda's Question:}
+How do Combinator Libraries and DSL's take into account for human behavior/constraints? (Late payments,  partial payments) \newline
+
+\noindent\textbf{My Response:}
+This is an interesting question. At first I think they had most of the basics of contracts and what not, but as the language gets more advanced as time moves on, these features should be included. Late payments, partial payments, and so on are things that happen all the time in the real world. If this language wants to be implemented by lots of financial experts, then these real-world situations must be included. I am not sure how they would implement this, but I would assume additional time metrics and more would allow for these situations.
+
+
+
+\subsection{Week 12}
+Week 12
  
 \section{Project}
 
@@ -1238,13 +1263,39 @@ Swift, created in 2014 by Apple, is a language predominantly to build applicatio
 This project will be learning the programming language Swift. First you will find the History of Swift. Then you will find the Strengths/Weaknesses of using Swift. I will then add a relatively easy "tutorial" section on Swift. Lastly there will be a coding project done in Swift to show its capabilities. The final coding project has not yet been decided, but I will first download the necessary applications, packages, and more. Then I will follow tutorials and watch videos about how to program in Swift.
 
 \subsection{History}
-The development of Swift began in 2010 by Apple Employees \href{https://nondot.org/~sabre/}{Chris Lattner}, Doug Gregor, John McCall, Ted Kremenek, and Joe Groff. They based their original idea off of many existing programming languages such as Haskell, Python, and more. The first release of Swift was in 2014, when Swift 1.0 came to market. Swift had been decided to be developed to replace Apple's earlier creation of a programming language called \href{https://en.wikipedia.org/wiki/Objective-C#:~:text=10%20External%20links-,History,Programming%20Technology%20Center%20in%201981.}{Objective-C. }
-Using what many things that Objective-C had created earlier, Swift built many things to advance the programming world. The main intended use for Swift was to create \href{https://www.swift.org/about/}{Applications} and Games for iOS, computers, and more, mainly for Apple Products. Despite being developed by Apple, Swift can be used across many platforms, such as \href{https://www.swift.org/blog/swift-on-windows/}{Windows}. Objective-C had lacked many modern languages features, due to being created in the 1980's. Developing an entire new programming language that incorporated many of Objective-C's ideas and code snippets allowed for Swift to be created relatively quick, about 4 years. When beginning to develop Swift, Chris Lattner had noticed that popular languages such as C++ and Java had \href{https://www.hackingwithswift.com/interviews/chris-lattner-how-did-you-start-creating-swift}{bulit-in} common things such as Integers and Strings, but did not include things like arrays and dictionaries. This idea stuck Lattner, and he decided that including many built-in types and functionality in the Standard Library would be an important advancement for many future langauges, and allowed for easier programming. Another important thing that the Swift development team wanted to implement was the ability to address common programming errors such as null pointer dereferencing. Many things today are still being added to the growing Swift language, but has proven to be a popular and important innovation in programing languages. In 2015, Swift ranked as the \href{https://stackoverflow.blog/2015/04/07/stack-overflow-developer-survey-2015-the-results/}{most loved programming language} in a survey amongst StackOverflow users. However, at release there were many mixed feelings about Swift, with some people liking the simplicity of the language, and others criticizing some of the initial design decisions and features.
+The development of Swift began in 2010 by Apple Employees \href{https://nondot.org/~sabre/}{Chris Lattner}, Doug Gregor, John McCall, Ted Kremenek, and Joe Groff. They based their original idea off of many existing programming languages such as Haskell, Python, and more. The first release of Swift was in 2014, when Swift 1.0 came to market. Swift had been decided to be developed to replace Apple's earlier creation of a programming language called \href{https://en.wikipedia.org/wiki/Objective-C#:~:text=10%20External%20links-,History,Programming%20Technology%20Center%20in%201981.}{Objective-C. }\newline\newline
+Using what many things that Objective-C had created earlier, Swift built many things to advance the programming world. The main intended use for Swift was to create \href{https://www.swift.org/about/}{Applications} and Games for iOS, computers, and more, mainly for Apple Products. Despite being developed by Apple, Swift can be used across many platforms, such as \href{https://www.swift.org/blog/swift-on-windows/}{Windows}, \href{https://9to5mac.com/2021/12/15/apple-releases-long-awaited-swift-playgrounds-update-with-the-ability-to-create-apps-using-ipad/} {iOS}, and \href{https://gavinw.me/swift-macos/}{macOS}. Objective-C had lacked many modern languages features, due to being created in the 1980's. Developing an entire new programming language that incorporated many of Objective-C's ideas and code snippets allowed for Swift to be created relatively quick, about 4 years. \newline\newline
+ When beginning to develop Swift, Chris Lattner had noticed that popular languages such as C++ and Java had \href{https://www.hackingwithswift.com/interviews/chris-lattner-how-did-you-start-creating-swift}{bulit-in} common things such as Integers and Strings, but did not include things like arrays and dictionaries. This idea struck Lattner, and he decided that including many built-in types and functionality in the Standard Library would be an important advancement for many future langauges, and allowed for easier programming. Another important thing that the Swift development team wanted to implement was the ability to address common programming errors such as null pointer dereferencing. Many things today are still being added to the growing Swift language, but has proven to be a popular and important innovation in programing languages. In 2015, Swift ranked as the \href{https://stackoverflow.blog/2015/04/07/stack-overflow-developer-survey-2015-the-results/}{most loved programming language} in a survey amongst StackOverflow users. 
 \subsection{Strengths and Weaknesses of Swift}
 This section will talk about pros and cons of using Swift.
 \subsubsection{Strengths}
 \textbf{Speed}\newline
-Swift has many strengths across many different programming language areas. One huge strength is the speed of the language, which is 2.6 times faster than Objective-C and \href{https://www.apple.com/swift/}{8.4 times faster} than Python. Having this much of an advantage in the speed category for programming languages is important in computing. This speed superiority exists because of the ability for Swift to detect specific errors, and how their compiler was constructed. Swift was built with \href{https://www.altexsoft.com/blog/engineering/the-good-and-the-bad-of-swift-programming-language/}{LLVM compiler framework}, which translates to machine code from the assembly language. The Machine code then optimizes the code, which allows for much faster speeds than other highly popular programming languages.
+Swift has many strengths across many different programming language areas. One huge strength is the speed of the language, which is faster than Objective-C and \href{https://www.geeksforgeeks.org/difference-between-python-and-swift/}{Python}. Apple even claims that Swift is \href{https://www.apple.com/swift/}{8.4 times faster} than Python. Having this much of an advantage in the speed category for programming languages is important in computing. This speed superiority exists because of the ability for Swift to detect specific errors, and how their compiler was constructed. Swift was built with \href{https://www.altexsoft.com/blog/engineering/the-good-and-the-bad-of-swift-programming-language/}{LLVM compiler framework}, which translates to machine code from the assembly language. The Machine code then optimizes the code, which allows for much faster speeds than other highly popular programming languages.\newline\newline
+
+\noindent \textbf{Apple-Supported} \newline
+Swift, being developed by Apple, is highly used to create Applications and Games for Apple Products. Apple is a huge brand, so having the ability to be backed by one of the biggest companies in the world, makes the language of Swift to be much more valuable to learn. The language is growing, and will continue to be supported by Apple to make it better. By learning Swift, it is much more likely that it will continue to grow in the future and will not die out. This means that people can learn and develop in Swift, without worrying that coding in Swift could become outdated.\newline \newline
+
+\noindent \textbf{Open-Source} \newline
+Open-Source programming languages are very important and beneficial for coding. Open-Source allows for \href{https://enterprisersproject.com/article/2015/1/top-advantages-open-source-offers-over-proprietary-solutions}{flexibility}, cost-effective, and allows for better future of the language. It also allows for developers to get access to community resources, debuggers, package managers, and supporting libraries. There are popular langauges such as \href{https://www.analyticsinsight.net/top-10-programming-languages-for-open-source-projects-in-2021/}{Java}, Python, C++, and as you would expect, \href{https://www.outsource2india.com/software/mobile-applications/articles/apple-swift-now-open-source.asp}{Swift}. Being Open-Source is a huge advantage over many other programming languages that do not having Open-Source because developers will have an easier understanding on the deeper knowledge of a language, and a more lively community that discuss how to make Swift an even better language. \newline \newline
+
+\noindent \textbf{Simple Syntax} \newline
+The ability to easily learn and use a programming language is important. Simple syntax languages such as Python are often some of the first languages developers learn due to the simplicity of the code. Swift is very similar in many aspects to Python, but also has its own uniqueness. Swift can easily be ran without having classes, a main method, and importing many things. This allows for first time users to understand the syntax much faster, and thus the language gets much more popular than harder to learn languages. Simple Syntax languages are languages that are easy to read, and do not require extra characters and commands, such as semi-colons and more. \newline
+
+\subsubsection{Weaknesses}
+\textbf{Years on Market}\newline
+Swift is a very young language. Many older languages that can continue to keep its popularity, such as C and C++, have large communities and developers who were exposed to using them early on. Swift has only be available for 8 years, which is quite young. As this is a weakness now, Swift is growing popularity extremely fast and will continue to grow as previously mentioned. The community for C++ is much larger, and thus more users have found bugs, corrections, and more. Swift has more to be discovered about itself, as C++ has discovered plenty. Swift is currently used to develop primarily Apple Applications, but in the future it could be discovered that it is better for other uses that the Apple developers had not thought of. \newline \newline
+
+\noindent\textbf{Backward Compatibilty}\newline
+As Programming Languages evolve for the better, there are many times when developers are stuck on older versions due to their choice, or not updating before writing their code. However, this could be a real problem for Swift. Apple has made it clear to engage users with their newest OS, iOS, and new versions of anything, without looking for backward compatibility to be their biggest concern. This is very prevelant with Swift, as the language gets new versions, there will be some parts of the new update that will not work great with older versions. This is a problem for now, but currently Apple is creating a \href{https://medium.com/@carlos.banos85/swift-5-5-concurrency-backward-compatibility-884fd9c284da}{back deployment library} now to fix these version problems. This weakness will eventually be fixed or at least better than before.
+
+\subsection{Easy-To-Learn-Swift}
+Some examples on Swift.
+
+\subsection{Project Overview}
+The project that I will be making in Swift will be an Application. The Application will consist of tracking data about where Users go during the day. It will track individual points at specific times, and will draw lines on a map about where the User went throughout the day. It will be available so that the User can easily look at a detailed map of their locations. I will use many methods to track location of the User.
+
+\subsection{Final Project}
+
 \subsection{Prototype}
 \subsection{Documentation}
 \subsection{Critical Appraisal}
@@ -1258,23 +1309,32 @@ Swift has many strengths across many different programming language areas. One h
 In the conclusion, I want a critical reflection on the content of the course. Step back from the technical details. How does the course fit into the wider world of programming languages and software engineering?
 
 \begin{thebibliography}{99}
+
 \bibitem[PL]{PL} \href{https://github.com/alexhkurz/programming-languages-2022/blob/main/README.md}{Programming Languages 2022}, Chapman University, 2022.\newline
 \newline
+\textbf{Homework Sources} \newline
 \href{https://hackmd.io/@alexhkurz/H1jUka4Gv#fn2}{Hackmd.io} Professor Kurz, Chapman University 2022\newline\newline
-\href{https://www.mathsisfun.com/games/towerofhanoi.html}{Tower of Hanoi}\newline
+\href{https://www.mathsisfun.com/games/towerofhanoi.html}{Tower of Hanoi} Math Is Fun, 2021 \newline
 
-Report Sources\newline
-History Section\newline
+\textbf{Report Sources}\newline
+\textbf{History Section}\newline
 \href{https://en.wikipedia.org/wiki/Objective-C#:~:text=10%20External%20links-,History,Programming%20Technology%20Center%20in%201981.}{Objective-C.} Wikipedia, 2022\newline
 \href{https://nondot.org/~sabre/}{Chris Lattner's Homepage} Chris Lattner, 2022\newline
 \href{https://www.swift.org/about/}{Swift About Page} Apple, 2022\newline
 \href{https://www.swift.org/blog/swift-on-windows/}{Introducing Swift on Windows} Apple, 2022\newline
+\href{https://9to5mac.com/2021/12/15/apple-releases-long-awaited-swift-playgrounds-update-with-the-ability-to-create-apps-using-ipad/}{Swift on iOS} 9 to 5 Mac, Jose Adorno, 2021 \newline
+\href{https://gavinw.me/swift-macos/}{Swift on macOS} Gavin Wiggins, 2022 \newline
 \href{https://www.hackingwithswift.com/interviews/chris-lattner-how-did-you-start-creating-swift}{Chris Lattner Interview} Hacking With Swift, 2020\newline
 \href{https://stackoverflow.blog/2015/04/07/stack-overflow-developer-survey-2015-the-results/}{Programming Languages Survey} StackOverflow, 2015\newline
 
-Strengths/Weaknesses Section\newline
+\textbf{Strengths/Weaknesses Section}\newline
+\href{https://www.geeksforgeeks.org/difference-between-python-and-swift/}{Swift Speed} Geeks For Geeks, 2021 \newline
 \href{https://www.apple.com/swift/}{Swift Speed Comparison} Apple, 2022\newline
-\href{https://www.altexsoft.com/blog/engineering/the-good-and-the-bad-of-swift-programming-language/}{Swift Compiler} Altexsoft, 2021
+\href{https://www.altexsoft.com/blog/engineering/the-good-and-the-bad-of-swift-programming-language/}{Swift Compiler} Altexsoft, 2021\newline
+\href{https://enterprisersproject.com/article/2015/1/top-advantages-open-source-offers-over-proprietary-solutions}{Open-Source Pro's} The Enterprisers Project, Lee Congdon, 2015 \newline
+\href{https://www.analyticsinsight.net/top-10-programming-languages-for-open-source-projects-in-2021/}{Open-Source Programming Languages} Analytics Insight, 2021 \newline
+\href{https://www.outsource2india.com/software/mobile-applications/articles/apple-swift-now-open-source.asp}{Swift is now Open-Source} OutSource2India \newline
+\href{https://medium.com/@carlos.banos85/swift-5-5-concurrency-backward-compatibility-884fd9c284da}{Apple building Backwards Compatibility} Medium, Carlos Banos, 2021 \newline
 
 \end{thebibliography}
 
