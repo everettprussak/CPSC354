@@ -1,0 +1,15 @@
+ECons (EHd (ECons (EVar (Id "one")) (ECons (EVar (Id "two")) ENil))) ENil
+(hd one:two:#):#
+
+
+
+
+ECons.     Exp15 ::= Exp16 ":" Exp15 ;
+
+ENil.      Exp15 ::= "#" ;
+
+
+Interpreter.hs
+evalCBN ENil = (EVar (Id "#"))
+
+ECons (EHd (ECons))

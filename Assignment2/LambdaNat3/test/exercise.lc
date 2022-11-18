@@ -19,7 +19,7 @@
 //if a = b then c else d
 //let x = A in B
 //let x = x in x
-minus_one ((\ x . S S x) S 0)
+//minus_one ((\ x . S S x) S 0)
 //if (let x = A in b) = (let x = A in x) then A else x
 //let x = (if a = a then b else c) in x
 
