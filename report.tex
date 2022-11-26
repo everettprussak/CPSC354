@@ -1254,7 +1254,98 @@ This is an interesting question. At first I think they had most of the basics of
 
 
 \subsection{Week 12}
-Week 12
+Week 12 was to apply the method of analysis from the lecture to
+\begin{verbatim}
+while (x != 0) do z:= z*y;   x:= x-1  done
+\end{verbatim}
+
+\noindent\newline\newline To start, I created my pre-condition as
+\begin{verbatim}
+{z = n, y = k, x = m}
+\end{verbatim}
+
+\noindent Using Hoare Logic, when a pre-condition is true P, then execute S, then Q.
+\noindent Looking like this:
+\begin{verbatim}
+{P} S {Q}
+\end{verbatim}
+
+\noindent\newline\newline Using what I had as my pre-condition, I found the post-condition becomes
+\begin{verbatim}
+{z = (y^x) * z}
+\end{verbatim}
+
+\noindent I found this post-condition by solving for z, no matter where in the loop.
+
+\noindent Here is an example that this would be correct:
+
+\noindent When z = 2, y = 3, and x = 3, the loop would execute 3 times. 
+\begin{verbatim}
+z = 2 * 3 --> 6
+z = 6 * 3 --> 18
+z = 18 * 3 --> 54
+\end{verbatim} 
+
+\noindent In our case, z would be 54. Using the numbers from the start, 2,3,3 for z,y,x, and equation that would get us to 54 would be 
+\begin{verbatim}
+(y^x) * z. 
+\end{verbatim}
+
+\begin{verbatim}
+z = (3^3) * (2)
+z = 27 * 2
+z = 54
+\end{verbatim}
+
+\noindent This is what we would expect. This post-condition works for all other combinations, assuming x,y,z are all 0 or positive.
+
+\noindent\newline\newline At this point in the analysis, we have a pre-condition, post-condition, and the program. This is how it would look
+\begin{verbatim}
+{z = n, y = k, x = m} while (x != 0) do z:= z*y;   x:= x-1  done {z = (y^x) * z}
+\end{verbatim}
+
+\noindent\newline\newline Thus the invariant becomes
+\begin{verbatim}
+{(y^x) * z = (k^m) * n}
+\end{verbatim}
+
+\noindent\newline\newline This can be proven with an example
+
+\begin{verbatim}
+{(y^x) * z = (k^m) * n}
+
+(3^3) * 2 = (3^3) * 2  --> 27 * 2 = 27 * 2  --> 54 = 54
+(3^2) * 6 = (3^3) * 2  --> 9 * 6 = 27 * 2 --> 54 = 54
+(3^1) * 18 = (3^3) * 2  --> 3 * 18 = 27 * 2 --> 54 = 54
+
+\end{verbatim}
+
+\noindent\newline\newline Our final equation would then be:
+\begin{verbatim}
+{z = n, y = k, x = m} while (x != 0) do z:= z*y; x:= x-1 done {(y$^$x) * z = (k$^$m) * n}
+\end{verbatim}
+
+\noindent\newline\newline Lastly, I wrote a small python program that confirms the calculations done by hand. Here is the program:
+\begin{verbatim}
+x = 3
+y = 3
+z = 2
+while x!=0:
+    print(str(z) + " = " + str(z) + " * " + str(y) + " = " + str(z*y))
+    z = z * y
+    x = x -1
+
+
+print(z)
+\end{verbatim}
+
+Here is the output:
+\begin{verbatim}
+2 = 2 * 3 = 6
+6 = 6 * 3 = 18
+18 = 18 * 3 = 54
+54
+\end{verbatim}
  
 \section{Project}
 
