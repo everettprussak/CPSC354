@@ -1,0 +1,86 @@
+-- Solutions.lc for Part1 of Assignment3
+
+-- Task: Implement (is_empty), (fib), (length), (even), (reverse (with append)), weave
+
+ --isEmpty = \x. if x == 2 then 2 else 1 ;;
+
+val plusone = \x. x+1;;
+
+
+
+--isEmpty WORKS (Note: had to change from is_empty to isEmpty)
+val isEmpty = \x. case (x) of {
+    [] -> 1,
+    _ -> 0
+} ;;
+
+
+--fib WORKS
+rec fib = \x. case (x) of {
+  0 -> 0,
+  1 -> 1,
+  _ -> fib(x-1) + fib(x-2)
+
+};;
+
+
+--length WORKS
+rec length = \x. case (x) of {
+  [] -> 0,
+  _ -> 1 + length(tail (x))
+};;
+
+
+--even WORKS
+rec even = \x. case (x) of {
+  [] -> 0,
+  _ -> case (length (tail x)) of {
+      1 -> 1,
+      _ -> case (length x) of {
+          1 -> 0,
+          _ -> 1 - (even (tail x))
+      }
+  }
+};;
+
+
+
+-- reverse (with append)
+-- append WORKS
+rec append = \x.\y. case (x) of {
+  [] -> case (length y) of {
+      1 -> case (tail y) of {
+        [] -> y,
+        _ -> (head y) : (append tail y)
+      },
+      _ -> y
+  },
+  _ -> (head x) : (append (tail x) y)
+};;
+
+
+-- reverse WORKS
+rec reverse = \x. case (x) of {
+  [] -> [],
+  _ ->  append (reverse (tail (x))) ([head (x)])
+};;
+
+
+
+-- weave WORKS
+rec weave = \x. \y. case (x) of {
+  [] -> case (y) of {
+    [] -> [],
+    _ -> y
+  },
+  _ -> case (y) of {
+    [] -> x,
+    _ -> case ((head (x)) <= (head (y))) of {
+      true -> (head x) : (weave (tail x) (y)),
+      _ -> (head y) : (weave (x) (tail y))
+    }
+  }
+};;
+
+
+-- hi

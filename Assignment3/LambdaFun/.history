@@ -1,0 +1,24 @@
+:quit
+:load solutions.lc
+member 4 [4,5,6] ;;
+plusone 7 ;;
+id 4 ;;
+id ;;
+id x ;;
+member 4 [4,4,4] ;;
+member 2 [3,4,5] ;;
+member 2 [3,4,5]
+add 3 3 ;;
+plusone 5 ;;
+plusone 3;;
+plusone 3;;;
+plusone 3;
+plusone 3
+:load test/examples.lc
+:load test/examples.lc 
+:load examples.lc
+:load test/examples.lc 
+:quit
+:help
+help
+hepl
