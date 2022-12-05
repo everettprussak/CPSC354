@@ -1,0 +1,101 @@
+-- sort.lc for Part 2 of Assignment3
+-- Task: Implement a function merge list1 list2 that merges two lists into one.
+-- Invariant: If list1 and list2 are sorted than the merged list is sorted.
+-- Merging must be done "in place", that is, no allocations should be necessary.
+-- merge list1 list2 returns an address, the content of which is the first element of the merged list.
+
+
+-- Task: implement insertion sort. That is, implement a function sort list that sorts a linked list list of numbers by repeatedly using insert.
+
+
+-- Task: Implement a function insert n list that inserts a number n into a linked list list of numbers.
+val inbetween = \n. \l. \r.
+    let val between = new [] in
+    between := [n, right];
+    tail (!left) := !between;
+    left ;;
+
+val cons = \e. \a.
+    let val b = new [] in
+    b := [e,a];
+    b ;;
+
+val insert = \a. \b. case (!!b) of {
+    "NULL" -> let val c = new [] in
+              let val aTUPLE = new [] in
+              aTUPLE := [a, !b];
+              b := aTUPLE;
+              c := [b,aTUPLE]; --Not sure if I want to keep this c variable
+              aTUPLE,
+    _ -> let val current = new [] in
+         let val next = new [] in
+         let val value = new [] in
+         let val aValue = new [] in
+         current := !b;
+         next := (head(tail(!!b)));
+         aValue := a;
+         case (a<= head(!! current)) of {
+              true -> value := [a,!current];
+                      b := value;
+                      aValue := head(!! current);
+                      value,
+              false -> while !aValue > head (!! current) do (
+                    case (!! next) of {
+                          "NULL" -> value := [a, !next];
+                                !current := [head !! current, value];
+                                aValue := (head(!! current)),
+                          _ -> case (!aValue <= head (!! next)) of {
+                                  true -> value := [a, !next];
+                                          !current := [head !! current, value];
+                                          aValue := (head(!! current)),
+                                  false -> current := !next;
+                                          next := head(tail(!!next));
+                                          "end"
+                          }
+                      }
+              );
+              value
+         }
+};;
+
+
+val nil =
+    let val a = new [] in
+    a := "NULL";
+    a ;;
+
+val cons = \e. \a.
+    let val b = new [] in
+    b := [e,a];
+    b ;;
+
+val hd = \a.
+    case !a of {
+        "NULL"-> "tried to take the head of an empty list",
+        [e,a'] -> e
+    } ;;
+
+val tl = \a.
+    case !a of {
+        "NULL" -> "tried to take the tail of an empty list",
+        [e,a'] -> a'
+    } ;;
+
+rec lengthRec = \l.
+    case !l of {
+        "NULL" -> 0 ,
+        _ -> 1 + length (tail l)
+    } ;;
+
+val length = \a.
+    let val ptr = new [] in
+    let val i = new [] in
+    i := 0;
+    ptr := a;
+    while !(!ptr) != "NULL" do
+        case !(!ptr) of {
+            [e,a'] ->
+                    i := !i + 1;
+                ptr := a'
+        } ;
+    !i;;

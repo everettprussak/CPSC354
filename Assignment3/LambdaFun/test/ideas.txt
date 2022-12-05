@@ -1,0 +1,146 @@
+val insert = \a. \b. case (!!b) of {
+    "NULL" -> let val c = new [] in
+              let val aTUPLE = new [] in
+              aTUPLE := [a, !b];
+              b := aTUPLE;
+              c := [b,aTUPLE]; --Not sure if I want to keep this c variable
+              aTUPLE,
+    _ -> let val current = new [] in
+         let val next = new [] in
+         let val value = new [] in
+         current := !b; -- !b
+         next := (head(tail(!!b))); --(! (tail !b)) or
+         case (!!next) of {
+           "NULL" ->  case (head (!!current) > a) of {
+                          true -> value := [a, !current];
+                                  --value;
+                                  current := next;
+                                  b := value;
+                                  value,
+                          false -> value := [a,!next];
+                                  !current := [head (!! current), value]; --This assigns the previous
+                                  value
+
+                        },
+          _ ->  case (a <= head !!current) of {
+                  false ->  case (a <= head !!next) of {
+                          true -> value := [a, !next];
+                                  !current := [head (!! current), value];
+                                  value;
+                                  "a",
+
+                          false ->
+                              let val counter = new [] in
+                              counter := a;
+                              while !counter > head !!current do (
+                               current := !next;
+                               next := head(tail(!!next));
+                               case (!! next) of {
+                                   "NULL" -> counter := (head (!!current) - 1),
+                                    _ -> case (!counter < head !! current) of {
+                                             true -> counter := (head (!!current) - 1)
+                                   }
+                                 }
+                               );
+                                --value := [a,!next];
+                                --!current := [head (!! current), value];
+                                --value;
+                                "b"
+                          },
+                 true -> value := [a, !current];
+                         current := !next;
+                         b := value;
+                         value;
+                         "c"
+         }
+     }
+
+};;
+
+
+
+
+/*
+let val counter = new [] in
+counter := a;
+while !counter > head !!current do (
+ current := !next;
+ next := head(tail(!!next));
+ case (!! next) of {
+     "NULL" -> counter := (head (!!current) - 1),
+      _ -> case (!counter < head !! current) of {
+               true -> counter := (head (!!current) - 1)
+     }
+   }
+ );
+  --value := [a,!next];
+  --!current := [head (!! current), value];
+  --value;
+  "b"
+*/
+
+
+****************************************************************************************************************
+
+//Old trial before Monday, December 5th.
+/*
+
+val insert = \a. \b. case (!!b) of {
+    "NULL" -> let val c = new [] in
+              let val aTUPLE = new [] in
+              aTUPLE := [a, !b];
+              b := aTUPLE;
+              c := [b,aTUPLE]; --Not sure if I want to keep this c variable
+              aTUPLE,
+    _ -> let val current = new [] in
+         let val next = new [] in
+         let val value = new [] in
+         let val insertValue = new [] in
+         current := !b; -- !b
+         next := (head(tail(!!b))); --(! (tail !b)) or
+         insertValue := a;
+         case (!!next) of {
+           "NULL" ->  case (head (!!current) > a) of {
+                          true -> value := [a, !current];
+                                  --value;
+                                  current := next;
+                                  b := value;
+                                  value,
+                          false -> value := [a,!next];
+                                  !current := [head (!! current), value]; --This assigns the previous
+                                  value
+
+                        },
+          _ ->  case (a <= head !!current) of {
+                  false ->  case (a <= head !!next) of {
+                          true -> value := [a, !next];
+                                  !current := [head (!! current), value];
+                                  value;
+                                  "a",
+
+                          false -> while insertValue > head !! current do (
+                                  case !!next of {
+                                    "NULL" -> value := [a, !next];
+                                              !current := [head (!!current), value];
+                                              insertValue := 0,
+                                    _ -> --current := !next;
+                                         --next := head(tail(!!next))
+                                         "s";
+                                         insertValue := 0
+                                    }
+                          )
+
+                          },
+                 true -> value := [a, !current];
+                         current := !next;
+                         b := value;
+                         value;
+                         "c"
+         }
+     }
+
+};;
+
+*/
+
+****************************************************************************************************************

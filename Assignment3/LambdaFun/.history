@@ -1,24 +1,100 @@
 :quit
-:load solutions.lc
-member 4 [4,5,6] ;;
-plusone 7 ;;
-id 4 ;;
-id ;;
-id x ;;
-member 4 [4,4,4] ;;
-member 2 [3,4,5] ;;
-member 2 [3,4,5]
-add 3 3 ;;
-plusone 5 ;;
-plusone 3;;
-plusone 3;;;
-plusone 3;
-plusone 3
-:load test/examples.lc
-:load test/examples.lc 
-:load examples.lc
-:load test/examples.lc 
+insert 4 list ;;
+list := nil;;
+val list = new [] ;;
+insert 8 list ;;
+:env
+insert 7 list ;;
+insert 4 list ;;
+insert 5 list ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
 :quit
-:help
-help
-hepl
+:env
+insert 2 list ;;
+insert 6 list ;;
+:env
+insert 5 list ;;
+:env
+insert 3 list ;;
+insert 4 list ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
+:env
+insert 1 list ;;
+:env
+insert 3 list ;;
+insert 4 list ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
+:env
+insert 6 list ;;
+insert 5 list ;;
+insert 4 list ;;
+list := nil ;;
+insert 4 list ;;
+val list = new [] ;;
+:load test/sort.lc
+:load test/sort.lc
+:env
+insert 6 list ;;
+insert 5 list ;;
+insert 4 list ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
+:env
+insert 6 list ;;
+insert 5 list ;;
+insert 4 list ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
+insert 6 list ;;
+insert 5 list ;;
+insert 4 list ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
+insert 6 list ;;
+insert 5 list ;;
+insert 4 list ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
+:env
+insert 6 list ;;
+insert 5 list ;;
+insert 4 list ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
+insert 6 list ;;
+insert 5 list ;;
+insert 4 list ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
+insert 6 list ;;
+insert 5 list ;;
+insert 4 list ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
+insert 6 list ;;
+insert 5 list ;;
+insert 4 list ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
+:load test/sort.lc
+:load test/sort.lc
+insert 6 list ;;
+insert 5 list ;;
+insert 4 list ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
