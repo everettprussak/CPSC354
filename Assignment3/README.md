@@ -15,7 +15,12 @@
 
 ## Information about Part 2:
 ### insert function notes: The invariant stays true in my function, as when you insert into a sorted list, the list stays sorted after the insertion. When inserted, the address of the FIRST ELEMENT of the list is returned. For example for the list [4,5,6], the address of element 4 will be returned. That means if the list is sorted, then the smallest elemenets address will be returned. When starting the program, these must be ran in LamFun.
-* val list = new [] ;; 
+* val list = new [] ;;
+* list := nil ;;
+* insert 4 list ;;
+### Then insert 2 list ;; can be ran, or by creating a new variables: val a = new [];; a := [4,nil];; then list := a;; insert 2 list ;; can then be ran also. Insert uses a little more initialization of variables than I would have liked. If the list is not empty and something is being inserted, I create a current, next, value, and aValue.  Current and next allow me to keep track of where I am on the linkedList. value is used to create a address for the value that is being inserted. aValue is counter that allows me to exit the loop when I need to. I wanted to make this better, but as of now I have not found something without getting errors. I understand that initializing another variable is not the best in terms of memory efficiency. I have not found any errors in insert, but it must be done in the way I previously stated. Assuming that the command val list = new [] ;; is ran first, list should be address 0, so simply it can followed that way instead of looking at the first value address returned as well.
+
+###sort function notes: Sort works as it should. When sort list ;; is ran, it will sort the function as expected. When you look in the environment (:env), and you follow your list addresses, you will see that it is in sorted order. However, again many things are initialized which decreases performance, but it does as it is supposed to without errors.
 
 ## Interesting Thoughts
 ### Not Done
