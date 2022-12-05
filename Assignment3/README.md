@@ -15,7 +15,7 @@
 
 ## Information about Part 2:
 ### insert function notes: The invariant stays true in my function, as when you insert into a sorted list, the list stays sorted after the insertion. When inserted, the address of the FIRST ELEMENT of the list is returned. For example for the list [4,5,6], the address of element 4 will be returned. That means if the list is sorted, then the smallest elemenets address will be returned. When starting the program, these must be ran in LamFun.
-#### * val list = new [] ;; 
+* val list = new [] ;; 
 
 ## Interesting Thoughts
 ### Not Done
