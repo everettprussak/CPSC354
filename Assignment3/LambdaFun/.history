@@ -1,100 +1,100 @@
-:quit
-insert 4 list ;;
+:env
+sort list ;;
+list:= a;;
+a := [3,nil];;
+val list = new [] ;;
+val a = new [] ;;
+:load test/sort.lc
+:env
+sort list ;;
+list:= a;;
+a := [3,nil];;
+val a = new [] ;;
+val list = new [] ;;
+:load test/sort.lc
+sort list ;;
+list:= a;;
+a := [3,nil];;
+val a = new [] ;;
+val list = new [] ;;
+:load test/sort.lc
+sort list ;;
+list:= a;;
+a := [3,nil];;
+val list = new [] ;;
+val a = new [] ;;
+:load test/sort.lc
+sort list ;;
+list:= a;;
+a := [3,nil];;
+val a = new [] ;;
+val list = new [] ;;
+list:= a;;
+:load test/sort.lc
+sort list ;;
+list:= a;;
+val list = new [] ;;
+a := [3,nil];;
+list:= a;;
+val a = new [] ;;
+:load test/sort.lc
+sort list ;;
+:env
+list:= a;;
+a := [3,nil];;
+val a = new [] ;;
+list := nil ;;
+val list = new [] ;;
+:load test/sort.lc
+:env
+sort list ;;
 list := nil;;
 val list = new [] ;;
-insert 8 list ;;
+:load test/sort.lc
 :env
-insert 7 list ;;
-insert 4 list ;;
-insert 5 list ;;
+sort list ;;
+val list = new [] ;;
+:load test/sort.lc
+sort list ;;
 list := nil ;;
 val list = new [] ;;
 :load test/sort.lc
-:quit
+:load test/sort.lc
+:load test/sort.lc
+:load test/sort.lc
+:load test/sort.lc
 :env
-insert 2 list ;;
+insert 4 list ;;
 insert 6 list ;;
-:env
-insert 5 list ;;
-:env
-insert 3 list ;;
-insert 4 list ;;
-list := nil ;;
-val list = new [] ;;
-:load test/sort.lc
-:env
 insert 1 list ;;
-:env
+insert 1 list ;;
 insert 3 list ;;
+insert 6 list ;;
 insert 4 list ;;
+insert 4 lsit ;;
+insert 2 list ;;
 list := nil ;;
 val list = new [] ;;
 :load test/sort.lc
 :env
-insert 6 list ;;
-insert 5 list ;;
-insert 4 list ;;
-list := nil ;;
-insert 4 list ;;
+insert2 8 list ;;
+list := b ;;
+b:= [7,a] ;;
+a := [4, nil] ;;
 val list = new [] ;;
-:load test/sort.lc
+val b = new [] ;;
+val a = new [] ;;
 :load test/sort.lc
 :env
-insert 6 list ;;
-insert 5 list ;;
-insert 4 list ;;
-list := nil ;;
-val list = new [] ;;
-:load test/sort.lc
+insert2 4 list ;;
 :env
-insert 6 list ;;
-insert 5 list ;;
-insert 4 list ;;
-list := nil ;;
-val list = new [] ;;
-:load test/sort.lc
-insert 6 list ;;
-insert 5 list ;;
-insert 4 list ;;
-list := nil ;;
-val list = new [] ;;
-:load test/sort.lc
-insert 6 list ;;
-insert 5 list ;;
-insert 4 list ;;
-list := nil ;;
-val list = new [] ;;
-:load test/sort.lc
+insert2 2 list ;;
 :env
-insert 6 list ;;
-insert 5 list ;;
-insert 4 list ;;
+list := b ;;
+b:= [7,a] ;;
+a := [4, nil] ;;
+val b = new [] ;;
+val a = new [] ;;
+val a := [4,nil] ;;
 list := nil ;;
 val list = new [] ;;
-:load test/sort.lc
-insert 6 list ;;
-insert 5 list ;;
-insert 4 list ;;
-list := nil ;;
-val list = new [] ;;
-:load test/sort.lc
-insert 6 list ;;
-insert 5 list ;;
-insert 4 list ;;
-list := nil ;;
-val list = new [] ;;
-:load test/sort.lc
-insert 6 list ;;
-insert 5 list ;;
-insert 4 list ;;
-list := nil ;;
-val list = new [] ;;
-:load test/sort.lc
-:load test/sort.lc
-:load test/sort.lc
-insert 6 list ;;
-insert 5 list ;;
-insert 4 list ;;
-list := nil ;;
-val list = new [] ;;
-:load test/sort.lc

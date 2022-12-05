@@ -20,12 +20,13 @@ val cons = \e. \a.
     b := [e,a];
     b ;;
 
+-------------------------------------------
 val insert = \a. \b. case (!!b) of {
-    "NULL" -> let val c = new [] in
+    "NULL" -> --let val c = new [] in
               let val aTUPLE = new [] in
               aTUPLE := [a, !b];
               b := aTUPLE;
-              c := [b,aTUPLE]; --Not sure if I want to keep this c variable
+            --  c := [b,aTUPLE]; --Not sure if I want to keep this c variable
               aTUPLE,
     _ -> let val current = new [] in
          let val next = new [] in
@@ -38,7 +39,8 @@ val insert = \a. \b. case (!!b) of {
               true -> value := [a,!current];
                       b := value;
                       aValue := head(!! current);
-                      value,
+                      value;
+                      !b,
               false -> while !aValue > head (!! current) do (
                     case (!! next) of {
                           "NULL" -> value := [a, !next];
@@ -54,11 +56,34 @@ val insert = \a. \b. case (!!b) of {
                           }
                       }
               );
-              value
+              !b
          }
 };;
 
+-------------------------------------------
+val sort = \b.
+    let val current = new [] in
+    let val newList = new [] in
+    current := !b;
+    while !!current != "NULL" do (
+      --  insert (head !! current) newList;
+        current := (head(tail(!!current)))
+    );
+    newList := !current;
+    current := !b;
+    while !!current != "NULL" do (
+        insert (head !! current) newList;
+        current := (head(tail(!!current)))
+    );
+    b := !newList
+    ;;
+-------------------------------------------
 
+--val merge = \a. \b.
+
+
+
+-------------------------------------------
 val nil =
     let val a = new [] in
     a := "NULL";
