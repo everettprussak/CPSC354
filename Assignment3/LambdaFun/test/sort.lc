@@ -27,7 +27,7 @@ val insert = \a. \b. case (!!b) of {
               aTUPLE := [a, !b];
               b := aTUPLE;
             --  c := [b,aTUPLE]; --Not sure if I want to keep this c variable
-              aTUPLE,
+              b,
     _ -> let val current = new [] in
          let val next = new [] in
          let val value = new [] in
@@ -40,7 +40,7 @@ val insert = \a. \b. case (!!b) of {
                       b := value;
                       aValue := head(!! current);
                       value;
-                      !b,
+                      b,
               false -> while !aValue > head (!! current) do (
                     case (!! next) of {
                           "NULL" -> value := [a, !next];
@@ -56,7 +56,7 @@ val insert = \a. \b. case (!!b) of {
                           }
                       }
               );
-              !b
+              b
          }
 };;
 
@@ -75,7 +75,8 @@ val sort = \b.
         insert (head !! current) newList;
         current := (head(tail(!!current)))
     );
-    b := !newList
+    b := !newList;
+    b
     ;;
 -------------------------------------------
 
@@ -124,3 +125,10 @@ val length = \a.
                 ptr := a'
         } ;
     !i;;
+
+
+rec print = \list.
+        case !list of {
+            "NULL" -> [],
+            _ -> (hd list):(print (tl list))
+        } ;;

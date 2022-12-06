@@ -14,13 +14,47 @@
 ### For part 1, I changed the name of the function "is_empty" to "isEmpty". I was getting an error due to the underscore, so I decided that this was the best name change for it. All of the other functions work as you would expect. isEmpty will give a 1 if the list is empty, and a 0 if the list is not empty. Fib will calculate the fibonacci of a number, assuming that that number is a positive whole number. length will calculate the length of a list. even will return 1 if the list is even, and 0 if it is not. An empty is list will be considered "not even" so a 0 will be returned. Append will append the second list to the back of the first list. reverse will reverse the list. Weave will weave a list in order, IF the lists are already in order. If they are not in order, and weave is used, the lists will be combined, but not in order and not similar to just appending to the end.
 
 ## Information about Part 2:
-### insert function notes: The invariant stays true in my function, as when you insert into a sorted list, the list stays sorted after the insertion. When inserted, the address of the FIRST ELEMENT of the list is returned. For example for the list [4,5,6], the address of element 4 will be returned. That means if the list is sorted, then the smallest elemenets address will be returned. When starting the program, these must be ran in LamFun.
+### insert function notes:
+### As we talked about in class, my list always starts with a variable list that points to null. Here is how to create the list variable and make it point towards null.
 * val list = new [] ;;
 * list := nil ;;
+### Next if you want to insert an item into the empty list, this line can be done
 * insert 4 list ;;
-### Then insert 2 list ;; can be ran, or by creating a new variables: val a = new [];; a := [4,nil];; then list := a;; insert 2 list ;; can then be ran also. Insert uses a little more initialization of variables than I would have liked. If the list is not empty and something is being inserted, I create a current, next, value, and aValue.  Current and next allow me to keep track of where I am on the linkedList. value is used to create a address for the value that is being inserted. aValue is counter that allows me to exit the loop when I need to. I wanted to make this better, but as of now I have not found something without getting errors. I understand that initializing another variable is not the best in terms of memory efficiency. I have not found any errors in insert, but it must be done in the way I previously stated. Assuming that the command val list = new [] ;; is ran first, list should be address 0, so simply it can followed that way instead of looking at the first value address returned as well.
+* insert 7 list ;;
+* insert 1 list ;;
+### The list we would have is [1,4,7] but to view it this line can be ran:
+* print !list ;;
+### Which will give us [1,4,7]
+### The command given in the instructions:
+* insert 3 (insert 1 (insert 4 (insert 2 (insert 5 nil)))) ;;
+### Will not work in this order. It must be ran with this command instead:
+* insert 3 (insert 1 (insert 4 (insert 2 (insert 5 list)))) ;;
+### Simply, the address of list will be returned each time insert is ran, instead of the address of the value. This is because again my list looks like:
+* list -> 1 -> 2 -> 3 -> 4 -> 5 -> null
+### AND NOT:
+* 1 -> 2 -> 3 -> 4 -> 5 -> null
+### Despite this slight change, the insert method words as expected. Garbage Collection would be very beneficial for this assignment, due to the large amount of initialized variables, that will not be used again. If the list is not sorted, the number be inserted will go until a number that is larger than it. For example:
+* print !list ;;
+* [9,2,7]
+* insert 5 list ;
+* print !list ;;
+* [5,9,2,7]
+### This would be the output. Since 9 is larger than 5, it will simply just be placed right in front of it.
 
-### sort function notes: Sort works as it should. When sort list ;; is ran, it will sort the function as expected. When you look in the environment (:env), and you follow your list addresses, you will see that it is in sorted order. However, again many things are initialized which decreases performance, but it does as it is supposed to without errors.
+### sort function notes:
+### Again, the list I created looks like:
+* list -> 1 -> 2 -> 3 -> 4 -> 5 -> null
+### This does not have much of an affect on sort. If a list is already sorted, and sort is used, it will stay sorted. If it is not sorted, then it will sort the list. Here is an example:
+* print !list ;;
+* [8,3,5,6] ;;
+* sort list ;;
+* print !list ;;
+* [3,5,6,8] ;;
+### As expected, this would be the result we want. This list can then use:
+* insert n list ;;
+### and the previous invariant will stay true. If you want to see the :env for sort, you will see many variables that got initialized and are not longer used. Again, garbage collection would be very good for this language, because without it a lot of memory is taken up.
+
+### merge function notes:
 
 ## Interesting Thoughts
 ### Not Done
