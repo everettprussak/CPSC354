@@ -89,11 +89,48 @@
 
 ## Functions in Pseudo Code:
 ### Insert:
-#### I am the code
+#### insert n list
+####    if (list -> NULL):
+####            value = new []
+####             value -> [n, *list]
+####             list -> value
+####             return list
+####
+####    else:
+####          current = new []
+####          next = new []
+####          value = new []
+####          holding = new []
+####          current -> *list
+####          next -> head(tail(**list))
+####          holding -> n
+####          if n <= head(** current):
+####                value -> [n,*current]
+####                list -> value
+####                return list
+####
+####          else:
+####          while (*holding > head (** current)):
+####                  if (**next == "NULL"):
+####                      value -> [a,*next]
+####                      *current -> [head ** current, value]
+####                      holding -> head ** current
+####
+####                  else:
+####                      if (*holding <= head (** current)):
+####                          value -> [a,*next]
+####                          *current -> [head ** current, value]
+####                          holding -> head ** current
+####
+####                      else:
+####                          current -> *next
+####                          next -> head(tail(**next))
+####
+####                return list
 
 ### Sort:
 #### two lines
-### two lines
+#### two lines
 
 ## Interesting Thoughts
 ### Not Done
