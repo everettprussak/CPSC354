@@ -94,8 +94,7 @@
 
 
 ### Sort:
-#### two lines
-#### two lines
+<img width="422" alt="Screen Shot 2022-12-06 at 4 42 39 PM" src="https://user-images.githubusercontent.com/63290626/206059411-56fbea4a-0e9e-480a-9421-2285371f138c.png">
 
 ## Interesting Thoughts
 ### Not Done
