@@ -89,7 +89,8 @@
 
 ## Functions in Pseudo Code:
 ### Insert:
-![plot](./Desktop/insert.png)
+<img width="547" alt="insert" src="https://user-images.githubusercontent.com/63290626/206058678-fcbebde6-c788-4ced-a4e4-b289f5f10e10.png">
+
 
 
 ### Sort:
