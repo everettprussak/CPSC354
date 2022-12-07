@@ -29,7 +29,7 @@
 * insert 3 (insert 1 (insert 4 (insert 2 (insert 5 nil)))) ;;
 ### Will not work in this order. It must be ran with this command instead:
 * insert 3 (insert 1 (insert 4 (insert 2 (insert 5 list)))) ;;
-### Simply, the address of list will be returned each time insert is ran, instead of the address of the value. This is because again my list looks like:
+### Simply, the address of the variable list (Typically address 1 if created right away) will be returned each time insert is ran, instead of the address of the value. This is because again my list looks like:
 * list -> 1 -> 2 -> 3 -> 4 -> 5 -> null
 ### AND NOT:
 * 1 -> 2 -> 3 -> 4 -> 5 -> null
@@ -53,8 +53,47 @@
 ### As expected, this would be the result we want. This list can then use:
 * insert n list ;;
 ### and the previous invariant will stay true. If you want to see the :env for sort, you will see many variables that got initialized and are not longer used. Again, garbage collection would be very good for this language, because without it a lot of memory is taken up.
+### Lastly, the line in your instructions
+* sort (cons 3 (cons 1 (cons 4 (cons 2 (cons 5 nil)))))
+### Must be changed to:
+* val list = new [] ;;
+* list := (cons 3 (cons 1 (cons 4 (cons 2 (cons 5 nil))))) ;;
+* sort list ;;
+* print !list ;;
+* [1,2,3,4,5]
+### This is because of my addition of the variable. Slightly different context, but the same results.
 
 ### merge function notes:
+### Similar to the other two functions, there is a slight change than what you might expect, but merge works as should. Here is how to get started on the function:
+* val list1 = new [] ;;
+* list1 := nil ;;
+* val list2 = new [] ;;
+* list2 := nil ;;
+* merge list1 list2 ;;
+### The merge function will give the address of list1. When merge happens, list2 elements are inserted into list1. This means that we are merging list2 into list1. However, if both lists are in order, the list1 that results will be sorted.
+### Here is another example:
+* val list1 = new [] ;;
+* list1 := nil ;;
+* val list2 = new [] ;;
+* list2 := nil ;;
+* insert 5 list1 ;;
+* insert 3 list1 ;;
+* insert 4 list1 ;;
+* insert 1 list2 ;;
+* insert 8 list2 ;;
+* insert 4 list2 ;;
+* merge list1 list2 ;;
+* print !list1 ;;
+* [1,3,4,4,5,8]
+### As expected, the merge into list1 allows for the invariant to be true. If the lists are not sorted, list1 will still receive all of the elements from list2, but instead will not be sorted.
+
+## Functions in Pseudo Code:
+### Insert:
+#### I am the code
+
+### Sort:
+#### two lines
+### two lines
 
 ## Interesting Thoughts
 ### Not Done

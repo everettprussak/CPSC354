@@ -80,9 +80,28 @@ val sort = \b.
     ;;
 -------------------------------------------
 
---val merge = \a. \b.
+val merge = \a. \b.
+  let val currentA = new [] in
+  let val currentB = new [] in
+  let val newList = new[] in
+  currentA := !a;
+  currentB := !b;
 
+  !!currentA;
+  !!currentB;
 
+  case (!!currentA) of {
+      "NULL" -> a := !b,
+      _ -> case (!!currentB) of {
+          "NULL" -> a,
+          _ -> while !!currentB != "NULL" do (
+                  insert (head !!currentB) a;
+                  currentB := (head(tail(!!currentB)))
+          );
+              a
+      }
+  }
+  ;;
 
 -------------------------------------------
 val nil =

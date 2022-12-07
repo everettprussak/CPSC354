@@ -1,100 +1,100 @@
+:en
+merge list1 list2 ;;
+list2 := nil ;;
+list1 := nil ;;
+val list1 = new [] ;;
+val list2 = new [] ;;
+:load test/sort.lc
+merge list1 list2 ;;
+list1 := nil ;;
+list2 := nil ;;
+val list2 = new [] ;;
+val list1 = new [] ;;
+:load test/sort.lc
+merge list1 list2 ;;
+list1 := nil ;;
+val list2 = new [] ;;
+val list1 = new [] ;;
+:load test/sort.lc
+merge list1 list2 ;;
 :env
-sort list ;;
-list:= a;;
-a := [3,nil];;
-val list = new [] ;;
+list1 := nil ;;
+list2 := nil ;;
+val list2 = new [] ;;
+val list1 = new [] ;;
+:load test/sort.lc
+:env
+merge list1 list2 ;;
+list2 := nil ;;
+list1 := nil ;;
+val list2 = new [] ;;
+val list1 = new [] ;;
+:load test/sort.lc
+merge list1 list2 ;;
+list2 := nil ;;
+list1 := nil ;;
+val list2 = new [] ;;
+val list1 = new [] ;;
+:load test/sort.lc
+merge list1 list2 ;;
+list2 := nil ;;
+list1 := nil ;;
+val list2 = new [] ;;
+val list1 = new [] ;;
+:load test/sort.lc
+merge list1 list2 ;;
+merge list1 list2 ;
+list1 := nil ;;
+list2 := nil ;;
+val list2 = new [] ;;
+val list1 = new [] ;;
+:load test/sort.lc
+merge list1 list2 ;;
+list2 := nil ;;
+list1 := nil ;;
+val list2 = new [] ;;
+val list1 = new [] ;;
+:load test/sort.lc
+:load test/sort.lc
+merge list1 list2 ;;
+insert 2 list2 ;;
+list2 := nil ;;
+list1:= nil ;;
+val list1 = new [] ;;
+val list2 = new [] ;;
+:load test/sort.lc
+:load test/sort.lc
+merge list1 list2 ;;
+print !list1 ;;
+print !list1 ;
+print !list2 ;;
+insert 2 list2 ;;
+list2 := nil ;;
+list1:= nil ;;
+val list2 = new [] ;;
+val list1 = new [] ;;
+:load test/sort.lc
+:load test/sort.lc
+:load test/sort.lc
+:load test/sort.lc
+:load test/sort.lc
+:load test/sort.lc
+print !a ;;
+sort a ;;
+a := (cons 3 (cons 1 (cons 4 (cons 2 (cons 5 nil))))) ;;
 val a = new [] ;;
-:load test/sort.lc
+print!(sort list) ;;
+print !list ;;
 :env
-sort list ;;
-list:= a;;
-a := [3,nil];;
-val a = new [] ;;
-val list = new [] ;;
-:load test/sort.lc
-sort list ;;
-list:= a;;
-a := [3,nil];;
-val a = new [] ;;
-val list = new [] ;;
-:load test/sort.lc
-sort list ;;
-list:= a;;
-a := [3,nil];;
-val list = new [] ;;
-val a = new [] ;;
-:load test/sort.lc
-sort list ;;
-list:= a;;
-a := [3,nil];;
-val a = new [] ;;
-val list = new [] ;;
-list:= a;;
-:load test/sort.lc
-sort list ;;
-list:= a;;
-val list = new [] ;;
-a := [3,nil];;
-list:= a;;
-val a = new [] ;;
-:load test/sort.lc
-sort list ;;
+list := (cons 4(cons 1(cons 2 nil))) ;;
 :env
-list:= a;;
-a := [3,nil];;
-val a = new [] ;;
-list := nil ;;
+cons list 2 ;;
+:env
+cons 1 2 ;;
+:env
+cons 2 3 ;;
 val list = new [] ;;
 :load test/sort.lc
 :env
-sort list ;;
-list := nil;;
-val list = new [] ;;
-:load test/sort.lc
+(cons !list(cons 3(cons 2 1))) ;;
 :env
-sort list ;;
-val list = new [] ;;
-:load test/sort.lc
-sort list ;;
-list := nil ;;
-val list = new [] ;;
-:load test/sort.lc
-:load test/sort.lc
-:load test/sort.lc
-:load test/sort.lc
-:load test/sort.lc
-:env
-insert 4 list ;;
-insert 6 list ;;
-insert 1 list ;;
-insert 1 list ;;
-insert 3 list ;;
-insert 6 list ;;
-insert 4 list ;;
-insert 4 lsit ;;
-insert 2 list ;;
-list := nil ;;
-val list = new [] ;;
-:load test/sort.lc
-:env
-insert2 8 list ;;
-list := b ;;
-b:= [7,a] ;;
-a := [4, nil] ;;
-val list = new [] ;;
-val b = new [] ;;
-val a = new [] ;;
-:load test/sort.lc
-:env
-insert2 4 list ;;
-:env
-insert2 2 list ;;
-:env
-list := b ;;
-b:= [7,a] ;;
-a := [4, nil] ;;
-val b = new [] ;;
-val a = new [] ;;
-val a := [4,nil] ;;
-list := nil ;;
-val list = new [] ;;
