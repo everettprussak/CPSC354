@@ -1209,49 +1209,41 @@ c
  \newline
  \newline These are all the steps I executed: \newline
 f 2 = \newline
-= fix$_f$ 2 \newline
-= F fix$_f$ 2 \newline
-=( $\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 2 \newline
-=  (if 2==0 then 1 else fix$_f$ (2-1)*2) fix$_f$ 2 \newline
-= (fix$_f$ 1) * 2 \newline 
-=  (F fix$_f$ 1) * 2 \newline
-= (($\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 1) * 2 \newline
-= (($\backslash$ f. $\backslash$ n. if 1 == 0 then 1 else f(1-1) * 1) fix$_f$ 1) * 2 \newline
-= ((fix$_f$ 0) * 1) * 2 \newline
-= ((F fix$_f$ 0) * 1) * 2 \newline
-= ((($\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 0) * 1) * 2 \newline
-= ((($\backslash$ f. $\backslash$ n. if 0 == 0 then 1 else f(n-1)*n) fix$_f$ 0) * 1) * 2 \newline
-= ((1) * 1) * 2 \newline
-= (1 * 1) * 2 \newline
-= 1 * 2 \newline
-= 2 \newline
+= fix$_f$ 2 --def of fix\newline
+= F fix$_f$ 2  --def of F\newline
+=( $\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 2 --def of if then else\newline
+=  (if 2==0 then 1 else fix$_f$ (2-1)*2) fix$_f$ 2 -- def of if then else\newline
+= (fix$_f$ 1) * 2 -- def of fix\newline 
+=  (F fix$_f$ 1) * 2  -- def of F\newline
+= (($\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 1) * 2 --def of if then else\newline
+= (($\backslash$ f. $\backslash$ n. if 1 == 0 then 1 else f(1-1) * 1) fix$_f$ 1) * 2 -- def of beta reduction\newline
+= ((fix$_f$ 0) * 1) * 2 --def of fix\newline
+= ((F fix$_f$ 0) * 1) * 2 --def of F\newline
+= ((($\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 0) * 1) * 2 --def of if then else\newline
+= ((($\backslash$ f. $\backslash$ n. if 0 == 0 then 1 else f(n-1)*n) fix$_f$ 0) * 1) * 2 -- def of beta reduction\newline
+= ((1) * 1) * 2 --def of arithmetic\newline
+= (1 * 1) * 2 --def of arithmetic \newline
+= 1 * 2 --def of arithmetic \newline
+= 2  -- def of arithmetic \newline
 
 The answer here would simply be 2. The F fix$_f$ n function allows us to use the if/else conditional until n=0. Once n=0, we will have 1, then can compute the rest of the multiplication.
 
 
 \subsection{Week 11}
-For week 11, the task was to read the article, \href{https://www.cs.tufts.edu/~nr/cs257/archive/simon-peyton-jones/contracts.pdf}{Composing Contracts: An Adventure in Financial Engineering}, and to ask an interesting question and respond to two other classmate questions.
-\subsubsection{My Question}
-Q: Figure 4 is connected to our course through its definition of denotational semantics. However, this figure is hard to grasp even with our knowledge of denotational semantics. For example, the first few lines are simply adding contracts, evaluating them, or doing basic arithmetic on them. Once we reach the bottom, we have:
 
- (E8) Ek[[one k2]] = exchk(k2)  
+\begin{verbatim}
+For the final report, instead of your questions, for Week 11, write a 500 word essay on the topic.
+\end{verbatim}
 
-And more cases like this. I am very confused on what is happening here. The other definitions like "give", "or", and "scale" seem much easier to understand, and their definitions prior (Figure 2) represents that. "One", "anytime", and "get", have much harder syntax in the actual software side that makes it more confusing to understand what they are trying to accomplish. My question is, could these formulas be simplified for the sake of understanding what these specific contracts are trying to accomplish first, then become more advanced as programmers learn about more and more finance contracts?
+\noindent\newline Financial Engineering has been around since the 1990s. It is an extremely interesting topic to dive into. The article we read was about creating a functional programming language that involves many types of contracts, bonds, formulas, and more. An important thing to think about when creating a programming language that uses high level formulas and knowledge, is the fact that it must be simple enough for people who do understand how to actually use the language. I personally do not understand every single type of contract or bond, but with explanations that were provided, I can quickly understand syntax and ideas of why something is happening. 
 
-\subsubsection{Responses}
-\noindent\textbf{Classmate Eric Phan's Question:}
-If financial experts took the time to learn the language, how beneficial would it really be? In the article it states "identifying the 'right' primitive combinators is quite a challenge." So would it be worth/necessary for financial experts to try? \newline
+\noindent\newline In this course, we learned about Domain Specific Languages, otherwise known as DSL’s. HTML is a DSL that is specifically designed to allow users to build websites. The difference is that we do not use HTML to perform math formulas, or other things, meaning that it has a specific use. The main form of DSL that we saw was Haskell. Haskell allowed for us to create our own or existing programming languages, which could be argued to be its specification. This idea is important because when programming languages are created, developers usually have an intended use for the language. Sometimes those intentions remain true when the language hits the market, but other times new ideas and uses of the programming language are created. In terms of the article, it is also a DSL. The specification is to build contracts and bonds, and I as we read, this is what the developers of the language built it to be. 
 
-\noindent\textbf{My Response: }
-I also think that it would be beneficial for the financial experts to learn this language. Overall, I believe that this language will be hard for them to learn at first, but once they understand it, the basis of the language will prove to be beneficial for them. It will make many things that they do by hand or with other calculators, and instead can use this coding language specifically for their purpose. \newline\newline
+\noindent\newline While it would be nice for an application to have a good user interface for building contracts and bonds, this would not fall under the realm of a DSL. There are specific DSL’s to build applications, and this language that the creators made does not “build” applications, but rather they build contracts. I think that it is interesting that the creators did not use Haskell when building their programming language. Since Haskell’s DSL is to build other languages, they could in theory use Haskell to build a language that can then build applications of the contract and bond creation languages. Obviously they did not do this, but if made in the future, Haskell would be a great choice to do this.
 
-\noindent\textbf{Classmate Cole Matsueda's Question:}
-How do Combinator Libraries and DSL's take into account for human behavior/constraints? (Late payments,  partial payments) \newline
+\noindent\newline Since there is no user interface, this takes many financial experts out of the picture for actually using the language. This language is very niche, meaning that very advanced programmers would need to understand programming language theory and financial engineering, which is not an easy combination to find. However, for those specific people that can do both, they are in luck compared to the average financial expert, with a major advantage in testing contracts and bonds.
 
-\noindent\textbf{My Response:}
-This is an interesting question. At first I think they had most of the basics of contracts and what not, but as the language gets more advanced as time moves on, these features should be included. Late payments, partial payments, and so on are things that happen all the time in the real world. If this language wants to be implemented by lots of financial experts, then these real-world situations must be included. I am not sure how they would implement this, but I would assume additional time metrics and more would allow for these situations.
-
-
+\noindent\newline Lastly, this programming language has many elements that I have seen in our own class. Denotational Semantics are relevant in all programming languages. Semantics give meaning to a language in terms of math and computing. In this article, they have many “figures” that show the semantics of their language.
 
 \subsection{Week 12}
 Week 12 was to apply the method of analysis from the lecture to
@@ -1380,14 +1372,145 @@ Swift is a very young language. Many older languages that can continue to keep i
 As Programming Languages evolve for the better, there are many times when developers are stuck on older versions due to their choice, or not updating before writing their code. However, this could be a real problem for Swift. Apple has made it clear to engage users with their newest OS, iOS, and new versions of anything, without looking for backward compatibility to be their biggest concern. This is very prevelant with Swift, as the language gets new versions, there will be some parts of the new update that will not work great with older versions. This is a problem for now, but currently Apple is creating a \href{https://medium.com/@carlos.banos85/swift-5-5-concurrency-backward-compatibility-884fd9c284da}{back deployment library} now to fix these version problems. This weakness will eventually be fixed or at least better than before.
 
 \subsection{Easy-To-Learn-Swift}
-Some examples on Swift.
+When learning Swift, I found that it had elements of other languages sprinkled in to make it feel similar. There are many things that can be done in Swift, such as \href{https://www.airpair.com/swift/building-swift-app-tutorial}{Application Building}, \href{https://caiocnoronha.medium.com/games-in-swift-88a72e441537}{Game Development}, and more. I am going to give some very basic syntax, examples, and questions about Swift.
+
+\subsubsection{Basic Syntax}
+\textbf{Variables}\newline
+\noindent There are two main ways of declaring a variable in Swift. The first is to use \textbf{var}.
+\begin{verbatim}
+var a = 1
+\end{verbatim}
+\noindent As you would expect, the variable a now has the value of \textbf{1}. \textbf{var} allows for manipulation of the variable, rather than keeping \textbf{a} with the value of only \textbf{1}. For example, we can do:
+\begin{verbatim}
+var a = 1
+a = 3
+\end{verbatim}
+
+\noindent Now \textbf{a} would have the value \textbf{3}. 
+
+\noindent\newline\newline \textbf{var} does not need to have an immediate value, however it must be declared with a \textbf{data-type}, or type. We will get into the standard \textbf{data-types} later, but many times programmers will want to declare a variable, but not actually give it any information.
+
+\begin{verbatim}
+var b:Int
+\end{verbatim}
+\noindent The variable \textbf{b} would not have any value, but it can only become an Int Data-Type now. 
+
+\noindent\newline\newline \textbf{Question: What value would the variable 'c' be?}
+\begin{verbatim}
+var d = 3
+var c = 4
+d = 5
+c= 6
+\end{verbatim}
+
+\noindent\newline \textbf{Answer: 6}
+
+
+\noindent\newline\newline \textbf{let} is another way of declaring a variable. The difference between \textbf{let} and \textbf{var} is that \textbf{let} will not allow for variable manipulation after receiving the initial value. This is a common concept across programming languages, as form of a constant. 
+
+\noindent\newline Here is a straightfowared example of using \textbf{let} to declare a variable
+\begin{verbatim}
+let a = 2
+\end{verbatim}
+
+\noindent\newline Here, the variable \textbf{a} would be the value of 2.
+
+\noindent\newline\newline However, you must be careful when using \textbf{let}. It should only be used if the variable is 100 percent not being changed. If you do, like this upcoming example, there will be an error.
+\begin{verbatim}
+let a = 5
+a = 2
+\end{verbatim}
+\noindent\newline The variable \textbf{a} has already been assigned the value of 5, and since it was initialized with \textbf{let} and not \textbf{var}, it can not be manipulated. This would result in an error.
+
+\noindent\newline\newline \textbf{"Question: Will these lines result in an error?}
+\begin{verbatim}
+let a = 2
+var b = 3
+b = a
+\end{verbatim}
+
+\noindent\newline \textbf{Answer: No. The variable 'b' was initialized with var, allowing it to be manipulated.}
+
+
+\noindent\newline\newline\newline \textbf{Data-Types}\newline
+\noindent In this section we will talk about the standard Data-Types that is included with Swift. Swift supports Int, String, Float, Double, Bool, and Character. These Data-Types are common across many programming languages. Variables that use a Data-Type, can only use that Data-Type. For example, a variable \textbf{a} that was of type String, would not be able to store the Int value of 3.
+
+\noindent\newline\newline Int is a Data-Type that is a Whole Number. Variables can be Int's, or they can be introduced into math formulas in Code. Here is an example:
+
+\begin{verbatim}
+var a:Int
+a = 2
+\end{verbatim}
+\noindent\newline This would simply allow the variable \textbf{a} to be the Int value of 2.
+
+\noindent\newline Here is another example:
+\begin{verbatim}
+var a:Int = 2
+var b:Int
+
+b = a + 1
+
+\end{verbatim}
+\noindent\newline Here the variable \textbf{b} would be assigned with the value 2. This also introduces the basic Arithmetic that is included with Int. +, -, *, / are all used for Int, Floats, and Double Data-Types, and do addition, subtraction, multiplication, and division.
+
+\noindent\newline\newline \textbf{Question: What value would the variable 'c' be?}
+\begin{verbatim}
+let a:Int = 2
+var b:Int
+b = a * a
+var c:Int
+c = b + 1
+\end{verbatim}
+
+\noindent\newline\textbf{Answer: 5}
+
+
+\noindent\newline\newline\textbf{String} is another important Data-Type. It is a collection, or list, of the Character Data-Type. A Character Data-Type is simply just a letter, number, symbol. The String comprises of multiple Characters, to make one large String.
+
+\noindent\newline Here is how to initialize a \textbf{String}:
+\begin{verbatim}
+var a:String
+a = "Hello World"
+\end{verbatim}
+
+\noindent\newline Here the variable \textbf{a} would be \textbf{Hello World}. 
+
+\noindent\newline\textbf{String Methods} are also important to understand. Here are a few quick examples.
+
+\noindent\newline \textbf{String Concatination}
+\begin{verbatim}
+let first:String = "Everett"
+let last:String = "Prussak"
+
+var name:String
+name = first + " " + last
+\end{verbatim}
+\noindent\newline The variable \textbf{name} would consist of \textbf{Everett Prussak} as one entire string.
+
+\noindent\newline \textbf{String Accessing}
+\begin{verbatim}
+let first:String = "Everett"
+var ch:Character
+
+ch = first[0]
+\end{verbatim}
+\noindent\newline The variable \textbf{ch} would consist of the CHARACTER \textbf{E}.
+
+\noindent\newline \textbf{String Length}
+\begin{verbatim}
+let first:String = "hello"
+var length:Int
+
+length = first.count
+\end{verbatim}
+\noindent\newline The variable \textbf{length} would consist of \textbf{5} as an Int.
 
 \subsection{Project Overview}
-The project that I will be making in Swift will be an Application. The Application will consist of tracking data about where Users go during the day. It will track individual points at specific times, and will draw lines on a map about where the User went throughout the day. It will be available so that the User can easily look at a detailed map of their locations. I will use many methods to track location of the User.
-
+The project that I will be making in Swift will be an Application. The Application will consist of a User Adding Contacts/Friends into their own database, that consists of their name, birthday, description, and other features. The main idea of this App is to keep track of Birthdays. Similar to a contacts app on an iOS, once a person is added, they can be clicked on and their information can be displayed on the screen. 
 \subsection{Final Project}
 
 \subsection{Prototype}
+\subsection{Future Plans}
 \subsection{Documentation}
 \subsection{Critical Appraisal}
 
@@ -1426,6 +1549,11 @@ In the conclusion, I want a critical reflection on the content of the course. St
 \href{https://www.analyticsinsight.net/top-10-programming-languages-for-open-source-projects-in-2021/}{Open-Source Programming Languages} Analytics Insight, 2021 \newline
 \href{https://www.outsource2india.com/software/mobile-applications/articles/apple-swift-now-open-source.asp}{Swift is now Open-Source} OutSource2India \newline
 \href{https://medium.com/@carlos.banos85/swift-5-5-concurrency-backward-compatibility-884fd9c284da}{Apple building Backwards Compatibility} Medium, Carlos Banos, 2021 \newline
+
+\textbf{Easy-To-Learn}\newline
+\href{https://www.airpair.com/swift/building-swift-app-tutorial}{Swift App Tutorial} AirPair, Jack Watson-Hamblin, 2015 \newline
+\href{https://caiocnoronha.medium.com/games-in-swift-88a72e441537}{Games in Swift} Normal, Caio Noronha, 2020\newline
+
 
 \end{thebibliography}
 
