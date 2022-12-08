@@ -97,6 +97,8 @@
 <img width="422" alt="Screen Shot 2022-12-06 at 4 42 39 PM" src="https://user-images.githubusercontent.com/63290626/206059411-56fbea4a-0e9e-480a-9421-2285371f138c.png">
 
 ## Drawings
+![IMG_0095](https://user-images.githubusercontent.com/63290626/206365534-ae1a425c-604e-478e-96b1-2321fe25130a.jpg)
+![IMG_0096](https://user-images.githubusercontent.com/63290626/206365545-65768dd8-d66f-492b-a848-1b8f6eb94b82.jpg)
 
 
 ##Bugs
