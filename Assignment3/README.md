@@ -100,6 +100,7 @@
 ![IMG_0095](https://user-images.githubusercontent.com/63290626/206365534-ae1a425c-604e-478e-96b1-2321fe25130a.jpg)
 ![IMG_0096](https://user-images.githubusercontent.com/63290626/206365545-65768dd8-d66f-492b-a848-1b8f6eb94b82.jpg)
 
+### As you can see with these pictures of the Heap, Garbage Collection would be a very nice feature to have. With just three elements sorted, almost 21 addresses had to be initialized.
 
 ##Bugs
 ### No Bugs Found. Explained in Part2 how to run each function correctly.
