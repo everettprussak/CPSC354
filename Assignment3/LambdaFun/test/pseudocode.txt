@@ -36,3 +36,30 @@ insert n list
                           next -> head(tail(**next))
 
                 return list
+
+
+
+
+
+
+
+
+
+
+
+
+sort list
+    current = new []
+    newList = new []
+    current -> *list
+    while (** current != "NULL"):
+        current -> (head(tail(**current)))
+
+    newList -> *current
+    current -> *list
+    while (**current != "NULL")
+        insert (head **current) newList
+        current -> (head(tail(**current)))
+
+    b -> *newList
+    return b

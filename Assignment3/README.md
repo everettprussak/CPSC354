@@ -96,5 +96,11 @@
 ### Sort:
 <img width="422" alt="Screen Shot 2022-12-06 at 4 42 39 PM" src="https://user-images.githubusercontent.com/63290626/206059411-56fbea4a-0e9e-480a-9421-2285371f138c.png">
 
+## Drawings
+
+
+##Bugs
+### No Bugs Found. Explained in Part2 how to run each function correctly.
+
 ## Interesting Thoughts
-### Not Done
+### Something that I found interesting was the idea of Garbage Collection. In Part2 I created a lot of new variables, that only get used once. These variables/pointers exist but are hidden afterwords, meaning that they take up space/memory when it would be better to get rid of them. The next step for this Language would be to create a Garbage Collection method. If we were to build bigger Linked-Lists, or other large Data Structures like Graphs, Trees, Stacks, and more, the memory would get wasted even more. In general, I found this assignment very interesting and enjoyable. It is interesting to actually build a Linked-List, and understand pointers and references even more.
