@@ -102,7 +102,7 @@
 
 ### As you can see with these pictures of the Heap, Garbage Collection would be a very nice feature to have. With just three elements sorted, almost 21 addresses had to be initialized.
 
-##Bugs
+## Bugs
 ### No Bugs Found. Explained in Part2 how to run each function correctly.
 
 ## Interesting Thoughts
