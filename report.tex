@@ -667,7 +667,8 @@ EAbs (Ident "x") (EApp (EVar (Ident "x")) (EVar (Ident "x")))
 \end{verbatim}
 \noindent\newline Here is the Linearized and 2-D AST for $$(\backslash x. (\backslash y . x y)) (\backslash x.x) z$$
 \begin{verbatim}
-EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EVar (Ident "x")) (EVar (Ident "y"))))) (EAbs (Ident "x") (EVar (Ident "x")))) (EVar (Ident "z"))
+EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EVar (Ident "x")) (EVar (Ident "y"))))) 
+(EAbs (Ident "x") (EVar (Ident "x")))) (EVar (Ident "z"))
 
 
            EApp
@@ -686,7 +687,8 @@ EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EVar (Ident "x")) (EVar (I
 \end{verbatim}
 \noindent\newline Here is the Linearized and 2-D AST for $$(\backslash x . \backslash y . x y z) a b c$$
 \begin{verbatim}
-EApp (EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EApp (EVar (Ident "x")) (EVar (Ident "y"))) (EVar (Ident "z"))))) (EVar (Ident "a"))) (EVar (Ident "b"))) (EVar (Ident "c"))
+EApp (EApp (EApp (EAbs (Ident "x") (EAbs (Ident "y") (EApp (EApp (EVar (Ident "x")) 
+(EVar (Ident "y"))) (EVar (Ident "z"))))) (EVar (Ident "a"))) (EVar (Ident "b"))) (EVar (Ident "c"))
 
                   ________EApp________
                 /                      \
@@ -808,12 +810,19 @@ using evalCBN in interpreter.hs.
 Clearly the answer here would simply be "a", but in terms of what the computer sees will be different
 
 \begin{verbatim}
-evalCBN (EApp (EAbs (Ident "x") (EVar (Ident "x"))) (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a")))) = Parser
-evalCBN (subst (Ident "x") (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a"))) EVar (Ident "x")) = Line 27
-evalCBN (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a"))) = Line 47
-evalCBN (subst (Ident "y") (EVar (Ident "a")) (EVar (Ident "x"))) = Line 27
-evalCBN (EVar (Ident "a")) = Line 47
-EVar (Ident "a") = Line 32
+evalCBN (EApp (EAbs (Ident "x") (EVar (Ident "x"))) (EApp (EAbs (Ident "y") 
+(EVar (Ident "y"))) (EVar (Ident "a")))) =  -- Parser
+
+evalCBN (subst (Ident "x") (EApp (EAbs (Ident "y") (EVar (Ident "y"))) 
+(EVar (Ident "a"))) EVar (Ident "x")) =  -- Line 27
+
+evalCBN (EApp (EAbs (Ident "y") (EVar (Ident "y"))) (EVar (Ident "a"))) =  -- Line 47
+
+evalCBN (subst (Ident "y") (EVar (Ident "a")) (EVar (Ident "x"))) =  -- Line 27
+
+evalCBN (EVar (Ident "a")) =  -- Line 47
+
+EVar (Ident "a") =  -- Line 32
 \end{verbatim}
 
 
@@ -842,21 +851,18 @@ The goal this week was to Evaluate \begin{verbatim}
 =
 (((\x. (\f2.\x2. f2 (f2 (f2 x2))) ((\f2.\x2. f2 (f2 (f2 x2))) x))))
 =
-(((\x. (\f2.\x2. ((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))))
+(((\x. (\x2. ((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) 
+(((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))))
 =
-(((\x. (\f2.\x2. ((\x2. x (x (x x2)))) (((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))))
+(((\x. ((\x2. x (x (x (((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))))))))
 =
-(((\x. (\f2.\x2. ((x (x (x (((\f2.\x2. f2 (f2 (f2 x2))) x) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))))))))
+(((\x. ((\x2. x (x (x (((\x2. x (x (x x2)))) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))))))))
 =
-(((\x. (\f2.\x2. ((x (x (x (((\x2. x (x (x x2)))) (((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))))))))
+(((\x. ((\x2. x (x (x (((x (x (x (((\f2.\x2. f2 (f2 (f2 x2))) x) x2))))))))))))))
 =
-(((\x. (\f2.\x2. ((x (x (x (((x (x (x (((\f2.\x2. f2 (f2 (f2 x2))) x) x2)))))))))))))
+(((\x. ((\x2. x (x (x (((x (x (x (((\x2. x (x (x x2)))) x2))))))))))))))
 =
-(((\x. (\f2.\x2. ((x (x (x (((x (x (x (((\x2. x (x (x x2)))) x2)))))))))))))
-=
-(((\x. (\f2.\x2. ((x (x (x (((x (x (x (((x (x (x x2)))))))))))))))))
-=
-(((\x. (\f2.\x2. ((x (x (x (((x (x (x (((x (x (x x2)))))))))))))))))
+(((\x. ((\x2. x (x (x (((x (x (x (((x (x (x x2))))))))))))))))))
 \end{verbatim}
 
 \subsection{Week 7}
@@ -1093,7 +1099,7 @@ the same equivalence relation)?
 \end{verbatim}
 \noindent These two rules are doing the opposite of each other. Every time ba transforms into ab, ab will transform back to ba. This will continue to happen, and will be an endless loop, meaning that these rewrite rules are not terminating.
 
-\noindent\newline\newline For \textbf{number 2}, the normal forms would be a and b. Since aa reduces to a, and bb reduces to b, but a and b do not reduce to anything, these would be the normal forms.
+\noindent\newline\newline For \textbf{number 2}, the normal forms would be a, b, and [ ]. Since aa reduces to a, and bb reduces to b, but a and b do not reduce to anything, these would be the normal forms. [ ] is also a normal form
 
 \noindent\newline\newline \textbf{number 3:} Here are the rules I changed so that the new ARS has unique normal forms, and still has the same equivalence relation.
 
@@ -1103,15 +1109,86 @@ the same equivalence relation)?
   ba -> ab
 \end{verbatim}
 
-\noindent I simply got rid of the last rule. a is the UNF for aa, and b is the UNF for bb. Since the rewriting rules are terminating now, this will allow for UNF to exist.
+\noindent I simply got rid of the last rule. a is the UNF for aa, and b is the UNF for bb. Since the rewriting rules are terminating now, this will allow for UNF to exist. Since we got rid of the last rule, this ARS is not longer an infinite computation, meaning that it is now terminating.
 
-\noindent\newline\newline \textbf{number 4:} The normal forms mean that it does not reduce into anything else. 
+\noindent\newline Now we have four normal forms: a, b, ab, and [ ].
+
+\noindent\newline To prove that this new ARS is terminating, here are multiple examples:
+
+\begin{verbatim}
+1. 
+aaaabababa
+aaabababa
+aabababa
+abababa
+aabbaba
+abbaba
+ababa
+aabba
+abba
+aba
+aab
+ab
+
+2.
+abbbba
+abbba
+abba
+aba
+aab
+ab
+
+
+3.
+aaaaa
+aaaa
+aaa
+aa
+a
+
+4.
+bbbbb
+bbbb
+bbb
+bb
+b
+
+5.
+aaaaaab
+aaaaab
+aaaab
+aaab
+aab
+ab
+
+6.
+
+
+\end{verbatim}
+
+\noindent\newline As you can see here, these examples all reach the 4 normal forms, and will not continue computing. In number 6, we can see the example of the normal form [ ].
+
+\noindent\newline A rule I made was: If there is at least one a and at least one b, then it will reduce to ab. If there is at least one a and no b, then it will reduce to a. If there is at least one b and no a, then it will reduce to b. Lastly, if there is no a and no b, them it will reduce to [ ].
+
+\noindent\newline This brings us to our 4 invariants that can be represented with this table:
+\begin{verbatim}
+Normal Form:                     Invariant:
+[ ]                              no a, no b
+a                                at least one a, no b
+b                                no a, at least one b
+ab                               at least one a, at least one b
+
+\end{verbatim}
+
+\noindent\newline With these invariants, the equivalence relation can be proved that it did not change. First, computationally each equivalence class is characterized by its normal form. This means that each word reduces to the normal form in the ARS, which was proven above. Last, mathematically the equivalence classes can be specified without reference to the computation rules.
+
+\noindent\newline\newline \textbf{number 4:} The normal forms mean that it does not reduce into anything else. We proved with examples and a rule that the each word in the ARS will be reduced to these normal forms.
 
 \subsection{Week 9} In week 9, the task were to describe 3 milestones for the project and analysis of ARSs
 
 \subsubsection{Project Milestones} For the project, there are going to be 3 main milestones that will allow this project to be done smoothly. The first milestone will be to research strengths and weaknesses about the programming language Swift. This should be fully done by November 8th, or earlier if possible. This task will require research that should take a few days, and some time to write about it in the Report section. The next milestone will be to come up with an idea of an App or Game that will show how these strengths and weaknesses affect coding in this language. This should be done November 13th, as this is a brainstorming section. When I decide, I will write about why I choose to do the App/Game, and how it is related to prior sections of the report. Lastly, I will fully build the App/Game to a working prototype by the early December (December 2nd?). I am not sure how long this will take, so I am not sure what exact deadline I should give myself. I want to have some of the App/Game done before thanksgiving break to show its progress, then to be fully done before Finals week. There will be more explaining on specific things I did in my code, how the app/game works, and links to where I have my code.
 
-\subsubsection{ARSs Analysis}
+\subsubsection{ARS Analysis}
 The first set of rules were
 \begin{verbatim}
 ba -> ab
@@ -1130,41 +1207,9 @@ cc -> b
 \end{verbatim}
 First off, this schema of rules does not terminate. If drawn out, you would see that ba would point to ab, then ab would point back to ba. This would repeat and repeat. This happens for all of these rules, and will be stuck in an infinite loop. The top set of rules would cause issues in many ways.
 
-\noindent\newline 
+\noindent\newline Since this an Infinite Computation, then that means the ARS is not terminating, and therefore the currently constructed ARS is not an \textbf{Algorithm}. An ARS is an Algorithm when it is terminating and has unique normal forms. This will be the first step of analysis we must take.
 
-This a rewrite I would do to put the letters in alphabetical order, and would allow for termination to exist. 
-
-\begin{verbatim}
-ba -> ab
-ca -> ac
-cb -> bc
-\end{verbatim}
-
-\noindent\newline Here there would be no infinite loops, and would allow for calculation to progress.
-
-Here is an example that this works better for just the top set of rules:
-\begin{verbatim}
-cabbabcba
-acbbabcba
-abcbabcba
-abbcabcba
-abbacbcba
-ababcbcba
-aabbcbcba
-aabbbccba
-aabbbcbca
-aabbbbcca
-aabbbbcac
-aabbbbacc
-aabbbabcc
-aabbabbcc
-aababbbcc
-aaabbbbcc
-
-
-\end{verbatim}
-
-\noindent\newline To progress further with these rules, we can see:
+\noindent\newline Here is a rewrite of the ARS to allow for termination and unique normal forms.
 
 \begin{verbatim}
 ba -> ab
@@ -1172,35 +1217,44 @@ ca -> ac
 cb -> bc
  
 aa -> b
-ab -> c
-ac ->  
 bb ->
-cb -> a
 cc -> b
 \end{verbatim}
 
-\noindent\newline we would get the following, starting from the ending of aaabbbbc
+\noindent\newline Proving Termination:
+\noindent\newline We know that are ARS is in the form ARS (A,->). The function 
+: A→N is called a measure function if a → b implies (a) > (b)
+
+
+\noindent\newline This measure function would be true, meaning that termination now exists.
+
+\noindent\newline The unique normal forms we have are:
 \begin{verbatim}
-babbbbcc
-babcc
-babb
-ba
+[ ]
+b
 ab
-c
+ac
+bc
 \end{verbatim}
- \noindent\newline This will fully terminate now, and even gives us a UNF in the variable c. 
- 
- \noindent\newline The rewrite I created would have confluence because the peaks will have a valley. Lastly, the invariants for the original schema of rules would be 
- 
- \begin{verbatim}
- length
- number of ? 
- \end{verbatim}
-  
-  After the rewrite I created, the new Invariants would be
-  \begin{verbatim}
-  I don't know 
-  \end{verbatim}
+\noindent\newline These are Normal Forms because this ARS has confluence and is terminating. We can also see form our new ARS we wrote that these cannot be reduced down any more.
+
+\noindent Since this ARS now is terminating and has unique normal forms, that means that is is an Algorithm. The last step of analysis is finding specification the ARS implements. This means it must have a complete invariant.
+
+\noindent\newline Here are the invariants I found:
+\begin{verbatim}
+Invariant                              Normal Form
+even #b, no a, no c                    [ ]
+no a, no b, no c                       [ ]
+even #a, no b, no c                     b
+no a, no b, even #c                     b
+one a, one b, no c                      ab
+one a, no b, one c                      ac
+no a, one b, one c                      bc
+\end{verbatim}
+
+\noindent\newline Now with our invariants (That are complete), we have fully analyzed the ARS. As you can see the ARS had to have many changes to allow for termination, and normal forms.
+
+
   
  \subsection{Week 10}
  The task for Week 10 was to calculate
@@ -1209,22 +1263,22 @@ c
  \newline
  \newline These are all the steps I executed: \newline
 f 2 = \newline
-= fix$_f$ 2 --def of fix\newline
-= F fix$_f$ 2  --def of F\newline
-=( $\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 2 --def of if then else\newline
-=  (if 2==0 then 1 else fix$_f$ (2-1)*2) fix$_f$ 2 -- def of if then else\newline
-= (fix$_f$ 1) * 2 -- def of fix\newline 
-=  (F fix$_f$ 1) * 2  -- def of F\newline
-= (($\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 1) * 2 --def of if then else\newline
-= (($\backslash$ f. $\backslash$ n. if 1 == 0 then 1 else f(1-1) * 1) fix$_f$ 1) * 2 -- def of beta reduction\newline
-= ((fix$_f$ 0) * 1) * 2 --def of fix\newline
-= ((F fix$_f$ 0) * 1) * 2 --def of F\newline
-= ((($\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 0) * 1) * 2 --def of if then else\newline
-= ((($\backslash$ f. $\backslash$ n. if 0 == 0 then 1 else f(n-1)*n) fix$_f$ 0) * 1) * 2 -- def of beta reduction\newline
-= ((1) * 1) * 2 --def of arithmetic\newline
-= (1 * 1) * 2 --def of arithmetic \newline
-= 1 * 2 --def of arithmetic \newline
-= 2  -- def of arithmetic \newline
+fix$_f$ 2 =  --def of fix\newline
+F fix$_f$ 2  =  --def of F\newline
+( $\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 2 =  --def of if then else\newline
+(if 2==0 then 1 else fix$_f$ (2-1)*2) fix$_f$ 2 =  -- def of if then else\newline
+(fix$_f$ 1) * 2 =  -- def of fix\newline 
+(F fix$_f$ 1) * 2  =  -- def of F\newline
+(($\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 1) * 2 =  --def of if then else\newline
+(($\backslash$ f. $\backslash$ n. if 1 == 0 then 1 else f(1-1) * 1) fix$_f$ 1) * 2 =  -- def of beta reduction\newline
+((fix$_f$ 0) * 1) * 2 =  --def of fix\newline
+((F fix$_f$ 0) * 1) * 2 =  --def of F\newline
+(($\backslash$ f. $\backslash$ n. if n == 0 then 1 else f(n-1)*n) fix$_f$ 0) * 1) * 2=   --def of if then else\newline
+((($\backslash$ f. $\backslash$ n. if 0 == 0 then 1 else f(n-1)*n) fix$_f$ 0) * 1) * 2 =  -- def of beta reduction\newline
+((1) * 1) * 2 =  --def of arithmetic\newline
+(1 * 1) * 2 =  --def of arithmetic \newline
+1 * 2 =   --def of arithmetic \newline
+2  -- def of arithmetic \newline
 
 The answer here would simply be 2. The F fix$_f$ n function allows us to use the if/else conditional until n=0. Once n=0, we will have 1, then can compute the rest of the multiplication.
 
@@ -1264,86 +1318,56 @@ while (x != 0) do z:= z*y;   x:= x-1  done
 
 \noindent\newline\newline Using what I had as my pre-condition, I found the post-condition becomes
 \begin{verbatim}
-{z = (y^x) * z}
+{z = (k^n) * m}
 \end{verbatim}
 
-\noindent I found this post-condition by solving for z, no matter where in the loop.
-
-\noindent Here is an example that this would be correct:
-
-\noindent When z = 2, y = 3, and x = 3, the loop would execute 3 times. 
+\noindent\newline\newline Then I found the precondition:
 \begin{verbatim}
-z = 2 * 3 --> 6
-z = 6 * 3 --> 18
-z = 18 * 3 --> 54
-\end{verbatim} 
-
-\noindent In our case, z would be 54. Using the numbers from the start, 2,3,3 for z,y,x, and equation that would get us to 54 would be 
+{z = y^(m - x) * n, y = k}
+\end{verbatim}
+\noindent\newline and the postcondition:
 \begin{verbatim}
-(y^x) * z. 
+{x = 0, z = y ^ (m - x) * n, y = k}
 \end{verbatim}
 
-\begin{verbatim}
-z = (3^3) * (2)
-z = 27 * 2
-z = 54
-\end{verbatim}
-
-\noindent This is what we would expect. This post-condition works for all other combinations, assuming x,y,z are all 0 or positive.
-
-\noindent\newline\newline At this point in the analysis, we have a pre-condition, post-condition, and the program. This is how it would look
-\begin{verbatim}
-{z = n, y = k, x = m} while (x != 0) do z:= z*y;   x:= x-1  done {z = (y^x) * z}
-\end{verbatim}
-
-\noindent\newline\newline Thus the invariant becomes
-\begin{verbatim}
-{(y^x) * z = (k^m) * n}
-\end{verbatim}
-
-\noindent\newline\newline This can be proven with an example
+\noindent\newline\newline I continued using Hoare Logic Rules, and finding Pre/Post conditions. My next precondition was:
 
 \begin{verbatim}
-{(y^x) * z = (k^m) * n}
-
-(3^3) * 2 = (3^3) * 2  --> 27 * 2 = 27 * 2  --> 54 = 54
-(3^2) * 6 = (3^3) * 2  --> 9 * 6 = 27 * 2 --> 54 = 54
-(3^1) * 18 = (3^3) * 2  --> 3 * 18 = 27 * 2 --> 54 = 54
-
+{z = y^(m - x) * n, y = k, x != 0}
 \end{verbatim}
 
-\noindent\newline\newline Our final equation would then be:
+\noindent\newline and postcondition:
+
 \begin{verbatim}
-{z = n, y = k, x = m} while (x != 0) do z:= z*y; x:= x-1 done {(y$^$x) * z = (k$^$m) * n}
+{z = y^(m - x), y = k}
 \end{verbatim}
 
-\noindent\newline\newline Lastly, I wrote a small python program that confirms the calculations done by hand. Here is the program:
+\noindent\newline This was found using the While Rule.
+
+\noindent\newline\newline The last pre and post conditions I found, using the Rule of Composition was:
+
 \begin{verbatim}
-x = 3
-y = 3
-z = 2
-while x!=0:
-    print(str(z) + " = " + str(z) + " * " + str(y) + " = " + str(z*y))
-    z = z * y
-    x = x -1
+Precondition:
+{z*y = y^(m - (x-1)) * n, y = k}
 
+Middle Condition:
+{z = y^(m - (x-1)) * n, y = k}
 
-print(z)
+Post Condition:
+{z = y^(m - x), y = k}
 \end{verbatim}
 
-Here is the output:
-\begin{verbatim}
-2 = 2 * 3 = 6
-6 = 6 * 3 = 18
-18 = 18 * 3 = 54
-54
-\end{verbatim}
- 
+
+\noindent\newline To summarize all of the steps down, here is a proof tree:
+\noindent\newline\includegraphics[width=185mm,scale=1.5]{prooftree}
+
+\noindent\newline From line 4 to line 3, we can see the Assignment. From line 3 to 2 we can see the While Rule. Lastly from line 2 to 1 we see the Rule of Composition.
+
 \section{Project}
 
 Swift, created in 2014 by Apple, is a language predominantly to build applications for computers, phones, and more. This programming language allowed for better User-Interface and easier understanding on how to build specific ideas in the application. 
 \subsection{Specification}
-This project will be learning the programming language Swift. First you will find the History of Swift. Then you will find the Strengths/Weaknesses of using Swift. I will then add a relatively easy "tutorial" section on Swift. Lastly there will be a coding project done in Swift to show its capabilities. The final coding project has not yet been decided, but I will first download the necessary applications, packages, and more. Then I will follow tutorials and watch videos about how to program in Swift.
+This project will be learning the programming language Swift. First you will find the History of Swift. Then you will find the Strengths/Weaknesses of using Swift. I will then add a relatively easy "tutorial" section on Swift. Lastly there will be a coding project done in Swift to show its capabilities. The final coding project will be an Application of a Birthday App, more on this in further sections.
 
 \subsection{History}
 The development of Swift began in 2010 by Apple Employees \href{https://nondot.org/~sabre/}{Chris Lattner}, Doug Gregor, John McCall, Ted Kremenek, and Joe Groff. They based their original idea off of many existing programming languages such as Haskell, Python, and more. The first release of Swift was in 2014, when Swift 1.0 came to market. Swift had been decided to be developed to replace Apple's earlier creation of a programming language called \href{https://en.wikipedia.org/wiki/Objective-C#:~:text=10%20External%20links-,History,Programming%20Technology%20Center%20in%201981.}{Objective-C. }\newline\newline
@@ -1422,7 +1446,7 @@ a = 2
 \end{verbatim}
 \noindent\newline The variable \textbf{a} has already been assigned the value of 5, and since it was initialized with \textbf{let} and not \textbf{var}, it can not be manipulated. This would result in an error.
 
-\noindent\newline\newline \textbf{"Question: Will these lines result in an error?}
+\noindent\newline\newline \textbf{Question: Will these lines result in an error?}
 \begin{verbatim}
 let a = 2
 var b = 3
@@ -1464,7 +1488,6 @@ c = b + 1
 
 \noindent\newline\textbf{Answer: 5}
 
-
 \noindent\newline\newline\textbf{String} is another important Data-Type. It is a collection, or list, of the Character Data-Type. A Character Data-Type is simply just a letter, number, symbol. The String comprises of multiple Characters, to make one large String.
 
 \noindent\newline Here is how to initialize a \textbf{String}:
@@ -1494,7 +1517,7 @@ var ch:Character
 
 ch = first[0]
 \end{verbatim}
-\noindent\newline The variable \textbf{ch} would consist of the CHARACTER \textbf{E}.
+\noindent\newline The variable \textbf{ch} would consist of the character \textbf{E}.
 
 \noindent\newline \textbf{String Length}
 \begin{verbatim}
@@ -1505,10 +1528,20 @@ length = first.count
 \end{verbatim}
 \noindent\newline The variable \textbf{length} would consist of \textbf{5} as an Int.
 
+\noindent\newline\newline \textbf{Print Statement}
+\noindent\newline Another important thing to understand about Swift is the print statement. It is straight forward if you have used the print statement in Python. Simply to write something to terminal, the command:
+\begin{verbatim}
+print("Hello World")
+\end{verbatim}
+\noindent can be ran. The terminal will now have Hello World appear. As I explain in upcoming sections, we will be using something called SwiftUI to help simulate the application. This is not important for now, but print will not be seen in my project code, but instead the term \textbf{Text}. This is because we are not printing to the terminal, but instead directly onto the screen/View.
+
+\noindent\newline\newline \textbf{Remark}
+\noindent\newline Overall, Swift is a fairly easy language to understand, if prior coding languages have been learned. There are many things to write about Swift, meaning that there is much more to research if you are interested. As mentioned before, Swift is a growing language, so this quick tutorial can possibly ignite somebody to want to learn more. I never go into other things such as Classes, Structures, Imports, and more. 
+
 
 
 \subsection{Project Overview}
-The project that I will be making in Swift will be an Application. The Application will consist of a User Adding Contacts/Friends into their own database, that consists of their name, birthday, description, and other features. The main idea of this App is to keep track of Birthdays. Similar to a contacts app on an iOS, once a person is added, they can be clicked on and their information can be displayed on the screen. 
+The project that I will be making in Swift will be an Application. The Application will consist of a User Adding Contacts/Friends into their own database, that consists of their name, birthday, description, and other features. The main idea of this App is to keep track of Birthdays. Similar to a contacts app on an iOS, once a person is added, they can be clicked on and their information can be displayed on the screen. This project consisted of multiple parts. The first was to understand and learn the basic syntax of Swift. The next step was to understand more complex teachings, such as Classes, Objects, and more. I then researched the History of Swift, and some Strengths and Weaknesses, which was read earlier. Lastly was the report that was previously mentioned.
 
 \subsection{Final Project}
 The Application that I built can be seen in my \href{https://github.com/everettprussak/CPSC354}{GitHub} under report code folder. The file birthday.swift is what I will be referring to as Birthday App. The Birthday App is a very simple idea, the ability to add friends into a personal database that holds information regarding name, birthday month, birthday year, and birthday day. The User will have the ability to add friends, edit friends, display friends information, add information about a friend, ability to click on a friend, and see a list of all friends. When greeted, the app will be relatively blank. This is because the user has not entered any friends into the app yet. The app is fully engaged by what the User wants to add and edit. 
@@ -1927,8 +1960,6 @@ struct EditView: View {
 
 The main takeaway from EditView is when we click the Save button, we are changing the information in the userContainer, rather than appending. Almost everything else is the exact same as AddingView, and follows the same general pattern.
 
-\subsection{Prototype}
-??
 \subsection{Future Plans}
 As CPSC 354 is ending, this project will not. I want to continue to make this Application for practice and possibly put it on the Apple AppStore. The steps to add an App on the AppStore are not very complicated, and I think that people could realistically use this App. 
 
@@ -1942,20 +1973,32 @@ As CPSC 354 is ending, this project will not. I want to continue to make this Ap
 \end{itemize}
 
 \subsection{Documentation}
-What here??
+All sources used is credited in the Bibliography under the \textbf{Report Sources}. You can see the Company, Name of Author (If found), and Date.
+
 \subsection{Critical Appraisal}
 Quick Note: This project took many hours of research, trial, errors, successes, and more. I originally wanted to create a tracking application, but I found that it would not be a very realistic process. I understand that the Birthday App is not a very exciting idea, but learning Swift was not an easy task. I am proud of what I created here, and I hope to continue it in the future. 
 
-There are no current bugs or errors in the code provided. 
+\noindent\newline There are no current bugs or errors in the code provided. 
 
-Interesting Info Coming soon....
+\noindent\newline Interesting Info:
+\noindent\newline When building this project, the simulator I used was often very glitchy. For example, many times I would write correct code, but it would mark it as an error, before I have to redo the entire line, then it works. I am not sure if this just because the simulator is faulty due to runtime being constant, or for other reasons. This would be an interesting topic to dive deep into.
+
+\noindent\newline Another interesting thing I found was how much power something with constant runtime took. My computer would get extremely hot from using Swift Playgrounds to test my code. In theory it makes that constant runtimes will be so extraneous on a computer, but I also think that my final product had much more I want to implement. I may start editing and programming in other code editors, such as Atom or VSCode, then pasting it back into the simulation to find errors.
+
+\noindent\newline The last interesting thing I found was the use of Attributes and Property Wrappers used in Swift. As mentioned in the History section, Swift is a relatively new programming language, so I was surprised to find many new things that I have not had much experience with. Using C++, Java, and Python, I have never had to express that a variable or class itself is an ObservedObject and so on. I think this concept is interesting, and once you understand it, it allows for a lot of organization of each variable. I personally like this concept of programming, even though I am sure it is more common than I would know of.  
 
 
 \section{Conclusions}\label{conclusions}
 
-(approx 400 words)
+Personally, this is one of the most rigorous classes I have ever taken. At first I was shocked on how hard the first Assignment was. However, after each lecture I would slightly understand the class more and more. By the second Assignment I quickly understood even more about why we are doing each task and how to implement it. By the last Assignment I found it much easier than the first two due to understanding so much more about programming languages than before. I felt like I have learned more in this class than I have in any other class, and the material taught was extremely important to take to other classes and hopefully a future job. 
 
-In the conclusion, I want a critical reflection on the content of the course. Step back from the technical details. How does the course fit into the wider world of programming languages and software engineering?
+\noindent\newline I found this Report Style of class versus the traditional Exam, Quiz, and Assignment heavy course interesting. It was less stressful than having an Exam every month, but it was more stressful in the week when planning each step of my project and putting in more research on one specific thing than I ever have. Each Homework step stoned into the next Homework, Assignment, and Idea for my Project. 
+
+\noindent\newline The project was a very difficult task to complete, but I found it quite enjoyable. It was an entire process of research, learning, and implementation that I have not had before. The number of sources I used to give definitions, site, and more was much more than other essays I have written.
+
+\noindent\newline This course fits into the wider world of programming languages and software engineering in a variety of ways. The first thing I took away was the process of an Interpreter. The idea of an Interpreter is not hard to grasp, but the actual code and theory behind it was. Assignment 2 was the main catalyst to actually implementing and understanding the process behind the Interpreter. Another important thing was Domain Specific Languages. Before this course, I did not understand that many languages were used for oddly specific things. For example, the Financial Engineering was a topic I had no understanding in prior, but now I understand that a DSL for Financial Engineering contracts, bonds, and more exist. I assume there are many DSL's that have specific uses that I will use in the professional world, which is important to understand. 
+
+\noindent\newline To conclude, I appreciate all of the information that I was taught this year. This course taught me many theories, interesting views, and more things I have not mentioned. This course was incredibly far from what I was expecting to learn. I hope you enjoyed reading my Report. Thank you for the great semester Professor Kurz!
 
 \begin{thebibliography}{99}
 
